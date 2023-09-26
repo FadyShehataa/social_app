@@ -1,5 +1,7 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:social_app/Features/Auth/presentation/views/login_view.dart';
 
 import 'firebase_options.dart';
 
@@ -8,7 +10,11 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const SocialApp());
+  runApp(
+    DevicePreview(
+      builder: (context) => const SocialApp(),
+    ),
+  );
 }
 
 class SocialApp extends StatelessWidget {
@@ -16,18 +22,9 @@ class SocialApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Flutter Demo Home Page'),
-        ),
-        body: const Center(
-          child: Text(
-            'Hello, world!',
-            style: TextStyle(fontSize: 24),
-          ),
-        ),
-      ),
+    return const MaterialApp(
+      builder: DevicePreview.appBuilder,
+      home: LoginView(),
     );
   }
 }
