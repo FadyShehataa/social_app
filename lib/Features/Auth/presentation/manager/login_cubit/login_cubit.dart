@@ -39,7 +39,7 @@ class LoginCubit extends Cubit<LoginState> {
         emit(const LoginFailureState(
             errorMessage: 'Wrong password provided for that user.'));
       } else {
-        emit(LoginFailureState(errorMessage: e.code));
+        emit(LoginFailureState(errorMessage: e.message.toString()));
       }
     } catch (e) {
       emit(LoginFailureState(errorMessage: e.toString()));
