@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../../Core/widgets/custom_text_form_field.dart';
 import '../../manager/login_cubit/login_cubit.dart';
 
-class FormSection extends StatelessWidget {
-  FormSection(
+class LoginFormSection extends StatelessWidget {
+  LoginFormSection(
       {super.key,
       required this.emailController,
       required this.passwordController});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class RegisterSection extends StatelessWidget {
-  const RegisterSection({super.key});
+class LoginToRegisterSection extends StatelessWidget {
+  const LoginToRegisterSection({super.key});
 
   @override
   Widget build(BuildContext context) {
