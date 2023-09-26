@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:social_app/Features/Auth/presentation/manager/login_cubit/login_cubit.dart';
 
-class LoginButtonSection extends StatelessWidget {
+import '../../manager/sign_in_cubit/sign_in_cubit.dart';
+
+class RegisterButtonSection extends StatelessWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  LoginButtonSection({
+  RegisterButtonSection({
     super.key,
     required this.emailController,
     required this.passwordController,
@@ -24,14 +25,14 @@ class LoginButtonSection extends StatelessWidget {
             ),
             onPressed: () async {
               if (formKey.currentState!.validate()) {
-                await LoginCubit.get(context).userLogin(
+                await SignInCubit.get(context).userSignIn(
                   email: emailController.text,
                   password: passwordController.text,
                 );
               }
             },
             child: const Text(
-              'LOGIN',
+              'SignIn',
               style: TextStyle(fontSize: 20),
             ),
           ),

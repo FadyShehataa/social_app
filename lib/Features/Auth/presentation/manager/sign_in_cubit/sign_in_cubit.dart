@@ -8,6 +8,10 @@ part 'sign_in_state.dart';
 class SignInCubit extends Cubit<SignInState> {
   SignInCubit() : super(SignInInitial());
 
+  
+  // get object of sign in cubit
+  static SignInCubit get(context) => BlocProvider.of<SignInCubit>(context);
+
   bool isPassword = true;
   IconData suffixIcon = Icons.visibility_outlined;
 
