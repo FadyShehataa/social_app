@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../manager/sign_in_cubit/sign_in_cubit.dart';
+import '../../manager/register_cubit/register_cubit.dart';
+
 
 class RegisterButtonSection extends StatelessWidget {
   final TextEditingController emailController;
@@ -25,7 +26,7 @@ class RegisterButtonSection extends StatelessWidget {
             ),
             onPressed: () async {
               if (formKey.currentState!.validate()) {
-                await SignInCubit.get(context).userSignIn(
+                await RegisterCubit.get(context).userSignIn(
                   email: emailController.text,
                   password: passwordController.text,
                 );

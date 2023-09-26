@@ -7,7 +7,7 @@ import 'package:social_app/Features/Auth/presentation/views/widgets/register_but
 import 'package:social_app/Features/Auth/presentation/views/widgets/register_form_section.dart';
 
 import '../../../../../Core/utils/functions/show_snack_bar.dart';
-import '../../manager/sign_in_cubit/sign_in_cubit.dart';
+import '../../manager/register_cubit/register_cubit.dart';
 
 class RegisterViewBody extends StatelessWidget {
   RegisterViewBody({super.key});
@@ -18,14 +18,14 @@ class RegisterViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SignInCubit, SignInState>(
+    return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
-        if (state is SignInLoadingState) {
+        if (state is RegisterLoadingState) {
           isLoading = true;
-        } else if (state is SignInSuccessState) {
+        } else if (state is RegisterSuccessState) {
           isLoading = false;
           // TODO navigate to home screen
-        } else if (state is SignInFailureState) {
+        } else if (state is RegisterFailureState) {
           isLoading = false;
           showSnackBar(context, state.errorMessage);
         }

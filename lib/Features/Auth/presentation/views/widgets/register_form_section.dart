@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../Core/widgets/custom_text_form_field.dart';
-import '../../manager/sign_in_cubit/sign_in_cubit.dart';
+import '../../manager/register_cubit/register_cubit.dart';
 
 class RegisterFormSection extends StatelessWidget {
   RegisterFormSection(
@@ -33,11 +33,11 @@ class RegisterFormSection extends StatelessWidget {
           suffixIcon: IconButton(
             onPressed: () {
               // TODO : fix change password visibility
-              SignInCubit.get(context).changePasswordVisibility();
+              RegisterCubit.get(context).changePasswordVisibility();
             },
-            icon: Icon(SignInCubit.get(context).suffixIcon),
+            icon: Icon(RegisterCubit.get(context).suffixIcon),
           ),
-          obscureText: SignInCubit.get(context).isPassword,
+          obscureText: RegisterCubit.get(context).isPassword,
         ),
       ],
     );

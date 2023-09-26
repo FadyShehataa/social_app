@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
-part 'sign_in_state.dart';
+part 'register_state.dart';
 
-class SignInCubit extends Cubit<SignInState> {
-  SignInCubit() : super(SignInInitial());
+class RegisterCubit extends Cubit<RegisterState> {
+  RegisterCubit() : super(RegisterInitialState());
 
   
   // get object of sign in cubit
-  static SignInCubit get(context) => BlocProvider.of<SignInCubit>(context);
+  static RegisterCubit get(context) => BlocProvider.of<RegisterCubit>(context);
 
   bool isPassword = true;
   IconData suffixIcon = Icons.visibility_outlined;
@@ -19,7 +19,7 @@ class SignInCubit extends Cubit<SignInState> {
     isPassword = !isPassword;
     suffixIcon =
         isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
-    emit(SignInChangePasswordVisibilityState());
+    emit(RegisterChangePasswordVisibilityState());
   }
 
   // function to SignIn user with email and password firebase
@@ -27,23 +27,23 @@ class SignInCubit extends Cubit<SignInState> {
     required String email,
     required String password,
   }) async {
-    emit(SignInLoadingState());
+    emit(RegisterLoadingState());
     try {
       final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      emit(SignInSuccessState());
+      emit(RegisterSuccessState());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        emit(const SignInFailureState(
+        emit(const RegisterFailureState(
             errorMessage: 'The password provided is too weak.'));
       } else if (e.code == 'email-already-in-use') {
-        emit(const SignInFailureState(
+        emit(const RegisterFailureState(
             errorMessage: 'The account already exists for that email.'));
       } else {
-        emit(SignInFailureState(errorMessage: e.code));
+        emit(RegisterFailureState(errorMessage: e.code));
       }
     } catch (e) {
-      emit(SignInFailureState(errorMessage: e.toString()));
+      emit(RegisterFailureState(errorMessage: e.toString()));
     }
   }
 }
