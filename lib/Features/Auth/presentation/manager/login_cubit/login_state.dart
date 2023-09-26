@@ -18,3 +18,5 @@ final class LoginFailureState extends LoginState {
 
   const LoginFailureState({required this.errorMessage});
 }
+
+final class LoginChangePasswordVisibilityState extends LoginState {}

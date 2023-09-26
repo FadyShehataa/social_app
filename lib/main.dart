@@ -1,6 +1,8 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/Features/Auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:social_app/Features/Auth/presentation/views/login_view.dart';
 
 import 'firebase_options.dart';
@@ -22,9 +24,12 @@ class SocialApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       builder: DevicePreview.appBuilder,
-      home: LoginView(),
+      home: BlocProvider<LoginCubit>(
+        create: (context) => LoginCubit(),
+        child: const LoginView(),
+      ),
     );
   }
 }
