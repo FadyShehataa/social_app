@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:social_app/Features/Auth/presentation/manager/login_cubit/login_cubit.dart';
 
 class LoginButtonSection extends StatelessWidget {
   final TextEditingController emailController;
@@ -21,9 +23,12 @@ class LoginButtonSection extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.all(14),
             ),
-            onPressed: () {
+            onPressed: () async {
               if (formKey.currentState!.validate()) {
-                // TODO: Login
+                await LoginCubit.get(context).userLogin(
+                  email: emailController.text,
+                  password: passwordController.text,
+                );
               }
             },
             child: const Text(

@@ -27,7 +27,7 @@ class LoginViewBody extends StatelessWidget {
           // TODO navigate to home screen
         } else if (state is LoginFailureState) {
           isLoading = false;
-          showSnackBar(context, state);
+          showSnackBar(context, state.errorMessage);
         }
       },
       builder: (context, state) {

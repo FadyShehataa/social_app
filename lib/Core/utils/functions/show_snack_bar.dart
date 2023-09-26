@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../Features/Auth/presentation/manager/login_cubit/login_cubit.dart';
 
 ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackBar(
-    BuildContext context, LoginFailureState state) {
+    BuildContext context, String errorMessage) {
   return ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      content: Text(state.errorMessage),
+      content: Text(errorMessage),
       backgroundColor: Colors.red,
     ),
   );
