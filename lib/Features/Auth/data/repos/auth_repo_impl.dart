@@ -36,7 +36,8 @@ class AuthRepoImpl implements AuthRepo {
     required String name,
   }) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -44,6 +45,7 @@ class AuthRepoImpl implements AuthRepo {
         email: email,
         password: password,
         phone: phone,
+        uId: credential.user!.uid,
       );
       return right(null);
     } on FirebaseAuthException catch (e) {
@@ -66,32 +68,15 @@ class AuthRepoImpl implements AuthRepo {
     required String email,
     required String password,
     required String phone,
+    required String uId,
   }) async {
-
-    print('object');
-
-    // Create a CollectionReference called users that references the firestore collection
     FirebaseFirestore.instance
         .collection('users')
-        .doc('aa')
-        .set({'data': 'data'})
-        .then((value) => print('Succes'))
-        .catchError((error) => print(error),);
-
-    // users.add(
-    //   {
-    //     'email': email,
-    //     'password': password,
-    //     'phone': phone,
-    //   },
-    // ).then((value) {
-    //   print("User Added");
-    //   print(value);
-
-    //   return right(null);
-    // }).catchError((error) {
-    //   print("Failed to add user: $error");
-    //   return left(ServerFailure(errMessage: error.toString()));
-    // });
+        .doc(uId)
+        .set({'data': 'data'});
+    // .then((value) => print('Succes'))
+    // .catchError(
+    //   (error) => print(error),
+    // );
   }
 }

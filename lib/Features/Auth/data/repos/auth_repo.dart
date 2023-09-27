@@ -12,13 +12,12 @@ abstract class AuthRepo {
     required String password,
     required String phone,
     required String name,
-
   });
 
   Future<void> userCreate({
     required String email,
     required String password,
     required String phone,
-
+    required String uId,
   });
 }
