@@ -13,6 +13,9 @@ class RegisterViewBody extends StatelessWidget {
   RegisterViewBody({super.key});
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final nameController = TextEditingController();
+  final phoneController = TextEditingController();
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool isLoading = false;
 
@@ -47,6 +50,8 @@ class RegisterViewBody extends StatelessWidget {
                       RegisterFormSection(
                         emailController: emailController,
                         passwordController: passwordController,
+                        nameController: nameController,
+                        phoneController: phoneController,
                       ),
                       const SizedBox(height: 30),
                       RegisterButtonSection(

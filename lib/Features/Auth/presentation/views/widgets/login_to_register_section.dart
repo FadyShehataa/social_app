@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:social_app/Core/utils/app_router.dart';
 
 class LoginToRegisterSection extends StatelessWidget {
   const LoginToRegisterSection({super.key});
@@ -16,7 +18,7 @@ class LoginToRegisterSection extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () => GoRouter.of(context).go(AppRouter.kRegisterView),
           child: const Text(
             'REGISTER',
             style: TextStyle(

@@ -1,14 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:social_app/Features/Auth/data/repos/auth_repo.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(LoginInitial());
+  LoginCubit(this.authRepo) : super(LoginInitialState());
 
-  // get object of login cubit
+  final AuthRepo authRepo;
+
   static LoginCubit get(context) => BlocProvider.of<LoginCubit>(context);
 
   bool isPassword = true;
@@ -21,28 +22,16 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginChangePasswordVisibilityState());
   }
 
-  // function to login user with email and password firebase
   Future<void> userLogin({
     required String email,
     required String password,
   }) async {
     emit(LoginLoadingState());
-    try {
-      final credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-      emit(LoginSuccessState());
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        emit(const LoginFailureState(
-            errorMessage: 'No user found for that email.'));
-      } else if (e.code == 'wrong-password') {
-        emit(const LoginFailureState(
-            errorMessage: 'Wrong password provided for that user.'));
-      } else {
-        emit(LoginFailureState(errorMessage: e.message.toString()));
-      }
-    } catch (e) {
-      emit(LoginFailureState(errorMessage: e.toString()));
-    }
+    var result = await authRepo.userLogin(email: email, password: password);
+
+    result.fold(
+      (failure) => emit(LoginFailureState(errorMessage: failure.errMessage)),
+      (_) => emit(LoginSuccessState()),
+    );
   }
 }

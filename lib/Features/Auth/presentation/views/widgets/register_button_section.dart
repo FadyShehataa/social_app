@@ -33,7 +33,7 @@ class RegisterButtonSection extends StatelessWidget {
               }
             },
             child: const Text(
-              'SignIn',
+              'Register',
               style: TextStyle(fontSize: 20),
             ),
           ),

@@ -2,7 +2,7 @@
 import 'package:dio/dio.dart';
 
 class ApiService {
-  final String _baseUrl = 'https://rickandmortyapi.com/api/';
+  final String _baseUrl = '';
   final Dio _dio;
 
   ApiService(this._dio);

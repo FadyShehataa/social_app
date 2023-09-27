@@ -42,101 +42,19 @@ class LoginViewBody extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // const Text(
-                      //   'LOGIN',
-                      //   style: TextStyle(
-                      //     fontSize: 34,
-                      //     fontWeight: FontWeight.bold,
-                      //   ),
-                      // ),
-                      // const SizedBox(
-                      //   height: 20,
-                      // ),
-                      // const Text(
-                      //   'login now to communicate with friends',
-                      //   style: TextStyle(
-                      //     fontSize: 16,
-                      //     color: Colors.grey,
-                      //   ),
-                      // ),
                       const LoginHeaderSection(),
                       const SizedBox(height: 30),
-                      // CustomTextFormField(
-                      //   controller: emailController,
-                      //   hintText: 'Email Address',
-                      //   prefixIcon: const Icon(Icons.email_outlined),
-                      //   validatorMessage: 'Email Address is required',
-                      // ),
-                      // const SizedBox(
-                      //   height: 20,
-                      // ),
-                      // CustomTextFormField(
-                      //   controller: passwordController,
-                      //   hintText: 'Password',
-                      //   prefixIcon: const Icon(Icons.lock_outline),
-                      //   validatorMessage: 'Password is required',
-                      //   suffixIcon: IconButton(
-                      //     onPressed: () {
-                      //       // TODO : fix change password visibility
-                      //       LoginCubit.get(context).changePasswordVisibility();
-                      //     },
-                      //     icon: Icon(LoginCubit.get(context).suffixIcon),
-                      //   ),
-                      //   obscureText: LoginCubit.get(context).isPassword,
-                      // ),
                       LoginFormSection(
                         emailController: emailController,
                         passwordController: passwordController,
                       ),
                       const SizedBox(height: 30),
-                      // Row(
-                      //   children: [
-                      //     Expanded(
-                      //       child: ElevatedButton(
-                      //         style: ElevatedButton.styleFrom(
-                      //           padding: const EdgeInsets.all(14),
-                      //         ),
-                      //         onPressed: () {
-                      //           if (formKey.currentState!.validate()) {
-                      //             // TODO: Login
-                      //           }
-                      //         },
-                      //         child: const Text(
-                      //           'LOGIN',
-                      //           style: TextStyle(fontSize: 20),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
                       LoginButtonSection(
                         emailController: emailController,
                         passwordController: passwordController,
                         formKey: formKey,
                       ),
                       const SizedBox(height: 20),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-                      //     const Text(
-                      //       'Don\'t have an account?',
-                      //       style: TextStyle(
-                      //         fontSize: 16,
-                      //         fontWeight: FontWeight.bold,
-                      //       ),
-                      //     ),
-                      //     TextButton(
-                      //       onPressed: () {},
-                      //       child: const Text(
-                      //         'REGISTER',
-                      //         style: TextStyle(
-                      //           fontSize: 16,
-                      //           fontWeight: FontWeight.bold,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
                       const LoginToRegisterSection(),
                     ],
                   ),

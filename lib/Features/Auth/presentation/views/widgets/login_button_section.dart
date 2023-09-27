@@ -24,7 +24,7 @@ class LoginButtonSection extends StatelessWidget {
             ),
             onPressed: () async {
               if (formKey.currentState!.validate()) {
-                await LoginCubit.get(context).userLogin(
+                LoginCubit.get(context).userLogin(
                   email: emailController.text,
                   password: passwordController.text,
                 );

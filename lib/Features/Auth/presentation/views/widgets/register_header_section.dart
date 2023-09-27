@@ -6,9 +6,10 @@ class RegisterHeaderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Register',
+          'REGISTER',
           style: TextStyle(
             fontSize: 34,
             fontWeight: FontWeight.bold,
@@ -18,7 +19,7 @@ class RegisterHeaderSection extends StatelessWidget {
           height: 20,
         ),
         Text(
-          'login now to communicate with friends',
+          'Register now to communicate with friends',
           style: TextStyle(
             fontSize: 16,
             color: Colors.grey,

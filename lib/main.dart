@@ -1,13 +1,13 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:social_app/Features/Auth/presentation/manager/login_cubit/login_cubit.dart';
-import 'package:social_app/Features/Auth/presentation/views/login_view.dart';
 
+import 'Core/utils/app_router.dart';
+import 'Core/utils/service_locator.dart';
 import 'firebase_options.dart';
 
 void main() async {
+  setupServiceLocator();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -24,12 +24,9 @@ class SocialApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       builder: DevicePreview.appBuilder,
-      home: BlocProvider<LoginCubit>(
-        create: (context) => LoginCubit(),
-        child: const LoginView(),
-      ),
+      routerConfig: AppRouter.router,
     );
   }
 }

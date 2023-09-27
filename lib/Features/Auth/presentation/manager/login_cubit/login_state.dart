@@ -7,7 +7,7 @@ sealed class LoginState extends Equatable {
   List<Object> get props => [];
 }
 
-final class LoginInitial extends LoginState {}
+final class LoginInitialState extends LoginState {}
 
 final class LoginLoadingState extends LoginState {}
 

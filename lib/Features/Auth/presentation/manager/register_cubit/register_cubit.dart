@@ -1,15 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../data/repos/auth_repo.dart';
+
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  RegisterCubit() : super(RegisterInitialState());
+  RegisterCubit(this.authRepo) : super(RegisterInitialState());
+  final AuthRepo authRepo;
 
-  
-  // get object of sign in cubit
   static RegisterCubit get(context) => BlocProvider.of<RegisterCubit>(context);
 
   bool isPassword = true;
@@ -22,28 +22,17 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(RegisterChangePasswordVisibilityState());
   }
 
-  // function to SignIn user with email and password firebase
   Future<void> userSignIn({
     required String email,
     required String password,
   }) async {
     emit(RegisterLoadingState());
-    try {
-      final credential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
-      emit(RegisterSuccessState());
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        emit(const RegisterFailureState(
-            errorMessage: 'The password provided is too weak.'));
-      } else if (e.code == 'email-already-in-use') {
-        emit(const RegisterFailureState(
-            errorMessage: 'The account already exists for that email.'));
-      } else {
-        emit(RegisterFailureState(errorMessage: e.code));
-      }
-    } catch (e) {
-      emit(RegisterFailureState(errorMessage: e.toString()));
-    }
+
+    var result = await authRepo.userRegister(email: email, password: password);
+
+    result.fold(
+      (failure) => emit(RegisterFailureState(errorMessage: failure.errMessage)),
+      (_) => emit(RegisterSuccessState()),
+    );
   }
 }
