@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:social_app/Core/errors/failures.dart';
+import 'package:social_app/Features/Auth/data/models/user_model.dart';
 
 import 'auth_repo.dart';
 
@@ -70,18 +71,13 @@ class AuthRepoImpl implements AuthRepo {
     required String phone,
     required String uId,
   }) async {
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uId)
-        .set({
-          'name': name,
-          'email': email,
-          'phone': phone,
-          'uId': uId,
-        });
-    // .then((value) => print('Succes'))
-    // .catchError(
-    //   (error) => print(error),
-    // );
+    UserModel user = UserModel(
+      email: email,
+      name: name,
+      phone: phone,
+      uId: uId,
+    );
+
+    FirebaseFirestore.instance.collection('users').doc(uId).set(user.toMap());
   }
 }
