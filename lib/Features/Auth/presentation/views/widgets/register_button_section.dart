@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../manager/register_cubit/register_cubit.dart';
 
-
 class RegisterButtonSection extends StatelessWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
+  final TextEditingController phoneController;
+  final TextEditingController nameController;
+
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   RegisterButtonSection({
@@ -13,6 +15,8 @@ class RegisterButtonSection extends StatelessWidget {
     required this.emailController,
     required this.passwordController,
     required this.formKey,
+    required this.phoneController,
+    required this.nameController,
   });
 
   @override
@@ -26,9 +30,11 @@ class RegisterButtonSection extends StatelessWidget {
             ),
             onPressed: () async {
               if (formKey.currentState!.validate()) {
-                await RegisterCubit.get(context).userSignIn(
+                await RegisterCubit.get(context).userRegister(
                   email: emailController.text,
                   password: passwordController.text,
+                  name: nameController.text,
+                  phone: phoneController.text,
                 );
               }
             },

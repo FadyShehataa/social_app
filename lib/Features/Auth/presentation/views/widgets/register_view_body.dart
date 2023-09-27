@@ -57,6 +57,8 @@ class RegisterViewBody extends StatelessWidget {
                       RegisterButtonSection(
                         emailController: emailController,
                         passwordController: passwordController,
+                        nameController: nameController,
+                        phoneController: phoneController,
                         formKey: formKey,
                       ),
                       const SizedBox(height: 20),

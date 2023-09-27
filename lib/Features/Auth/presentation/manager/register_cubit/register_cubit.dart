@@ -22,13 +22,20 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(RegisterChangePasswordVisibilityState());
   }
 
-  Future<void> userSignIn({
+  Future<void> userRegister({
     required String email,
     required String password,
+    required String phone,
+    required String name,
   }) async {
     emit(RegisterLoadingState());
 
-    var result = await authRepo.userRegister(email: email, password: password);
+    var result = await authRepo.userRegister(
+      email: email,
+      password: password,
+      name: name,
+      phone: phone,
+    );
 
     result.fold(
       (failure) => emit(RegisterFailureState(errorMessage: failure.errMessage)),

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -6,7 +7,6 @@ import 'package:social_app/Core/errors/failures.dart';
 import 'auth_repo.dart';
 
 class AuthRepoImpl implements AuthRepo {
-  
   @override
   Future<Either<Failure, void>> userLogin({
     required String email,
@@ -32,11 +32,18 @@ class AuthRepoImpl implements AuthRepo {
   Future<Either<Failure, void>> userRegister({
     required String email,
     required String password,
+    required String phone,
+    required String name,
   }) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
+      );
+      await userCreate(
+        email: email,
+        password: password,
+        phone: phone,
       );
       return right(null);
     } on FirebaseAuthException catch (e) {
@@ -52,5 +59,39 @@ class AuthRepoImpl implements AuthRepo {
     } catch (e) {
       return left(ServerFailure(errMessage: e.toString()));
     }
+  }
+
+  @override
+  Future<void> userCreate({
+    required String email,
+    required String password,
+    required String phone,
+  }) async {
+
+    print('object');
+
+    // Create a CollectionReference called users that references the firestore collection
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc('aa')
+        .set({'data': 'data'})
+        .then((value) => print('Succes'))
+        .catchError((error) => print(error),);
+
+    // users.add(
+    //   {
+    //     'email': email,
+    //     'password': password,
+    //     'phone': phone,
+    //   },
+    // ).then((value) {
+    //   print("User Added");
+    //   print(value);
+
+    //   return right(null);
+    // }).catchError((error) {
+    //   print("Failed to add user: $error");
+    //   return left(ServerFailure(errMessage: error.toString()));
+    // });
   }
 }
