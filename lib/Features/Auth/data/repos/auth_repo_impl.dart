@@ -9,14 +9,14 @@ import 'auth_repo.dart';
 
 class AuthRepoImpl implements AuthRepo {
   @override
-  Future<Either<Failure, void>> userLogin({
+  Future<Either<Failure, String>> userLogin({
     required String email,
     required String password,
   }) async {
     try {
-      await FirebaseAuth.instance
+      UserCredential credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      return right(null);
+      return right(credential.user!.uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         return left(ServerFailure(errMessage: 'No user found for that email.'));

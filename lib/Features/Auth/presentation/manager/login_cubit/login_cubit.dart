@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -31,7 +32,7 @@ class LoginCubit extends Cubit<LoginState> {
 
     result.fold(
       (failure) => emit(LoginFailureState(errorMessage: failure.errMessage)),
-      (_) => emit(LoginSuccessState()),
+      (credential) => emit(LoginSuccessState(uId: credential)),
     );
   }
 }

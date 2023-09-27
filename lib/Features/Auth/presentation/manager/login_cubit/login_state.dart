@@ -11,7 +11,11 @@ final class LoginInitialState extends LoginState {}
 
 final class LoginLoadingState extends LoginState {}
 
-final class LoginSuccessState extends LoginState {}
+final class LoginSuccessState extends LoginState {
+  final String uId;
+
+  const LoginSuccessState({required this.uId}); 
+}
 
 final class LoginFailureState extends LoginState {
   final String errorMessage;

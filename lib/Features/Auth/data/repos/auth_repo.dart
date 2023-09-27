@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import '../../../../Core/errors/failures.dart';
 
 abstract class AuthRepo {
-  Future<Either<Failure, void>> userLogin({
+  Future<Either<Failure, String>> userLogin({
     required String email,
     required String password,
   });

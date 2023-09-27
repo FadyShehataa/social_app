@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:social_app/Core/utils/cache_network.dart';
 import 'package:social_app/Features/Auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:social_app/Features/Auth/presentation/views/widgets/login_form_section.dart';
 import 'package:social_app/Features/Auth/presentation/views/widgets/login_header_section.dart';
@@ -26,6 +27,8 @@ class LoginViewBody extends StatelessWidget {
           isLoading = true;
         } else if (state is LoginSuccessState) {
           isLoading = false;
+          // store token in cache
+          CacheNetwork.insertToCache(key: 'uId', value: state.uId);
           GoRouter.of(context).go(AppRouter.kHomeView);
         } else if (state is LoginFailureState) {
           isLoading = false;
