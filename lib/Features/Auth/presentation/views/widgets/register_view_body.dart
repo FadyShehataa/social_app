@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:social_app/Core/utils/app_router.dart';
 import 'package:social_app/Features/Auth/presentation/views/widgets/register_header_section.dart';
 import 'package:social_app/Features/Auth/presentation/views/widgets/register_to_login_section.dart';
 import 'package:social_app/Features/Auth/presentation/views/widgets/register_button_section.dart';
@@ -27,7 +29,7 @@ class RegisterViewBody extends StatelessWidget {
           isLoading = true;
         } else if (state is RegisterSuccessState) {
           isLoading = false;
-          // TODO navigate to home screen
+          GoRouter.of(context).go(AppRouter.kHomeView);
         } else if (state is RegisterFailureState) {
           isLoading = false;
           showSnackBar(context, state.errorMessage);

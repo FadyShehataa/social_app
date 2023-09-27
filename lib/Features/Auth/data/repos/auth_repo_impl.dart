@@ -43,7 +43,7 @@ class AuthRepoImpl implements AuthRepo {
       );
       await userCreate(
         email: email,
-        password: password,
+        name: name,
         phone: phone,
         uId: credential.user!.uid,
       );
@@ -66,14 +66,19 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Future<void> userCreate({
     required String email,
-    required String password,
+    required String name,
     required String phone,
     required String uId,
   }) async {
     FirebaseFirestore.instance
         .collection('users')
         .doc(uId)
-        .set({'data': 'data'});
+        .set({
+          'name': name,
+          'email': email,
+          'phone': phone,
+          'uId': uId,
+        });
     // .then((value) => print('Succes'))
     // .catchError(
     //   (error) => print(error),

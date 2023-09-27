@@ -16,7 +16,7 @@ abstract class AuthRepo {
 
   Future<void> userCreate({
     required String email,
-    required String password,
+    required String name,
     required String phone,
     required String uId,
   });
