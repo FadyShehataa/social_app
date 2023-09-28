@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:social_app/Core/utils/app_router.dart';
 import 'package:social_app/Features/Home/presentation/manager/home_cubit/home_cubit.dart';
 
 import '../../../../Core/utils/icon_broken.dart';
@@ -11,7 +13,9 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
-        // TODO: implement listener
+        if(state is NewPostState) {
+          GoRouter.of(context).push(AppRouter.kNewPostView);
+        }
       },
       builder: (context, state) {
         return Scaffold(
@@ -44,6 +48,10 @@ class HomeView extends StatelessWidget {
               BottomNavigationBarItem(
                 icon: Icon(IconBroken.Chat),
                 label: 'Chats',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(IconBroken.Paper_Upload),
+                label: 'Post',
               ),
               BottomNavigationBarItem(
                 icon: Icon(IconBroken.Location),

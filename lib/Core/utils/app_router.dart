@@ -6,6 +6,7 @@ import 'package:social_app/Features/Auth/presentation/manager/register_cubit/reg
 import 'package:social_app/Features/Auth/presentation/views/login_view.dart';
 import 'package:social_app/Features/Home/presentation/manager/home_cubit/home_cubit.dart';
 import 'package:social_app/Features/Home/presentation/views/home_view.dart';
+import 'package:social_app/Features/News%20Feed/presentation/views/new_post_view.dart';
 import '../../Features/Auth/data/repos/auth_repo_impl.dart';
 import '../../Features/Auth/presentation/views/register_view.dart';
 import 'constants.dart';
@@ -14,6 +15,7 @@ abstract class AppRouter {
   static const kLoginView = '/loginView';
   static const kRegisterView = '/registerView';
   static const kHomeView = '/homeView';
+  static const kNewPostView = '/mewPostView';
 
   static final router = GoRouter(
     routes: [
@@ -55,6 +57,10 @@ abstract class AppRouter {
           create: (context) => HomeCubit(),
           child: const HomeView(),
         ),
+      ),
+      GoRoute(
+        path: kNewPostView,
+        builder: (context, state) => const NewPostView(),
       ),
     ],
   );
