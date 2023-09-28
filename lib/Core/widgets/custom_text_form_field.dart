@@ -9,6 +9,7 @@ class CustomTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.prefixIcon,
     this.obscureText = false,
+    this.border = const OutlineInputBorder(),
   });
 
   final TextEditingController controller;
@@ -17,6 +18,7 @@ class CustomTextFormField extends StatelessWidget {
   Widget? suffixIcon;
   final Widget? prefixIcon;
   bool obscureText;
+  InputBorder? border;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class CustomTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         contentPadding: const EdgeInsets.all(20),
-        border: const OutlineInputBorder(),
+        border: border,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
       ),

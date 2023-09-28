@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/Features/Home/presentation/views/chats_view.dart';
@@ -41,14 +42,15 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  late final UserModel userModel;
+  late final UserModel userModell;
 
   Future<void> getUserData()async {
     emit(GetUserDataLoadingState());
     await FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
-      userModel = UserModel.fromMap(value.data()!);
+      userModell = UserModel.fromMap(value.data()!);
+      user = UserModel.fromMap(value.data()!);
       print('Success');
-      print(userModel.toString());
+      print(userModell.toString());
       emit(GetUserDataSuccessState());
     }).catchError((error) {
       print('error = ${error.toString()}');

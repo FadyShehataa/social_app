@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:social_app/Features/Home/presentation/manager/home_cubit/home_cubit.dart';
 
-import '../../../../../Core/models/user_model.dart';
+import '../../../../../Core/utils/constants.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
-    UserModel user = BlocProvider.of<HomeCubit>(context).userModel;
-
     return SizedBox(
       height: 190,
       child: Stack(
