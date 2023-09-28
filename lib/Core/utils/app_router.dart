@@ -7,6 +7,7 @@ import 'package:social_app/Features/Auth/presentation/views/login_view.dart';
 import 'package:social_app/Features/Home/presentation/manager/home_cubit/home_cubit.dart';
 import 'package:social_app/Features/Home/presentation/views/home_view.dart';
 import 'package:social_app/Features/News%20Feed/presentation/views/new_post_view.dart';
+import 'package:social_app/Features/Profile/presentation/manager/profile_cubit/profile_cubit.dart';
 import '../../Features/Auth/data/repos/auth_repo_impl.dart';
 import '../../Features/Auth/presentation/views/register_view.dart';
 import '../../Features/Profile/presentation/views/edit_profile_view.dart';
@@ -66,7 +67,10 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kEditProfileView,
-        builder: (context, state) => const EditProfileView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => ProfileCubit(),
+          child: EditProfileView(),
+        ),
       ),
     ],
   );
