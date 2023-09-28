@@ -67,7 +67,7 @@ abstract class AppRouter {
         path: kNewPostView,
         builder: (context, state) => BlocProvider(
           create: (context) => HomeCubit()..getUserData(),
-          child:  CreatePostView(),
+          child: CreatePostView(),
         ),
         // builder: (context, state) => CreatePostView(),
       ),
