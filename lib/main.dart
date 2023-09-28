@@ -31,6 +31,15 @@ class SocialApp extends StatelessWidget {
     return MaterialApp.router(
       builder: DevicePreview.appBuilder,
       routerConfig: AppRouter.router,
+      theme: ThemeData(
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Colors.blue,
+          unselectedItemColor: Colors.grey,
+          elevation: 20.0,
+          backgroundColor: Colors.white,
+        ),
+      ),
     );
   }
 }
