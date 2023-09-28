@@ -14,7 +14,7 @@ class CreatePostView extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            const CreatePostHeader(),
+            CreatePostHeader(postController: postController),
             CreatePostBody(postController: postController),
             const CreatePostFooter(),
           ],

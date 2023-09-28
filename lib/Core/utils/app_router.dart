@@ -6,6 +6,8 @@ import 'package:social_app/Features/Auth/presentation/manager/register_cubit/reg
 import 'package:social_app/Features/Auth/presentation/views/login_view.dart';
 import 'package:social_app/Features/Home/presentation/manager/home_cubit/home_cubit.dart';
 import 'package:social_app/Features/Home/presentation/views/home_view.dart';
+import 'package:social_app/Features/News%20Feed/data/repos/news_feed_repo_impl.dart';
+import 'package:social_app/Features/News%20Feed/presentation/manager/news_feed_cubit/news_feed_cubit.dart';
 import 'package:social_app/Features/News%20Feed/presentation/views/create_post_view.dart';
 import 'package:social_app/Features/Profile/presentation/manager/profile_cubit/profile_cubit.dart';
 import '../../Features/Auth/data/repos/auth_repo_impl.dart';
@@ -65,8 +67,15 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kNewPostView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => HomeCubit()..getUserData(),
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => HomeCubit()..getUserData(),
+            ),
+            BlocProvider(
+              create: (context) => NewsFeedCubit(getIt.get<NewsFeedRepoImpl>()),
+            ),
+          ],
           child: CreatePostView(),
         ),
         // builder: (context, state) => CreatePostView(),
