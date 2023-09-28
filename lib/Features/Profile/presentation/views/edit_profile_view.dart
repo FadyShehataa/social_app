@@ -5,11 +5,11 @@ import 'package:social_app/Core/widgets/custom_app_bar.dart';
 import 'package:social_app/Core/widgets/custom_text_form_field.dart';
 import 'package:social_app/Features/Profile/presentation/manager/profile_cubit/profile_cubit.dart';
 
-class EditProfileView extends StatelessWidget {
-  EditProfileView({super.key});
+import '../../../../Core/models/user_model.dart';
+import '../../../Home/presentation/manager/home_cubit/home_cubit.dart';
 
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController bioController = TextEditingController();
+class EditProfileView extends StatelessWidget {
+  const EditProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,14 @@ class EditProfileView extends StatelessWidget {
         // TODO: implement listener
       },
       builder: (context, state) {
+        // UserModel user = BlocProvider.of<HomeCubit>(context).userModel; /
+
         var profileImage = BlocProvider.of<ProfileCubit>(context).profileImage;
         var coverImage = BlocProvider.of<ProfileCubit>(context).coverImage;
+
+        final TextEditingController nameController = TextEditingController();
+        final TextEditingController bioController =
+            TextEditingController(text: 'user.bio!');
         return Scaffold(
           appBar: CustomAppBar(
             context: context,

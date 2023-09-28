@@ -29,7 +29,7 @@ abstract class AppRouter {
         builder: (context, state) {
           if (uId != null && uId!.isNotEmpty) {
             return BlocProvider(
-              create: (context) => HomeCubit(),
+              create: (context) => HomeCubit()..getUserData(),
               child: const HomeView(),
             );
           } else {
@@ -57,7 +57,7 @@ abstract class AppRouter {
       GoRoute(
         path: kHomeView,
         builder: (context, state) => BlocProvider(
-          create: (context) => HomeCubit(),
+          create: (context) => HomeCubit()..getUserData(),
           child: const HomeView(),
         ),
       ),
@@ -67,9 +67,16 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kEditProfileView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => ProfileCubit(),
-          child: EditProfileView(),
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => HomeCubit()..getUserData(),
+            ),
+            BlocProvider(
+              create: (context) => ProfileCubit(),
+            ),
+          ],
+          child: const EditProfileView(),
         ),
       ),
     ],

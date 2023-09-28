@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/Features/Home/presentation/manager/home_cubit/home_cubit.dart';
+
+import '../../../../../Core/models/user_model.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
+    UserModel user = BlocProvider.of<HomeCubit>(context).userModel;
+
     return SizedBox(
       height: 190,
       child: Stack(
@@ -15,27 +21,26 @@ class ProfileHeader extends StatelessWidget {
             child: Container(
               height: 140,
               width: double.infinity,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(4),
                   topRight: Radius.circular(4),
                 ),
                 image: DecorationImage(
-                    image: NetworkImage(
-                        'https://image.freepik.com/free-vector/abstract-technology-particle-background_52683-25766.jpg'),
-                    fit: BoxFit.cover),
+                  image: NetworkImage(user.cover!),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
-          const CircleAvatar(
+          CircleAvatar(
             radius: 65,
             backgroundColor: Colors.white,
             child: CircleAvatar(
               radius: 60,
-              backgroundImage: NetworkImage(
-                  'https://image.freepik.com/free-vector/abstract-technology-particle-background_52683-25766.jpg'),
+              backgroundImage: NetworkImage(user.image!),
             ),
-          )
+          ),
         ],
       ),
     );
