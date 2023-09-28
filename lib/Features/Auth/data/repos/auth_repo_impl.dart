@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:social_app/Core/errors/failures.dart';
-import 'package:social_app/Features/Auth/data/models/user_model.dart';
+import 'package:social_app/Core/models/user_model.dart';
 
 import 'auth_repo.dart';
 

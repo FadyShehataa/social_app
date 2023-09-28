@@ -5,7 +5,7 @@ import 'package:social_app/Features/Home/presentation/views/chats_view.dart';
 import 'package:social_app/Features/Home/presentation/views/settings_view.dart';
 import 'package:social_app/Features/Home/presentation/views/users_view.dart';
 
-import '../../../../News Feed/presentation/views/feeds_view.dart';
+import '../../../../News Feed/presentation/views/news_feed_view.dart';
 
 part 'home_state.dart';
 
@@ -14,8 +14,9 @@ class HomeCubit extends Cubit<HomeState> {
 
   int currentIndex = 0;
   List<Widget> views = [
-    const FeedsView(),
+    const NewsFeedView(),
     const ChatsView(),
+    const NewsFeedView(),
     const UsersView(),
     const SettingsView(),
   ];
@@ -23,6 +24,7 @@ class HomeCubit extends Cubit<HomeState> {
   List<String> titles = [
     'Home',
     'Chats',
+    'New Post',
     'Users',
     'Settings',
   ];
