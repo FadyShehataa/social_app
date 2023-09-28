@@ -43,7 +43,9 @@ abstract class AppRouter {
       GoRoute(
         path: kLoginView,
         builder: (context, state) => BlocProvider(
-          create: (context) => LoginCubit(getIt.get<AuthRepoImpl>()),
+          create: (context) => LoginCubit(
+            getIt.get<AuthRepoImpl>(),
+          ),
           child: const LoginView(),
         ),
       ),

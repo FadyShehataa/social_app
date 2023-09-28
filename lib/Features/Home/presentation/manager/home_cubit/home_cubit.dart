@@ -43,8 +43,9 @@ class HomeCubit extends Cubit<HomeState> {
 
   late final UserModel userModel;
 
-  void getUserData() {
-    FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
+  Future<void> getUserData()async {
+    emit(GetUserDataLoadingState());
+    await FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
       userModel = UserModel.fromMap(value.data()!);
       print('Success');
       print(userModel.toString());

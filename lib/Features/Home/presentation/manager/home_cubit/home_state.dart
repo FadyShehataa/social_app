@@ -13,6 +13,8 @@ final class ChangeBottomNavBarState extends HomeState {}
 
 final class NewPostState extends HomeState {}
 
+final class GetUserDataLoadingState extends HomeState {}
+
 final class GetUserDataSuccessState extends HomeState {}
 
 final class GetUserDataFailureState extends HomeState {}
