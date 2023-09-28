@@ -76,6 +76,11 @@ class AuthRepoImpl implements AuthRepo {
       name: name,
       phone: phone,
       uId: uId,
+      image:
+          'https://image.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg',
+      bio: 'Write your bio ...',
+      cover:
+          'https://image.freepik.com/free-vector/abstract-technology-particle-background_52683-25766.jpg',
     );
 
     FirebaseFirestore.instance.collection('users').doc(uId).set(user.toMap());

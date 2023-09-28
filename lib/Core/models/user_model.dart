@@ -7,14 +7,23 @@ class UserModel extends Equatable {
   final String? name;
   final String? email;
   final String? phone;
+  final String? image;
+  final String? bio;
+  final String? cover;
 
-  const UserModel({this.uId, this.name, this.email, this.phone});
+
+  const UserModel(
+      {this.uId, this.name, this.email, this.phone, this.image, this.bio, this.cover});
 
   factory UserModel.fromMap(Map<String, dynamic> data) => UserModel(
         uId: data['uId'] as String?,
         name: data['name'] as String?,
         email: data['email'] as String?,
         phone: data['phone'] as String?,
+        image: data['image'] as String?,
+        bio: data['bio'] as String?,
+        cover: data['cover'] as String?,
+
       );
 
   Map<String, dynamic> toMap() => {
@@ -22,6 +31,10 @@ class UserModel extends Equatable {
         'name': name,
         'email': email,
         'phone': phone,
+        'image': image,
+        'bio': bio,
+        'cover': cover,
+
       };
 
   /// `dart:convert`
@@ -37,5 +50,5 @@ class UserModel extends Equatable {
   String toJson() => json.encode(toMap());
 
   @override
-  List<Object?> get props => [uId, name, email, phone];
+  List<Object?> get props => [uId, name, email, phone, image, bio, cover];
 }
