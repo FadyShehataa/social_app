@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/Features/Home/presentation/views/chats_view.dart';
 import 'package:social_app/Features/Home/presentation/views/settings_view.dart';
 import 'package:social_app/Features/Home/presentation/views/users_view.dart';
-import 'package:social_app/Features/Profile/presentation/views/widgets/profile_view.dart';
+import 'package:social_app/Features/Profile/presentation/views/profile_view.dart';
 
 import '../../../../News Feed/presentation/views/news_feed_view.dart';
 

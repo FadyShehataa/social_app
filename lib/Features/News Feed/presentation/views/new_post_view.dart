@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_app/Core/widgets/custom_app_bar.dart';
 
 class NewPostView extends StatelessWidget {
   const NewPostView({super.key});
@@ -6,8 +7,9 @@ class NewPostView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('New Post'),
+      appBar: CustomAppBar(
+        context: context,
+        title: 'New Post',
       ),
       body: const Center(
         child: Text(

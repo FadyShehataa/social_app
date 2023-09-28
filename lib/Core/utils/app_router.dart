@@ -9,13 +9,15 @@ import 'package:social_app/Features/Home/presentation/views/home_view.dart';
 import 'package:social_app/Features/News%20Feed/presentation/views/new_post_view.dart';
 import '../../Features/Auth/data/repos/auth_repo_impl.dart';
 import '../../Features/Auth/presentation/views/register_view.dart';
+import '../../Features/Profile/presentation/views/edit_profile_view.dart';
 import 'constants.dart';
 
 abstract class AppRouter {
   static const kLoginView = '/loginView';
   static const kRegisterView = '/registerView';
   static const kHomeView = '/homeView';
-  static const kNewPostView = '/mewPostView';
+  static const kNewPostView = '/newPostView';
+  static const kEditProfileView = '/editProfileView';
 
   static final router = GoRouter(
     routes: [
@@ -61,6 +63,10 @@ abstract class AppRouter {
       GoRoute(
         path: kNewPostView,
         builder: (context, state) => const NewPostView(),
+      ),
+      GoRoute(
+        path: kEditProfileView,
+        builder: (context, state) => const EditProfileView(),
       ),
     ],
   );
