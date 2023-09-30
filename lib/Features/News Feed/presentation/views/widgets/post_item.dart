@@ -23,9 +23,9 @@ class PostItem extends StatelessWidget {
           children: [
             PostHeader(post: post),
             const CustomDivider(),
-            PostBody(post: post),
+            PostBody(post: post), // there is a text to display number of likes
             const CustomDivider(),
-            const PostFooter(),
+            PostFooter(post: post), // there is a button to like, unlike the post
           ],
         ),
       ),

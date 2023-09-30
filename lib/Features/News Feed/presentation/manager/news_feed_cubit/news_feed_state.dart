@@ -35,12 +35,15 @@ final class GetPostsFailureState extends NewsFeedState {
 final class GetPostsLoadingState extends NewsFeedState {}
 
 
-final class LikePostSuccessState extends NewsFeedState {}
+// final class LikePostSuccessState extends NewsFeedState {}
 
-final class LikePostFailureState extends NewsFeedState {
-  final String errorMessage;
+// final class LikePostFailureState extends NewsFeedState {
+//   final String errorMessage;
 
-  const LikePostFailureState({required this.errorMessage});
-}
+//   const LikePostFailureState({required this.errorMessage});
+// }
 
-final class LikePostLoadingState extends NewsFeedState {}
+// final class LikePostLoadingState extends NewsFeedState {}
+
+// final class UpdateLikePostState extends NewsFeedState {}
+

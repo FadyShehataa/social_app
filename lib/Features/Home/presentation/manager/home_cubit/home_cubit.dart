@@ -53,11 +53,8 @@ class HomeCubit extends Cubit<HomeState> {
         .then((value) {
       userModell = UserModel.fromMap(value.data()!);
       user = UserModel.fromMap(value.data()!);
-      print('Success');
-      print(userModell.toString());
       emit(GetUserDataSuccessState());
     }).catchError((error) {
-      print('error = ${error.toString()}');
       emit(GetUserDataFailureState());
     });
   }

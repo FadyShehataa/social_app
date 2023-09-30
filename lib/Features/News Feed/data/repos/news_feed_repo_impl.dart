@@ -20,7 +20,8 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
         text: text,
         dateTime: dateTime,
         postImage: postImage,
-        // postId: '',
+        postId: '',
+        likes: const [],
       );
 
       CollectionReference postsCollection =
@@ -58,11 +59,22 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
   }
 
   @override
-  Future<Either<Failure, void>> likePost({required String postId}) async {
+  Future<Either<Failure, void>> updateLikePost(
+      {required PostModel postModel}) async {
     try {
-      await FirebaseFirestore.instance.collection('posts').doc(postId).update({
-        'likes': FieldValue.arrayUnion([user.uId]),
-      });
+      postModel.likes!.contains(user.uId)
+          ? await FirebaseFirestore.instance
+              .collection('posts')
+              .doc(postModel.postId)
+              .update({
+              'likes': FieldValue.arrayRemove([user.uId]),
+            })
+          : await FirebaseFirestore.instance
+              .collection('posts')
+              .doc(postModel.postId)
+              .update({
+              'likes': FieldValue.arrayUnion([user.uId]),
+            });
       return right(null);
     } catch (e) {
       return left(ServerFailure(errMessage: e.toString()));

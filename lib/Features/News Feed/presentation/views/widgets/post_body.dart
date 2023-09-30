@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../Core/utils/icon_broken.dart';
 import '../../../data/models/post_model.dart';
-import '../../manager/news_feed_cubit/news_feed_cubit.dart';
 
 class PostBody extends StatelessWidget {
   const PostBody({super.key, required this.post});
@@ -30,12 +28,9 @@ class PostBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TextButton.icon(
-              onPressed: () {
-                BlocProvider.of<NewsFeedCubit>(context)
-                    .likePost(postId: post.postId!);
-              },
+              onPressed: () {},
               icon: const Icon(IconBroken.Heart),
-              label: const Text('1200'),
+              label: Text(post.likes!.length.toString()),
               style: TextButton.styleFrom(padding: EdgeInsets.zero),
             ),
             TextButton.icon(

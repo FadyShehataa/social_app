@@ -13,6 +13,8 @@ abstract class NewsFeedRepo {
   // get posts
   Future<Either<Failure, List<PostModel>>> getPosts();
 
-  // like post
-  Future<Either<Failure, void>> likePost({required String postId});
+  // update like post
+  Future<Either<Failure, void>> updateLikePost({required PostModel postModel});
+
+
 }

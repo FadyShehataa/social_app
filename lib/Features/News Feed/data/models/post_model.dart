@@ -10,6 +10,7 @@ class PostModel extends Equatable {
   final String? text;
   final String? dateTime;
   final String? postId;
+  final List<String>? likes;
 
 
   const PostModel({
@@ -20,6 +21,7 @@ class PostModel extends Equatable {
     this.text,
     this.dateTime,
     this.postId,
+    this.likes,
   });
 
   factory PostModel.fromMap(Map<String, dynamic> data) => PostModel(
@@ -30,6 +32,9 @@ class PostModel extends Equatable {
         text: data['text'] as String?,
         dateTime: data['dateTime'] as String?,
         postId: data['postId'] as String?,
+        likes: data['likes'] != null
+            ? List<String>.from(data['likes'] as List<dynamic>)
+            : [],
       );
 
   Map<String, dynamic> toMap() => {
@@ -40,6 +45,7 @@ class PostModel extends Equatable {
         'text': text,
         'dateTime': dateTime,
         'postId': postId,
+        'likes': likes,
       };
 
   /// `dart:convert`
@@ -64,6 +70,7 @@ class PostModel extends Equatable {
       text,
       dateTime,
       postId,
+      likes,
     ];
   }
 }

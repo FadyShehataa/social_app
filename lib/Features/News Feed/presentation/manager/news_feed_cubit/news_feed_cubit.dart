@@ -31,6 +31,7 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
     );
   }
 
+  List<PostModel> posts = [];
   Future<void> getPosts() async {
     emit(GetPostsLoadingState());
 
@@ -38,19 +39,14 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
 
     result.fold(
       (failure) => emit(GetPostsFailureState(errorMessage: failure.errMessage)),
-      (posts) => emit(GetPostsSuccessState(posts: posts)),
+      (posts) {
+        this.posts = posts;
+        emit(GetPostsSuccessState(posts: posts));
+      },
     );
   }
 
-  Future<void> likePost({required String postId}) async {
-    // emit(LikePostLoadingState());
-
-    var result = await newsFeedRepo.likePost(postId: postId);
-
-    // result.fold(
-    //   (failure) => emit(LikePostFailureState(errorMessage: failure.errMessage)),
-    //   (_) => emit(LikePostSuccessState()),
-    // );
+  Future<void> updateLikePost({required PostModel postModel}) async {
+    var result = await newsFeedRepo.updateLikePost(postModel: postModel);
   }
-
 }
