@@ -20,10 +20,49 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
         text: text,
         dateTime: dateTime,
         postImage: postImage,
+        // postId: '',
       );
 
-      FirebaseFirestore.instance.collection('posts').add(postModel.toMap());
+      CollectionReference postsCollection =
+          FirebaseFirestore.instance.collection('posts');
 
+      DocumentReference newPostRef =
+          await postsCollection.add(postModel.toMap());
+
+      String newPostId = newPostRef.id;
+
+      await newPostRef.set(
+        {'postId': newPostId},
+        SetOptions(merge: true),
+      );
+
+      return right(null);
+    } catch (e) {
+      return left(ServerFailure(errMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<PostModel>>> getPosts() async {
+    try {
+      List<PostModel> posts = [];
+      QuerySnapshot<Map<String, dynamic>> data =
+          await FirebaseFirestore.instance.collection('posts').get();
+      for (var item in data.docs) {
+        posts.add(PostModel.fromMap(item.data()));
+      }
+      return right(posts);
+    } catch (e) {
+      return left(ServerFailure(errMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> likePost({required String postId}) async {
+    try {
+      await FirebaseFirestore.instance.collection('posts').doc(postId).update({
+        'likes': FieldValue.arrayUnion([user.uId]),
+      });
       return right(null);
     } catch (e) {
       return left(ServerFailure(errMessage: e.toString()));

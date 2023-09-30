@@ -18,3 +18,29 @@ final class CreatePostFailureState extends NewsFeedState {
 }
 
 final class CreatePostLoadingState extends NewsFeedState {}
+
+
+final class GetPostsSuccessState extends NewsFeedState {
+  final List<PostModel> posts;
+
+  const GetPostsSuccessState({required this.posts});
+}
+
+final class GetPostsFailureState extends NewsFeedState {
+  final String errorMessage;
+
+  const GetPostsFailureState({required this.errorMessage});
+}
+
+final class GetPostsLoadingState extends NewsFeedState {}
+
+
+final class LikePostSuccessState extends NewsFeedState {}
+
+final class LikePostFailureState extends NewsFeedState {
+  final String errorMessage;
+
+  const LikePostFailureState({required this.errorMessage});
+}
+
+final class LikePostLoadingState extends NewsFeedState {}

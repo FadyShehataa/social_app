@@ -1,31 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../Core/utils/icon_broken.dart';
+import '../../../data/models/post_model.dart';
+import '../../manager/news_feed_cubit/news_feed_cubit.dart';
 
 class PostBody extends StatelessWidget {
-  const PostBody({super.key});
+  const PostBody({super.key, required this.post});
+
+  final PostModel post;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
-          child: Text(
-              'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium optio, eaque rerum!'),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Text(post.text!),
         ),
-        Image.network(
-          'https://img.freepik.com/free-photo/portrait-beautiful-young-woman-standing-grey-wall_231208-10760.jpg?w=996&t=st=1695886677~exp=1695887277~hmac=c6b9869ca54d6473d48a51a6a561ad3d64e3b8d51ef608bcb461db70dd0a174b',
-          width: double.infinity,
-          height: 220.0,
-          fit: BoxFit.cover,
-        ),
+        if (post.postImage != '')
+          Image.network(
+            post.postImage!,
+            width: double.infinity,
+            height: 220.0,
+            fit: BoxFit.cover,
+          ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TextButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                BlocProvider.of<NewsFeedCubit>(context)
+                    .likePost(postId: post.postId!);
+              },
               icon: const Icon(IconBroken.Heart),
               label: const Text('1200'),
               style: TextButton.styleFrom(padding: EdgeInsets.zero),
