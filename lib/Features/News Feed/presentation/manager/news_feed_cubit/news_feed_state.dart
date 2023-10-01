@@ -45,5 +45,5 @@ final class GetPostsLoadingState extends NewsFeedState {}
 
 // final class LikePostLoadingState extends NewsFeedState {}
 
-// final class UpdateLikePostState extends NewsFeedState {}
+final class UpdateLikePostState extends NewsFeedState {}
 
