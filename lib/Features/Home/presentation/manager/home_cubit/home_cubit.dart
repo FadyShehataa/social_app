@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/Features/Home/presentation/views/chats_view.dart';
@@ -34,11 +33,12 @@ class HomeCubit extends Cubit<HomeState> {
   ];
 
   void changeBottomNavBarState(int index) {
+    emit(ChangeBottomNavBarLoadingState());
     if (index == 2) {
       emit(NewPostState());
     } else {
       currentIndex = index;
-      emit(ChangeBottomNavBarState());
+      emit(ChangeBottomNavBarSuccessState());
     }
   }
 

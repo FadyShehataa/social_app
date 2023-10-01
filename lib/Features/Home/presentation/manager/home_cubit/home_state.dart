@@ -9,7 +9,9 @@ sealed class HomeState extends Equatable {
 
 final class HomeInitial extends HomeState {}
 
-final class ChangeBottomNavBarState extends HomeState {}
+final class ChangeBottomNavBarLoadingState extends HomeState {}
+final class ChangeBottomNavBarSuccessState extends HomeState {}
+
 
 final class NewPostState extends HomeState {}
 

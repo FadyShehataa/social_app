@@ -10,16 +10,15 @@ class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit(this.authRepo) : super(RegisterInitialState());
   final AuthRepo authRepo;
 
-  static RegisterCubit get(context) => BlocProvider.of<RegisterCubit>(context);
-
   bool isPassword = true;
   IconData suffixIcon = Icons.visibility_outlined;
 
   void changePasswordVisibility() {
+    emit(RegisterChangePasswordVisibilityLoadingState());
     isPassword = !isPassword;
     suffixIcon =
         isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
-    emit(RegisterChangePasswordVisibilityState());
+    emit(RegisterChangePasswordVisibilitySuccessState());
   }
 
   Future<void> userRegister({

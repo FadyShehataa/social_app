@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/Features/Auth/presentation/manager/login_cubit/login_cubit.dart';
 
 class LoginButtonSection extends StatelessWidget {
@@ -24,7 +25,7 @@ class LoginButtonSection extends StatelessWidget {
             ),
             onPressed: () async {
               if (formKey.currentState!.validate()) {
-                LoginCubit.get(context).userLogin(
+                BlocProvider.of<LoginCubit>(context).userLogin(
                   email: emailController.text,
                   password: passwordController.text,
                 );

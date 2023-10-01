@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../Core/widgets/custom_text_form_field.dart';
 import '../../manager/login_cubit/login_cubit.dart';
@@ -31,13 +32,11 @@ class LoginFormSection extends StatelessWidget {
           prefixIcon: const Icon(Icons.lock_outline),
           validatorMessage: 'Password is required',
           suffixIcon: IconButton(
-            onPressed: () {
-              // TODO : fix change password visibility
-              LoginCubit.get(context).changePasswordVisibility();
-            },
-            icon: Icon(LoginCubit.get(context).suffixIcon),
+            onPressed: () =>
+                BlocProvider.of<LoginCubit>(context).changePasswordVisibility(),
+            icon: Icon(BlocProvider.of<LoginCubit>(context).suffixIcon),
           ),
-          obscureText: LoginCubit.get(context).isPassword,
+          obscureText: BlocProvider.of<LoginCubit>(context).isPassword,
         ),
       ],
     );

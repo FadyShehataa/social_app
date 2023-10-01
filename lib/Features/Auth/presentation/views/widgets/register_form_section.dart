@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../Core/widgets/custom_text_form_field.dart';
 import '../../manager/register_cubit/register_cubit.dart';
@@ -48,11 +49,11 @@ class RegisterFormSection extends StatelessWidget {
           suffixIcon: IconButton(
             onPressed: () {
               // TODO : fix change password visibility
-              RegisterCubit.get(context).changePasswordVisibility();
+              BlocProvider.of<RegisterCubit>(context).changePasswordVisibility();
             },
-            icon: Icon(RegisterCubit.get(context).suffixIcon),
+            icon: Icon(BlocProvider.of<RegisterCubit>(context).suffixIcon),
           ),
-          obscureText: RegisterCubit.get(context).isPassword,
+          obscureText: BlocProvider.of<RegisterCubit>(context).isPassword,
         ),
         const SizedBox(
           height: 20,

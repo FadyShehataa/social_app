@@ -14,7 +14,7 @@ final class LoginLoadingState extends LoginState {}
 final class LoginSuccessState extends LoginState {
   final String uId;
 
-  const LoginSuccessState({required this.uId}); 
+  const LoginSuccessState({required this.uId});
 }
 
 final class LoginFailureState extends LoginState {
@@ -23,4 +23,6 @@ final class LoginFailureState extends LoginState {
   const LoginFailureState({required this.errorMessage});
 }
 
-final class LoginChangePasswordVisibilityState extends LoginState {}
+final class LoginChangePasswordVisibilityLoadingState extends LoginState {}
+
+final class LoginChangePasswordVisibilitySuccessState extends LoginState {}

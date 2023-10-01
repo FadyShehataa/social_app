@@ -16,10 +16,11 @@ class LoginCubit extends Cubit<LoginState> {
   IconData suffixIcon = Icons.visibility_outlined;
 
   void changePasswordVisibility() {
+    emit(LoginChangePasswordVisibilityLoadingState());
     isPassword = !isPassword;
     suffixIcon =
         isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
-    emit(LoginChangePasswordVisibilityState());
+    emit(LoginChangePasswordVisibilitySuccessState());
   }
 
   Future<void> userLogin({

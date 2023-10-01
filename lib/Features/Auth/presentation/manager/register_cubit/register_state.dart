@@ -19,4 +19,8 @@ final class RegisterFailureState extends RegisterState {
   const RegisterFailureState({required this.errorMessage});
 }
 
-final class RegisterChangePasswordVisibilityState extends RegisterState {}
+final class RegisterChangePasswordVisibilityLoadingState
+    extends RegisterState {}
+
+final class RegisterChangePasswordVisibilitySuccessState
+    extends RegisterState {}
