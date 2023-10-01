@@ -45,12 +45,17 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
       },
     );
   }
-  var likes = 5 ;
+
   Future<void> updateLikePost({required PostModel postModel}) async {
+    emit(UpdateLikePostLoadingState());
     var result = await newsFeedRepo.updateLikePost(postModel: postModel);
-    likes++;
-    print('likes  $likes');
-    print('here in cubit');
-    emit(UpdateLikePostState());
+    result.fold(
+      (failure) {
+        emit(GetPostsFailureState(errorMessage: failure.errMessage));
+      },
+      (posts) {
+        emit(UpdateLikePostSuccessState());
+      },
+    );
   }
 }

@@ -9,6 +9,7 @@ sealed class NewsFeedState extends Equatable {
 
 final class NewsFeedInitial extends NewsFeedState {}
 
+// Create post
 final class CreatePostSuccessState extends NewsFeedState {}
 
 final class CreatePostFailureState extends NewsFeedState {
@@ -19,7 +20,7 @@ final class CreatePostFailureState extends NewsFeedState {
 
 final class CreatePostLoadingState extends NewsFeedState {}
 
-
+// Get posts
 final class GetPostsSuccessState extends NewsFeedState {
   final List<PostModel> posts;
 
@@ -34,16 +35,13 @@ final class GetPostsFailureState extends NewsFeedState {
 
 final class GetPostsLoadingState extends NewsFeedState {}
 
+// Update like post
+final class UpdateLikePostLoadingState extends NewsFeedState {}
 
-// final class LikePostSuccessState extends NewsFeedState {}
+final class UpdateLikePostSuccessState extends NewsFeedState {}
 
-// final class LikePostFailureState extends NewsFeedState {
-//   final String errorMessage;
+final class UpdateLikePostFailureState extends NewsFeedState {
+  final String errorMessage;
 
-//   const LikePostFailureState({required this.errorMessage});
-// }
-
-// final class LikePostLoadingState extends NewsFeedState {}
-
-final class UpdateLikePostState extends NewsFeedState {}
-
+  const UpdateLikePostFailureState({required this.errorMessage});
+}

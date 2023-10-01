@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/Features/News%20Feed/presentation/manager/news_feed_cubit/news_feed_cubit.dart';
 
 import '../../../../../Core/utils/icon_broken.dart';
 import '../../../data/models/post_model.dart';
-import '../../manager/news_feed_cubit/news_feed_cubit.dart';
 
 class PostBody extends StatelessWidget {
   const PostBody({super.key, required this.post});
@@ -12,39 +12,34 @@ class PostBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var likes = BlocProvider.of<NewsFeedCubit>(context).likes;
-
-    return BlocConsumer<NewsFeedCubit, NewsFeedState>(
-      listener: (context, state) {
-        if (state is UpdateLikePostState) {
-          likes = BlocProvider.of<NewsFeedCubit>(context).likes;
-          print(likes);
-          print('here in view');
-        }
-      },
-      builder: (context, state) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Text(post.text!),
-            ),
-            if (post.postImage != '')
-              Image.network(
-                post.postImage!,
-                width: double.infinity,
-                height: 220.0,
-                fit: BoxFit.cover,
-              ),
-            Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Text(post.text!),
+        ),
+        if (post.postImage != '')
+          Image.network(
+            post.postImage!,
+            width: double.infinity,
+            height: 220.0,
+            fit: BoxFit.cover,
+          ),
+        BlocBuilder<NewsFeedCubit, NewsFeedState>(
+          builder: (context, state) {
+            return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton.icon(
                   onPressed: () {},
                   icon: const Icon(IconBroken.Heart),
-                  label:
-                      Text(likes.toString()), // TODO likes change in database
+                  label: Text(BlocProvider.of<NewsFeedCubit>(context)
+                      .posts
+                      .firstWhere((element) => element.postId == post.postId)
+                      .likes!
+                      .length
+                      .toString()),
                   style: TextButton.styleFrom(padding: EdgeInsets.zero),
                 ),
                 TextButton.icon(
@@ -54,10 +49,10 @@ class PostBody extends StatelessWidget {
                   style: TextButton.styleFrom(padding: EdgeInsets.zero),
                 ),
               ],
-            ),
-          ],
-        );
-      },
+            );
+          },
+        ),
+      ],
     );
   }
 }

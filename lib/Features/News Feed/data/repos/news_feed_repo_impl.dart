@@ -59,23 +59,29 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
   }
 
   @override
-  Future<Either<Failure, void>> updateLikePost(
+  Future<Either<Failure, int>> updateLikePost(
       {required PostModel postModel}) async {
     try {
-      postModel.likes!.contains(user.uId)
-          ? await FirebaseFirestore.instance
-              .collection('posts')
-              .doc(postModel.postId)
-              .update({
-              'likes': FieldValue.arrayRemove([user.uId]),
-            })
-          : await FirebaseFirestore.instance
-              .collection('posts')
-              .doc(postModel.postId)
-              .update({
-              'likes': FieldValue.arrayUnion([user.uId]),
-            });
-      return right(null);
+      if (postModel.likes!.contains(user.uId)) {
+        await FirebaseFirestore.instance
+            .collection('posts')
+            .doc(postModel.postId)
+            .update({
+          'likes': FieldValue.arrayRemove([user.uId]),
+        });
+        // update likes in postModel
+        postModel.likes!.remove(user.uId);
+      } else {
+        await FirebaseFirestore.instance
+            .collection('posts')
+            .doc(postModel.postId)
+            .update({
+          'likes': FieldValue.arrayUnion([user.uId]),
+        });
+        // update likes in postModel
+        postModel.likes!.add(user.uId!);
+      }
+      return right(postModel.likes!.length);
     } catch (e) {
       return left(ServerFailure(errMessage: e.toString()));
     }

@@ -14,7 +14,7 @@ abstract class NewsFeedRepo {
   Future<Either<Failure, List<PostModel>>> getPosts();
 
   // update like post
-  Future<Either<Failure, void>> updateLikePost({required PostModel postModel});
+  Future<Either<Failure, int>> updateLikePost({required PostModel postModel});
 
 
 }
