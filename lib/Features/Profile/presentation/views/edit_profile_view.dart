@@ -12,122 +12,128 @@ class EditProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var profileImage = BlocProvider.of<ProfileCubit>(context).profileImage;
-    var coverImage = BlocProvider.of<ProfileCubit>(context).coverImage;
-
     final TextEditingController nameController =
         TextEditingController(text: user.name);
     final TextEditingController bioController =
         TextEditingController(text: user.bio);
-
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            CustomAppBar(
-              kContext: context,
-              title: 'Edit Profile',
-              actions: [
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'UPDATE',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                )
-              ],
-            ),
-            SizedBox(
-              height: 190,
-              child: Stack(
-                alignment: Alignment.bottomCenter,
-                children: [
-                  Align(
-                    alignment: AlignmentDirectional.topCenter,
-                    child: Container(
-                      height: 140,
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(4),
-                          topRight: Radius.circular(4),
-                        ),
-                      ),
-                      child: coverImage == null
-                          ? Image.network(
-                              user.cover!,
-                              fit: BoxFit.cover,
-                            )
-                          : Image.network(
-                              coverImage.path,
-                              fit: BoxFit.cover,
-                            ),
+    var profileImage = BlocProvider.of<ProfileCubit>(context).profileImage;
+    var coverImage = BlocProvider.of<ProfileCubit>(context).coverImage;
+    return BlocConsumer<ProfileCubit, ProfileState>(listener: (context, state) {
+      if(state is ProfileImagePickedSuccess){
+        profileImage = BlocProvider.of<ProfileCubit>(context).profileImage;
+      } else if(state is CoverImagePickedSuccess){
+        coverImage = BlocProvider.of<ProfileCubit>(context).coverImage;
+      }
+    }, builder: (context, state) {
+      return Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: [
+              CustomAppBar(
+                kContext: context,
+                title: 'Edit Profile',
+                actions: [
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'UPDATE',
+                      style: TextStyle(fontSize: 18),
                     ),
                   ),
-                  CircleAvatar(
-                    radius: 65,
-                    backgroundColor: Colors.white,
-                    child: ClipOval(
-                      child: CircleAvatar(
-                        radius: 60,
-                        child: profileImage == null
+                  const SizedBox(
+                    width: 10,
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 190,
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional.topCenter,
+                      child: Container(
+                        height: 140,
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(4),
+                            topRight: Radius.circular(4),
+                          ),
+                        ),
+                        child: coverImage == null
                             ? Image.network(
-                                user.image!,
+                                user.cover!,
                                 fit: BoxFit.cover,
                               )
                             : Image.network(
-                                profileImage.path,
+                                coverImage.path,
                                 fit: BoxFit.cover,
                               ),
                       ),
                     ),
-                  )
+                    CircleAvatar(
+                      radius: 65,
+                      backgroundColor: Colors.white,
+                      child: ClipOval(
+                        child: CircleAvatar(
+                          radius: 60,
+                          child: profileImage == null
+                              ? Image.network(
+                                  user.image!,
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.network(
+                                  profileImage.path,
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      BlocProvider.of<ProfileCubit>(context).pickProfileImage();
+                    },
+                    child: const Text(
+                      'Change Profile Photo',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      BlocProvider.of<ProfileCubit>(context).pickCoverImage();
+                    },
+                    child: const Text(
+                      'Change Cover Photo',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
                 ],
               ),
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    BlocProvider.of<ProfileCubit>(context).pickProfileImage();
-                  },
-                  child: const Text(
-                    'Change Profile Photo',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    BlocProvider.of<ProfileCubit>(context).pickCoverImage();
-                  },
-                  child: const Text(
-                    'Change Cover Photo',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
-              ],
-            ),
-            CustomTextFormField(
-              controller: nameController,
-              hintText: 'Name',
-              prefixIcon: const Icon(IconBroken.User),
-              validatorMessage: 'Name is required',
-            ),
-            const SizedBox(height: 10),
-            CustomTextFormField(
-              controller: bioController,
-              hintText: 'Bio',
-              prefixIcon: const Icon(IconBroken.Info_Circle),
-              validatorMessage: 'Bio is required',
-            ),
-          ],
+              CustomTextFormField(
+                controller: nameController,
+                hintText: 'Name',
+                prefixIcon: const Icon(IconBroken.User),
+                validatorMessage: 'Name is required',
+              ),
+              const SizedBox(height: 10),
+              CustomTextFormField(
+                controller: bioController,
+                hintText: 'Bio',
+                prefixIcon: const Icon(IconBroken.Info_Circle),
+                validatorMessage: 'Bio is required',
+              ),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

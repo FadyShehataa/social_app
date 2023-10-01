@@ -17,6 +17,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       profileImage = File(pickedFile.path);
+      print('Succcess');
       emit(ProfileImagePickedSuccess());
     } else {
       print('No image selected.');

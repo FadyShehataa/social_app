@@ -30,7 +30,7 @@ class PostBody extends StatelessWidget {
             TextButton.icon(
               onPressed: () {},
               icon: const Icon(IconBroken.Heart),
-              label: Text(post.likes!.length.toString()),
+              label: Text(post.likes!.length.toString()), // TODO likes change in database
               style: TextButton.styleFrom(padding: EdgeInsets.zero),
             ),
             TextButton.icon(
