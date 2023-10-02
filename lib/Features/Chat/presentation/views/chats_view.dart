@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/Core/utils/styles.dart';
+import 'package:social_app/Features/Chat/presentation/manager/chat_cubit/chat_cubit.dart';
 import 'package:social_app/Features/Chat/presentation/views/widgets/chat_item.dart';
+import 'package:social_app/Features/Chat/presentation/views/widgets/chats_search.dart';
+import 'package:social_app/Features/News%20Feed/presentation/views/widgets/custom_divider.dart';
+
+import '../../../../Core/widgets/custom_failure_widget.dart';
+import '../../../../Core/widgets/custom_loading_widget.dart';
 
 class ChatsView extends StatelessWidget {
   ChatsView({super.key});
@@ -8,57 +16,50 @@ class ChatsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Column(
-        children: [
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Chats',
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff1877f2),
+    return BlocConsumer<ChatCubit, ChatState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        if (state is GetAllUsersLoading) {
+          return const CustomLoadingWidget();
+        } else if (state is GetAllUsersFailure) {
+          return CustomFailureWidget(errMessage: state.errorMessage);
+        } else if (state is GetAllUsersSuccess) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Column(
+              children: [
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [Text('Chats', style: Styles.textStyle30)],
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          TextField(
-            controller: searchController,
-            decoration: InputDecoration(
-              hintText: 'Search',
-              hintMaxLines: 1,
-              prefixIcon: const Icon(
-                Icons.search,
-                size: 28,
-                color: Color(0xff9397A1),
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide.none,
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide.none,
-              ),
-              fillColor: const Color(0xffECEDF1),
-              filled: true,
+                const SizedBox(height: 10),
+                ChatsSearch(searchController: searchController),
+                const SizedBox(height: 20),
+                Expanded(
+                  child: ListView.separated(
+                    itemBuilder: (context, index) => ChatItem(
+                      userModel: BlocProvider.of<ChatCubit>(context)
+                          .searchedChats[index],
+                    ),
+                    separatorBuilder: (context, index) => const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8),
+                      child: CustomDivider(),
+                    ),
+                    itemCount: BlocProvider.of<ChatCubit>(context)
+                        .searchedChats
+                        .length,
+                  ),
+                ),
+              ],
             ),
-            onChanged: (value) {},
-          ),
-          const SizedBox(height: 20),
-          Expanded(
-            child: ListView.separated(
-              itemBuilder: (context, index) => const ChatItem(),
-              separatorBuilder: (context, index) => const SizedBox(height: 20),
-              itemCount: 15,
-            ),
-          ),
-        ],
-      ),
+          );
+        }
+        return const Center(
+          child: Text('Something went wrong'),
+        );
+      },
     );
   }
 }

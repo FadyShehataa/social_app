@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_app/Core/utils/my_colors.dart';
 
 abstract class Styles {
   static const textStyle14 = TextStyle(
@@ -28,6 +29,7 @@ abstract class Styles {
 
   static const textStyle30 = TextStyle(
     fontSize: 30,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.bold,
+    color: MyColors.myBlue,
   );
 }
