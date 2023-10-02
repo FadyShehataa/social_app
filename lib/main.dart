@@ -30,7 +30,7 @@ class SocialApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       builder: DevicePreview.appBuilder,
-      routerConfig: AppRouter.router,
+      routerConfig: AppRouter.router,          
       theme: ThemeData(
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           type: BottomNavigationBarType.fixed,
@@ -39,6 +39,7 @@ class SocialApp extends StatelessWidget {
           elevation: 20.0,
           backgroundColor: Colors.white,
         ),
+        scaffoldBackgroundColor: Colors.white,
       ),
     );
   }

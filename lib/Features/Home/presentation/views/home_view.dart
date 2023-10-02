@@ -19,22 +19,23 @@ class HomeView extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              BlocProvider.of<HomeCubit>(context)
-                  .titles[BlocProvider.of<HomeCubit>(context).currentIndex],
-            ),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(IconBroken.Notification),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(IconBroken.Search),
-              ),
-            ],
-          ),
+          // appBar: AppBar(
+          //   title: Text(
+          //     BlocProvider.of<HomeCubit>(context)
+          //         .titles[BlocProvider.of<HomeCubit>(context).currentIndex],
+          //   ),
+          //   actions: [
+          //     IconButton(
+          //       onPressed: () {},
+          //       icon: const Icon(IconBroken.Notification),
+          //     ),
+          //     IconButton(
+          //       onPressed: () {},
+          //       icon: const Icon(IconBroken.Search),
+          //     ),
+          //   ],
+          // ),
+          
           body: SafeArea(
             child: BlocProvider.of<HomeCubit>(context)
                 .views[BlocProvider.of<HomeCubit>(context).currentIndex],
