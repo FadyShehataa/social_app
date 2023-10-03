@@ -15,6 +15,4 @@ abstract class NewsFeedRepo {
 
   // update like post
   Future<Either<Failure, int>> updateLikePost({required PostModel postModel});
-
-
 }

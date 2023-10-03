@@ -12,7 +12,6 @@ class PostModel extends Equatable {
   final String? postId;
   final List<String>? likes;
 
-
   const PostModel({
     this.name,
     this.uId,

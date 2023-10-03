@@ -16,5 +16,4 @@ void setupServiceLocator() {
   getIt.registerSingleton<NewsFeedRepoImpl>(NewsFeedRepoImpl());
 
   getIt.registerSingleton<ChatRepoImpl>(ChatRepoImpl());
-
 }

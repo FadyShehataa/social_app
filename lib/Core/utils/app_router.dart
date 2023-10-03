@@ -16,6 +16,7 @@ import 'package:social_app/Features/Profile/presentation/manager/profile_cubit/p
 import '../../Features/Auth/data/repos/auth_repo_impl.dart';
 import '../../Features/Auth/presentation/views/register_view.dart';
 import '../../Features/Profile/presentation/views/edit_profile_view.dart';
+import '../models/user_model.dart';
 import 'constants.dart';
 
 abstract class AppRouter {
@@ -34,8 +35,20 @@ abstract class AppRouter {
         path: '/',
         builder: (context, state) {
           if (uId != null && uId!.isNotEmpty) {
-            return BlocProvider(
-              create: (context) => HomeCubit()..getUserData(),
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => HomeCubit()..getUserData(),
+                ),
+                BlocProvider(
+                  create: (context) =>
+                      NewsFeedCubit(getIt.get<NewsFeedRepoImpl>())..getPosts(),
+                ),
+                BlocProvider(
+                  create: (context) =>
+                      ChatCubit(getIt.get<ChatRepoImpl>())..getAllUsers(),
+                ),
+              ],
               child: const HomeView(),
             );
           } else {
@@ -111,7 +124,12 @@ abstract class AppRouter {
 
       GoRoute(
         path: kChatDetailsView,
-        builder: (context, state) => ChatDetailsView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => ChatCubit(getIt.get<ChatRepoImpl>())..getMessages((state.extra as UserModel).uId!),
+          child: ChatDetailsView(
+            userModel: state.extra as UserModel,
+          ),
+        ),
       ),
     ],
   );

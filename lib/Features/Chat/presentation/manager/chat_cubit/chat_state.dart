@@ -22,3 +22,25 @@ final class GetAllUsersLoading extends ChatState {}
 
 // search for users
 final class ChatsSearching extends ChatState {}
+
+// get all messages
+final class GetMessagesLoadingState extends ChatState {}
+
+final class GetMessagesSuccessState extends ChatState {}
+
+final class GetMessagesFailureState extends ChatState {
+  final String errorMessage;
+
+  const GetMessagesFailureState({required this.errorMessage});
+}
+
+// send message
+final class SendMessageLoadingState extends ChatState {}
+
+final class SendMessageSuccessState extends ChatState {}
+
+final class SendMessageFailureState extends ChatState {
+  final String errorMessage;
+
+  const SendMessageFailureState({required this.errorMessage});
+}
