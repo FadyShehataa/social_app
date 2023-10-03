@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:social_app/Core/models/user_model.dart';
+import 'package:social_app/Core/utils/app_router.dart';
 import 'package:social_app/Core/utils/constants.dart';
 import 'package:social_app/Core/utils/styles.dart';
 
@@ -11,7 +13,7 @@ class ChatItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => GoRouter.of(context).push(AppRouter.kChatDetailsView),
       child: Row(
         children: [
           CircleAvatar(

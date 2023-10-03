@@ -7,7 +7,7 @@ class CustomAppBar extends StatelessWidget {
       {super.key, required this.kContext, this.title, this.actions});
 
   final BuildContext kContext;
-  final String? title;
+  final Widget? title;
   final List<Widget>? actions;
 
   @override
@@ -22,9 +22,7 @@ class CustomAppBar extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 5),
-        title != null
-            ? Text(title!, style: const TextStyle(color: Colors.black))
-            : const SizedBox(),
+        title != null ? title! : const SizedBox(),
         const Spacer(),
         actions != null ? Row(children: actions!) : const SizedBox(),
       ],

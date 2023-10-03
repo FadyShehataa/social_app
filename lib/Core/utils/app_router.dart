@@ -6,6 +6,7 @@ import 'package:social_app/Features/Auth/presentation/manager/register_cubit/reg
 import 'package:social_app/Features/Auth/presentation/views/login_view.dart';
 import 'package:social_app/Features/Chat/data/repos/chat_repo_impl.dart';
 import 'package:social_app/Features/Chat/presentation/manager/chat_cubit/chat_cubit.dart';
+import 'package:social_app/Features/Chat/presentation/views/chat_details_view.dart';
 import 'package:social_app/Features/Home/presentation/manager/home_cubit/home_cubit.dart';
 import 'package:social_app/Features/Home/presentation/views/home_view.dart';
 import 'package:social_app/Features/News%20Feed/data/repos/news_feed_repo_impl.dart';
@@ -23,6 +24,7 @@ abstract class AppRouter {
   static const kHomeView = '/homeView';
   static const kNewPostView = '/newPostView';
   static const kEditProfileView = '/editProfileView';
+  static const kChatDetailsView = '/chatDetailsView';
 
   static final router = GoRouter(
     routes: [
@@ -105,6 +107,11 @@ abstract class AppRouter {
           ],
           child: const EditProfileView(),
         ),
+      ),
+
+      GoRoute(
+        path: kChatDetailsView,
+        builder: (context, state) => ChatDetailsView(),
       ),
     ],
   );

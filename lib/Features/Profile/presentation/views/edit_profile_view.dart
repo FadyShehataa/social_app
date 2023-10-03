@@ -19,9 +19,9 @@ class EditProfileView extends StatelessWidget {
     var profileImage = BlocProvider.of<ProfileCubit>(context).profileImage;
     var coverImage = BlocProvider.of<ProfileCubit>(context).coverImage;
     return BlocConsumer<ProfileCubit, ProfileState>(listener: (context, state) {
-      if(state is ProfileImagePickedSuccess){
+      if (state is ProfileImagePickedSuccess) {
         profileImage = BlocProvider.of<ProfileCubit>(context).profileImage;
-      } else if(state is CoverImagePickedSuccess){
+      } else if (state is CoverImagePickedSuccess) {
         coverImage = BlocProvider.of<ProfileCubit>(context).coverImage;
       }
     }, builder: (context, state) {
@@ -31,7 +31,8 @@ class EditProfileView extends StatelessWidget {
             children: [
               CustomAppBar(
                 kContext: context,
-                title: 'Edit Profile',
+                title: const Text('Edit Profile',
+                    style: TextStyle(color: Colors.black)),
                 actions: [
                   TextButton(
                     onPressed: () {},

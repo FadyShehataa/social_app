@@ -6,7 +6,8 @@ import '../../manager/news_feed_cubit/news_feed_cubit.dart';
 
 class CreatePostHeader extends StatelessWidget {
   const CreatePostHeader({
-    super.key, required this.postController,
+    super.key,
+    required this.postController,
   });
 
   final TextEditingController postController;
@@ -15,7 +16,7 @@ class CreatePostHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomAppBar(
       kContext: context,
-      title: 'Create Post',
+      title: const Text('Create Post', style: TextStyle(color: Colors.black)),
       actions: [
         TextButton(
           onPressed: () {

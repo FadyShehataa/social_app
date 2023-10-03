@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/Features/Chat/data/repos/chat_repo_impl.dart';
 
 import '../../../../../Core/models/user_model.dart';
+import '../../../../../Core/utils/constants.dart';
 
 part 'chat_state.dart';
 
@@ -19,8 +20,8 @@ class ChatCubit extends Cubit<ChatState> {
     result.fold(
       (failure) => emit(GetAllUsersFailure(errorMessage: failure.errMessage)),
       (users) {
-        this.users = users;
-        searchedChats = users;
+        this.users = users.where((element) => element.uId != uId).toList();
+        searchedChats = this.users;
         emit(GetAllUsersSuccess());
       },
     );
