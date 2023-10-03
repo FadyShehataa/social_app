@@ -7,18 +7,22 @@ sealed class ChatState extends Equatable {
   List<Object> get props => [];
 }
 
-final class ChatInitial extends ChatState {}
+final class ChatInitialState extends ChatState {}
+
 
 // get all users for chat view
-final class GetAllUsersSuccess extends ChatState {}
+final class GetUsersForChatSuccessState extends ChatState {}
 
-final class GetAllUsersFailure extends ChatState {
+final class GetUsersForChatFailureState extends ChatState {
   final String errorMessage;
 
-  const GetAllUsersFailure({required this.errorMessage});
+  const GetUsersForChatFailureState({required this.errorMessage});
 }
 
-final class GetAllUsersLoading extends ChatState {}
+final class GetUsersForChatLoadingState extends ChatState {}
+
+
+
 
 // search for users
 final class ChatsSearching extends ChatState {}

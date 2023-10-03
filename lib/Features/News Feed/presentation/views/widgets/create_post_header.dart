@@ -15,7 +15,7 @@ class CreatePostHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomAppBar(
-      kContext: context,
+      context: context,
       title: const Text('Create Post', style: TextStyle(color: Colors.black)),
       actions: [
         TextButton(

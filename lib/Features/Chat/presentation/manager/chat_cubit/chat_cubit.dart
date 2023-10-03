@@ -9,34 +9,35 @@ import '../../../../../Core/utils/constants.dart';
 part 'chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
-  ChatCubit(this.chatRepo) : super(ChatInitial());
+  ChatCubit(this.chatRepo) : super(ChatInitialState());
 
   final ChatRepoImpl chatRepo;
-  late final List<UserModel> users;
+
+  late final List<UserModel> usersChat;
   List<UserModel> searchedChats = [];
 
   List<MessageModel> messages = [];
 
-  Future<void> getAllUsers() async {
-    emit(GetAllUsersLoading());
+  Future<void> getUsersForChat() async {
+    emit(GetUsersForChatLoadingState());
     var result = await chatRepo.getAllUsers();
     result.fold(
-      (failure) => emit(GetAllUsersFailure(errorMessage: failure.errMessage)),
+      (failure) => emit(GetUsersForChatFailureState(errorMessage: failure.errMessage)),
       (users) {
-        this.users = users.where((element) => element.uId != uId).toList();
-        searchedChats = this.users;
-        emit(GetAllUsersSuccess());
+        usersChat = users.where((element) => element.uId != uId).toList();
+        searchedChats = usersChat;
+        emit(GetUsersForChatSuccessState());
       },
     );
   }
 
   Future<void> searchChat(String query) async {
     emit(ChatsSearching());
-    searchedChats = users
+    searchedChats = usersChat
         .where((element) =>
             element.name!.toLowerCase().startsWith(query.toLowerCase()))
         .toList();
-    emit(GetAllUsersSuccess());
+    emit(GetUsersForChatSuccessState());
   }
 
   Future<void> getMessages(String receiverId) async {

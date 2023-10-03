@@ -46,7 +46,7 @@ abstract class AppRouter {
                 ),
                 BlocProvider(
                   create: (context) =>
-                      ChatCubit(getIt.get<ChatRepoImpl>())..getAllUsers(),
+                      ChatCubit(getIt.get<ChatRepoImpl>())..getUsersForChat(),
                 ),
               ],
               child: const HomeView(),
@@ -86,7 +86,7 @@ abstract class AppRouter {
             ),
             BlocProvider(
               create: (context) =>
-                  ChatCubit(getIt.get<ChatRepoImpl>())..getAllUsers(),
+                  ChatCubit(getIt.get<ChatRepoImpl>())..getUsersForChat(),
             ),
           ],
           child: const HomeView(),

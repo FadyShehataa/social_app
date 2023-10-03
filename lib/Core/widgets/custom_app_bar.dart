@@ -4,18 +4,18 @@ import 'package:social_app/Core/utils/icon_broken.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar(
-      {super.key, required this.kContext, this.title, this.actions});
+      {super.key, required this.context, this.title, this.actions});
 
-  final BuildContext kContext;
+  final BuildContext context;
   final Widget? title;
   final List<Widget>? actions;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext kContext) {
     return Row(
       children: [
         IconButton(
-          onPressed: () => GoRouter.of(kContext).pop(),
+          onPressed: () => GoRouter.of(context).pop(),
           icon: const Icon(
             IconBroken.Arrow___Left_2,
             color: Colors.black,

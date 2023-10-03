@@ -30,7 +30,7 @@ class EditProfileView extends StatelessWidget {
           child: Column(
             children: [
               CustomAppBar(
-                kContext: context,
+                context: context,
                 title: const Text('Edit Profile',
                     style: TextStyle(color: Colors.black)),
                 actions: [

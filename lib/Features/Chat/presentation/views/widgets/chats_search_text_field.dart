@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/Features/Chat/presentation/manager/chat_cubit/chat_cubit.dart';
 
-class ChatsSearch extends StatelessWidget {
-  const ChatsSearch({super.key, required this.searchController});
+class ChatsSearchTextField extends StatelessWidget {
+  const ChatsSearchTextField({super.key, required this.searchController});
 
   final TextEditingController searchController;
 

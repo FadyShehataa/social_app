@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/Core/utils/styles.dart';
 import 'package:social_app/Features/Chat/presentation/manager/chat_cubit/chat_cubit.dart';
 import 'package:social_app/Features/Chat/presentation/views/widgets/chat_item.dart';
-import 'package:social_app/Features/Chat/presentation/views/widgets/chats_search.dart';
+import 'package:social_app/Features/Chat/presentation/views/widgets/chats_search_text_field.dart';
 import 'package:social_app/Features/News%20Feed/presentation/views/widgets/custom_divider.dart';
 
 import '../../../../Core/widgets/custom_failure_widget.dart';
@@ -16,16 +16,13 @@ class ChatsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ChatCubit, ChatState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+    return BlocBuilder<ChatCubit, ChatState>(
       builder: (context, state) {
-        if (state is GetAllUsersLoading) {
+        if (state is GetUsersForChatLoadingState) {
           return const CustomLoadingWidget();
-        } else if (state is GetAllUsersFailure) {
+        } else if (state is GetUsersForChatFailureState) {
           return CustomFailureWidget(errMessage: state.errorMessage);
-        } else if (state is GetAllUsersSuccess) {
+        } else {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Column(
@@ -35,7 +32,7 @@ class ChatsView extends StatelessWidget {
                   children: [Text('Chats', style: Styles.textStyle30)],
                 ),
                 const SizedBox(height: 10),
-                ChatsSearch(searchController: searchController),
+                ChatsSearchTextField(searchController: searchController),
                 const SizedBox(height: 20),
                 Expanded(
                   child: ListView.separated(
@@ -56,9 +53,6 @@ class ChatsView extends StatelessWidget {
             ),
           );
         }
-        return const Center(
-          child: Text('Something went wrong'),
-        );
       },
     );
   }
