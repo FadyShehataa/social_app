@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_app/Core/utils/my_colors.dart';
 
 import '../../../data/models/message_model.dart';
 
@@ -14,22 +15,20 @@ class ChatBubble extends StatelessWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: Container(
-        padding:
-            const EdgeInsets.only(left: 16, top: 32, bottom: 32, right: 32),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(32),
-            topRight: Radius.circular(32),
-            bottomLeft: Radius.circular(32),
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+            bottomLeft: Radius.circular(10),
           ),
-          color: Color(0xff006D84),
+          color: Colors.blue,
         ),
         child: Text(
           message.text!,
-          style: const TextStyle(
-            color: Colors.white,
-          ),
+          
+          style: const TextStyle(color: Colors.white,fontSize: 20, fontWeight: FontWeight.w500),
         ),
       ),
     );

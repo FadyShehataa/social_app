@@ -24,7 +24,12 @@ class ChatDetailsView extends StatelessWidget {
         child: Column(
           children: [
             ChatDetailsViewAppBar(userModel: userModel),
-            BlocBuilder<ChatCubit, ChatState>(builder: (context, state) {
+            BlocConsumer<ChatCubit, ChatState>(
+              listener: (context, state){
+
+              },
+              builder: (context, state) {
+              print(state);
               return Expanded(
                 child: ListView.builder(
                   reverse: true,
