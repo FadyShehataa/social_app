@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:social_app/Features/News%20Feed/data/repos/news_feed_repo_impl.dart';
 
 import '../../../data/models/post_model.dart';
@@ -11,17 +14,31 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
 
   final NewsFeedRepoImpl newsFeedRepo;
 
+  File? postImage;
+  var picker = ImagePicker();
+
+  Future<void> getPostImage() async {
+    emit(PostImagePickedLoadingState());
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      postImage = File(pickedFile.path);
+      emit(PostImagePickedSuccessState());
+    } else {
+      emit(PostImagePickedFailureState());
+    }
+  }
+
   Future<void> createPost({
     required String text,
     required String dateTime,
-    required String postImage,
+    required File? postImage,
   }) async {
     emit(CreatePostLoadingState());
 
     var result = await newsFeedRepo.createPost(
       dateTime: dateTime,
       text: text,
-      postImage: postImage,
+      postImage: this.postImage,
     );
 
     result.fold(

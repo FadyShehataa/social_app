@@ -45,3 +45,11 @@ final class UpdateLikePostFailureState extends NewsFeedState {
 
   const UpdateLikePostFailureState({required this.errorMessage});
 }
+
+// Upload post image
+final class PostImagePickedSuccessState extends NewsFeedState {}
+
+final class PostImagePickedFailureState extends NewsFeedState {}
+
+final class PostImagePickedLoadingState extends NewsFeedState {}
+
