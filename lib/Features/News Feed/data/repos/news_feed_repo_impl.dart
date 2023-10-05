@@ -48,7 +48,7 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
     try {
       List<PostModel> posts = [];
       QuerySnapshot<Map<String, dynamic>> data =
-          await FirebaseFirestore.instance.collection('posts').get();
+          await FirebaseFirestore.instance.collection('posts').orderBy('dateTime', descending: true).get();
       for (var item in data.docs) {
         posts.add(PostModel.fromMap(item.data()));
       }

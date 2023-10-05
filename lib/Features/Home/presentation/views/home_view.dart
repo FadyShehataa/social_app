@@ -13,29 +13,12 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
-        if(state is NewPostState) {
+        if (state is NewPostState) {
           GoRouter.of(context).push(AppRouter.kNewPostView);
         }
       },
       builder: (context, state) {
         return Scaffold(
-          // appBar: AppBar(
-          //   title: Text(
-          //     BlocProvider.of<HomeCubit>(context)
-          //         .titles[BlocProvider.of<HomeCubit>(context).currentIndex],
-          //   ),
-          //   actions: [
-          //     IconButton(
-          //       onPressed: () {},
-          //       icon: const Icon(IconBroken.Notification),
-          //     ),
-          //     IconButton(
-          //       onPressed: () {},
-          //       icon: const Icon(IconBroken.Search),
-          //     ),
-          //   ],
-          // ),
-          
           body: SafeArea(
             child: BlocProvider.of<HomeCubit>(context)
                 .views[BlocProvider.of<HomeCubit>(context).currentIndex],
@@ -51,21 +34,14 @@ class HomeView extends StatelessWidget {
                 label: 'Chats',
               ),
               BottomNavigationBarItem(
-                icon: Icon(IconBroken.Paper_Upload),
-                label: 'Post',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(IconBroken.Location),
-                label: 'Users',
-              ),
-              BottomNavigationBarItem(
                 icon: Icon(IconBroken.Setting),
                 label: 'Settings',
               ),
             ],
             currentIndex: BlocProvider.of<HomeCubit>(context).currentIndex,
             onTap: (value) {
-              BlocProvider.of<HomeCubit>(context).changeBottomNavBarState(value);
+              BlocProvider.of<HomeCubit>(context)
+                  .changeBottomNavBarState(value);
             },
           ),
         );

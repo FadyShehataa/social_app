@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:social_app/Core/utils/constants.dart';
 
 import '../../../data/models/post_model.dart';
 
@@ -12,7 +14,7 @@ class PostHeader extends StatelessWidget {
     return Row(
       children: [
         CircleAvatar(
-          radius: 25.0,
+          radius: defaultRadius,
           backgroundImage: NetworkImage(post.image!),
         ),
         const SizedBox(width: 10),
@@ -23,11 +25,11 @@ class PostHeader extends StatelessWidget {
               post.name!,
               style: const TextStyle(
                 fontSize: 18.0,
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w600,
               ),
             ),
             Text(
-              post.dateTime!,
+              '${DateFormat.MMMMd().format(DateTime.parse(post.dateTime!))} at ${DateFormat.Hm().format(DateTime.parse(post.dateTime!))} ',
               style: TextStyle(
                 fontSize: 14.0,
                 color: Colors.grey[400],
@@ -39,7 +41,7 @@ class PostHeader extends StatelessWidget {
         IconButton(
           onPressed: () {},
           icon: const Icon(
-            Icons.more_horiz,
+            Icons.more_vert,
           ),
         ),
       ],

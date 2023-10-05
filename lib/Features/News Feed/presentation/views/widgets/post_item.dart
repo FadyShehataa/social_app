@@ -22,10 +22,11 @@ class PostItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             PostHeader(post: post),
+            const SizedBox(height: 5),
             const CustomDivider(),
             PostBody(post: post),
             const CustomDivider(),
-            PostFooter(post: post), 
+            PostFooter(post: post),
           ],
         ),
       ),

@@ -29,7 +29,9 @@ class ChatsSearchTextField extends StatelessWidget {
         ),
         fillColor: const Color(0xffECEDF1),
         filled: true,
+        hintStyle: const TextStyle(fontSize: 18),
       ),
+      style: const TextStyle(fontSize: 18),
       onChanged: (String searchingText) {
         BlocProvider.of<ChatCubit>(context).searchChat(searchingText);
       },

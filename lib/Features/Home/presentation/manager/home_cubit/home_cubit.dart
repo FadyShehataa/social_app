@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:social_app/Features/Home/presentation/views/users_view.dart';
 import 'package:social_app/Features/Profile/presentation/views/profile_view.dart';
 
 import '../../../../../Core/models/user_model.dart';
@@ -15,31 +14,24 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
 
-  int currentIndex = 1;
+  int currentIndex = 0;
   List<Widget> views = [
     const NewsFeedView(),
     ChatsView(),
-    const NewsFeedView(),
-    const UsersView(),
     const ProfileView(),
   ];
 
   List<String> titles = [
     'Home',
     'Chats',
-    'New Post',
-    'Users',
     'Settings',
   ];
 
   void changeBottomNavBarState(int index) {
     emit(ChangeBottomNavBarLoadingState());
-    if (index == 2) {
-      emit(NewPostState());
-    } else {
-      currentIndex = index;
-      emit(ChangeBottomNavBarSuccessState());
-    }
+
+    currentIndex = index;
+    emit(ChangeBottomNavBarSuccessState());
   }
 
   late final UserModel userModell;

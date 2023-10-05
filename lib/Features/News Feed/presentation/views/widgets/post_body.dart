@@ -12,47 +12,64 @@ class PostBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Text(post.text!),
-        ),
-        if (post.postImage != '')
-          Image.network(
-            post.postImage!,
-            width: double.infinity,
-            height: 220.0,
-            fit: BoxFit.cover,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(post.text!, style: const TextStyle(fontSize: 20)),
+          if (post.postImage != '')
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Image.network(
+                post.postImage!,
+                width: double.infinity,
+                height: 220.0,
+                fit: BoxFit.cover,
+              ),
+            ),
+          BlocBuilder<NewsFeedCubit, NewsFeedState>(
+            builder: (context, state) {
+              int likes = BlocProvider.of<NewsFeedCubit>(context)
+                  .posts
+                  .firstWhere((element) => element.postId == post.postId)
+                  .likes!
+                  .length;
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Spacer(),
+                  if (likes != 0)
+                    TextButton.icon(
+                      onPressed: () {},
+                      icon: Text(
+                        likes.toString(),
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+                      label: const Icon(
+                        IconBroken.Heart,
+                        color: Colors.grey,
+                      ),
+                      style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                    ),
+                  TextButton.icon(
+                    onPressed: () {},
+                    icon: const Text(
+                      '521',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    label: const Icon(
+                      IconBroken.Chat,
+                      color: Colors.grey,
+                    ),
+                    style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                  ),
+                ],
+              );
+            },
           ),
-        BlocBuilder<NewsFeedCubit, NewsFeedState>(
-          builder: (context, state) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(IconBroken.Heart),
-                  label: Text(BlocProvider.of<NewsFeedCubit>(context)
-                      .posts
-                      .firstWhere((element) => element.postId == post.postId)
-                      .likes!
-                      .length
-                      .toString()),
-                  style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                ),
-                TextButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(IconBroken.Chat),
-                  label: const Text('521 Comments'),
-                  style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                ),
-              ],
-            );
-          },
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
