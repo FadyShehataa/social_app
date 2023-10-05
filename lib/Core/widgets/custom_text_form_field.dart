@@ -10,6 +10,9 @@ class CustomTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.obscureText = false,
     this.border = const OutlineInputBorder(),
+    this.maxLines = 1,
+    this.hintStyle,
+    this.style,
   });
 
   final TextEditingController controller;
@@ -19,6 +22,9 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? prefixIcon;
   bool obscureText;
   InputBorder? border;
+  int? maxLines;
+  TextStyle? hintStyle;
+  TextStyle? style;
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +37,16 @@ class CustomTextFormField extends StatelessWidget {
         }
         return null;
       },
+      maxLines: maxLines,
       decoration: InputDecoration(
         hintText: hintText,
         contentPadding: const EdgeInsets.all(20),
         border: border,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
+        hintStyle: hintStyle,
       ),
+      style: style,
       obscureText: obscureText,
     );
   }
