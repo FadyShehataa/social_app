@@ -8,14 +8,14 @@ class ProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 190,
+      height: 250,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
           Align(
             alignment: AlignmentDirectional.topCenter,
             child: Container(
-              height: 140,
+              height: 200,
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
