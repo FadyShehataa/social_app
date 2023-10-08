@@ -15,6 +15,7 @@ import 'package:social_app/Features/News%20Feed/presentation/views/create_post_v
 import 'package:social_app/Features/Profile/presentation/manager/profile_cubit/profile_cubit.dart';
 import '../../Features/Auth/data/repos/auth_repo_impl.dart';
 import '../../Features/Auth/presentation/views/register_view.dart';
+import '../../Features/Profile/data/repos/edit_profilr_repo_impl.dart';
 import '../../Features/Profile/presentation/views/edit_profile_view.dart';
 import '../models/user_model.dart';
 import 'constants.dart';
@@ -105,7 +106,6 @@ abstract class AppRouter {
           ],
           child: CreatePostView(),
         ),
-        // builder: (context, state) => CreatePostView(),
       ),
       GoRoute(
         path: kEditProfileView,
@@ -115,7 +115,8 @@ abstract class AppRouter {
               create: (context) => HomeCubit()..getUserData(),
             ),
             BlocProvider(
-              create: (context) => ProfileCubit(),
+              create: (context) =>
+                  ProfileCubit(getIt.get<EditProfileRepoImpl>()),
             ),
           ],
           child: const EditProfileView(),
@@ -125,7 +126,8 @@ abstract class AppRouter {
       GoRoute(
         path: kChatDetailsView,
         builder: (context, state) => BlocProvider(
-          create: (context) => ChatCubit(getIt.get<ChatRepoImpl>())..getMessages((state.extra as UserModel).uId!),
+          create: (context) => ChatCubit(getIt.get<ChatRepoImpl>())
+            ..getMessages((state.extra as UserModel).uId!),
           child: ChatDetailsView(
             userModel: state.extra as UserModel,
           ),

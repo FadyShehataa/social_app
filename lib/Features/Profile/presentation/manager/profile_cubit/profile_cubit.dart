@@ -4,35 +4,38 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../data/repos/edit_profilr_repo_impl.dart';
+
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
-  ProfileCubit() : super(ProfileInitial());
+  ProfileCubit(this.editProfileRepo) : super(ProfileInitial());
 
-  var profileImage;
-  var coverImage;
-  final picker = ImagePicker();
+  final EditProfileRepoImpl editProfileRepo;
 
-  Future<void> pickProfileImage() async {
+  File? profileImage;
+  File? coverImage;
+  var picker = ImagePicker();
+
+  Future<void> getProfileImage() async {
+    emit(ProfileImagePickedLoadingState());
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       profileImage = File(pickedFile.path);
-      print('Succcess');
-      emit(ProfileImagePickedSuccess());
+      emit(ProfileImagePickedSuccessState());
     } else {
-      print('No image selected.');
-      emit(ProfileImagePickedFailure());
+      emit(ProfileImagePickedFailureState());
     }
   }
 
-  Future<void> pickCoverImage() async {
+  Future<void> getCoverImage() async {
+    emit(CoverImagePickedLoadingState());
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       coverImage = File(pickedFile.path);
-      emit(CoverImagePickedSuccess());
+      emit(CoverImagePickedSuccessState());
     } else {
-      print('No image selected.');
-      emit(CoverImagePickedFailure());
+      emit(CoverImagePickedFailureState());
     }
   }
 }

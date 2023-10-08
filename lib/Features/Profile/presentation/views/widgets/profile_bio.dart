@@ -10,7 +10,7 @@ class ProfileBio extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(user.name!, style: Styles.textStyle20),
+        Text(user.name!, style: Styles.textStyle28),
         Text(user.bio!, style: Styles.textStyle16),
       ],
     );

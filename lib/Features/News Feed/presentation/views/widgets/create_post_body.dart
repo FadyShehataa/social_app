@@ -11,30 +11,10 @@ class CreatePostBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var postImage = BlocProvider.of<NewsFeedCubit>(context).postImage;
-    print('postImage: $postImage');
-
+    print('aaaaaaaaaaa');
     return Expanded(
       child: Column(
         children: [
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-          //   child: Row(
-          //     children: [
-          //       CircleAvatar(
-          //         radius: defaultRadius,
-          //         backgroundImage: NetworkImage(user.image!),
-          //       ),
-          //       const SizedBox(width: 10),
-          //       Text(
-          //         user.name!,
-          //         style: const TextStyle(
-          //           fontSize: 18.0,
-          //           fontWeight: FontWeight.w800,
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
           Expanded(
             child: CustomTextFormField(
               controller: postController,

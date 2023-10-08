@@ -12,12 +12,12 @@ import 'package:social_app/Features/News%20Feed/presentation/views/widgets/custo
 class CreatePostView extends StatelessWidget {
   CreatePostView({super.key});
 
-  final TextEditingController postController = TextEditingController();
 
-  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
+  bool isLoading = false;
+  final TextEditingController postController = TextEditingController();
     return Scaffold(
       body: SafeArea(
         child: BlocConsumer<NewsFeedCubit, NewsFeedState>(
@@ -41,6 +41,7 @@ class CreatePostView extends StatelessWidget {
             }
           },
           builder: (context, state) {
+            print(state);
             return ModalProgressHUD(
               inAsyncCall: isLoading,
               child: Column(
