@@ -29,7 +29,6 @@ class ChatDetailsView extends StatelessWidget {
 
               },
               builder: (context, state) {
-              print(state);
               return Expanded(
                 child: ListView.builder(
                   reverse: true,

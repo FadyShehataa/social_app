@@ -78,8 +78,11 @@ class EditProfileImagesSection extends StatelessWidget {
                 onPressed: () {
                   BlocProvider.of<ProfileCubit>(context).getProfileImage();
                 },
-                child: const Text('Change Profile Photo',
-                    style: Styles.textStyle18),
+                child: Text(
+                  'Change Profile Photo',
+                  style: Styles.textStyle18
+                      .copyWith(fontWeight: FontWeight.normal),
+                ),
               ),
             ),
             Expanded(
@@ -87,8 +90,11 @@ class EditProfileImagesSection extends StatelessWidget {
                 onPressed: () {
                   BlocProvider.of<ProfileCubit>(context).getCoverImage();
                 },
-                child:
-                    const Text('Change Cover Photo', style: Styles.textStyle18),
+                child: Text(
+                  'Change Cover Photo',
+                  style: Styles.textStyle18
+                      .copyWith(fontWeight: FontWeight.normal),
+                ),
               ),
             ),
           ],

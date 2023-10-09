@@ -11,7 +11,6 @@ class CreatePostBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var postImage = BlocProvider.of<NewsFeedCubit>(context).postImage;
-    print('aaaaaaaaaaa');
     return Expanded(
       child: Column(
         children: [

@@ -38,4 +38,26 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit(CoverImagePickedFailureState());
     }
   }
+
+  Future<void> editProfile({
+    required String name,
+    required String bio,
+    required String phone,
+  }) async {
+    emit(EditProfileLoadingState());
+
+    var result = await editProfileRepo.editProfile(
+      name: name,
+      bio: bio,
+      phone: phone,
+      profileImage: profileImage,
+      coverImage: coverImage,
+    );
+
+    result.fold(
+      (failure) =>
+          emit(EditProfileFailureState(errorMessage: failure.errMessage)),
+      (_) => emit(EditProfileSuccessState()),
+    );
+  }
 }

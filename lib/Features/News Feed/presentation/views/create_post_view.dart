@@ -10,14 +10,12 @@ import 'package:social_app/Features/News%20Feed/presentation/views/widgets/creat
 import 'package:social_app/Features/News%20Feed/presentation/views/widgets/custom_divider.dart';
 
 class CreatePostView extends StatelessWidget {
-  CreatePostView({super.key});
-
-
+  const CreatePostView({super.key});
 
   @override
   Widget build(BuildContext context) {
-  bool isLoading = false;
-  final TextEditingController postController = TextEditingController();
+    bool isLoading = false;
+    final TextEditingController postController = TextEditingController();
     return Scaffold(
       body: SafeArea(
         child: BlocConsumer<NewsFeedCubit, NewsFeedState>(
@@ -41,7 +39,6 @@ class CreatePostView extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            print(state);
             return ModalProgressHUD(
               inAsyncCall: isLoading,
               child: Column(

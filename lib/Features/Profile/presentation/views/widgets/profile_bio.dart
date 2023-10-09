@@ -8,11 +8,14 @@ class ProfileBio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(user.name!, style: Styles.textStyle28),
-        Text(user.bio!, style: Styles.textStyle16),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        children: [
+          Text(user.name!, style: Styles.textStyle28),
+          Text(user.bio!, style: Styles.textStyle16),
+        ],
+      ),
     );
   }
 }

@@ -31,7 +31,11 @@ class EditProfileView extends StatelessWidget {
                   BlocProvider.of<ProfileCubit>(context).coverImage;
               return Column(
                 children: [
-                  const EditProfileHeader(),
+                  EditProfileHeader(
+                    nameController: nameController,
+                    bioController: bioController,
+                    phoneController: phoneController,
+                  ),
                   EditProfileImagesSection(
                     coverImage: coverImage,
                     profileImage: profileImage,

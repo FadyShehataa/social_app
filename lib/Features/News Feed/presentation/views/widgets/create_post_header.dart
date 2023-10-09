@@ -24,7 +24,6 @@ class CreatePostHeader extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () {
-            print('postImage 2 = ${BlocProvider.of<NewsFeedCubit>(context).postImage}');
             BlocProvider.of<NewsFeedCubit>(context).createPost(
               text: postController.text,
               dateTime: DateTime.now().toString(),

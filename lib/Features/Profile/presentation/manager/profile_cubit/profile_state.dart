@@ -20,3 +20,13 @@ final class CoverImagePickedSuccessState extends ProfileState {}
 final class CoverImagePickedFailureState extends ProfileState {}
 
 final class CoverImagePickedLoadingState extends ProfileState {}
+
+final class EditProfileLoadingState extends ProfileState {}
+
+final class EditProfileSuccessState extends ProfileState {}
+
+final class EditProfileFailureState extends ProfileState {
+  final String errorMessage;
+
+  const EditProfileFailureState({required this.errorMessage});
+}
