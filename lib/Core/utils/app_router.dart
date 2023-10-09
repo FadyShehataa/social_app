@@ -104,7 +104,7 @@ abstract class AppRouter {
               create: (context) => NewsFeedCubit(getIt.get<NewsFeedRepoImpl>()),
             ),
           ],
-          child: CreatePostView(),
+          child: const CreatePostView(),
         ),
       ),
       GoRoute(

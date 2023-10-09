@@ -53,3 +53,14 @@ final class PostImagePickedFailureState extends NewsFeedState {}
 
 final class PostImagePickedLoadingState extends NewsFeedState {}
 
+
+// delete post
+final class DeletePostLoadingState extends NewsFeedState {}
+
+final class DeletePostSuccessState extends NewsFeedState {}
+
+final class DeletePostFailureState extends NewsFeedState {
+  final String errorMessage;
+
+  const DeletePostFailureState({required this.errorMessage});
+}

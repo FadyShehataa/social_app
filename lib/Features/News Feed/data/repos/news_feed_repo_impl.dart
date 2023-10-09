@@ -114,4 +114,19 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
       return left(ServerFailure(errMessage: e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> deletePost(
+      {required PostModel postModel}) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('posts')
+          .doc(postModel.postId)
+          .delete();
+      return right(null);
+    } catch (e) {
+      return left(ServerFailure(errMessage: e.toString()));
+    }
+  }
+
 }

@@ -75,4 +75,14 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
       },
     );
   }
+
+  Future<void> deletePost({required PostModel postModel}) async {
+    emit(DeletePostLoadingState());
+    var result = await newsFeedRepo.deletePost(postModel: postModel);
+    result.fold(
+      (failure) => emit(DeletePostFailureState(errorMessage: failure.errMessage)),
+      (_) => emit(DeletePostSuccessState()),
+    );
+  }
+
 }
