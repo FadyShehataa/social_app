@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:social_app/Core/utils/constants.dart';
+import 'package:social_app/Core/utils/my_colors.dart';
 
 import 'Core/utils/app_router.dart';
 import 'Core/utils/cache_network.dart';
@@ -30,8 +31,8 @@ class SocialApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       builder: DevicePreview.appBuilder,
-      routerConfig: AppRouter.router,          
-      theme: ThemeData(
+      routerConfig: AppRouter.router,
+      theme: ThemeData.dark().copyWith(
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           type: BottomNavigationBarType.fixed,
           selectedItemColor: Colors.blue,
@@ -39,7 +40,7 @@ class SocialApp extends StatelessWidget {
           elevation: 20.0,
           backgroundColor: Colors.white,
         ),
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: MyColors.myDarkGunmetal,
       ),
     );
   }

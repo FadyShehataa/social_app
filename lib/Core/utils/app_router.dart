@@ -13,14 +13,15 @@ import 'package:social_app/Features/News%20Feed/data/repos/news_feed_repo_impl.d
 import 'package:social_app/Features/News%20Feed/presentation/manager/news_feed_cubit/news_feed_cubit.dart';
 import 'package:social_app/Features/News%20Feed/presentation/views/create_post_view.dart';
 import 'package:social_app/Features/Profile/presentation/manager/profile_cubit/profile_cubit.dart';
+import 'package:social_app/Features/Splash/presentation/views/splash_view.dart';
 import '../../Features/Auth/data/repos/auth_repo_impl.dart';
 import '../../Features/Auth/presentation/views/register_view.dart';
 import '../../Features/Profile/data/repos/edit_profilr_repo_impl.dart';
 import '../../Features/Profile/presentation/views/edit_profile_view.dart';
 import '../models/user_model.dart';
-import 'constants.dart';
 
 abstract class AppRouter {
+  static const kSplashView = '/';
   static const kLoginView = '/loginView';
   static const kRegisterView = '/registerView';
   static const kHomeView = '/homeView';
@@ -34,31 +35,33 @@ abstract class AppRouter {
       // if logged in go to home view, else go to login view
       GoRoute(
         path: '/',
-        builder: (context, state) {
-          if (uId != null && uId!.isNotEmpty) {
-            return MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                  create: (context) => HomeCubit()..getUserData(),
-                ),
-                BlocProvider(
-                  create: (context) =>
-                      NewsFeedCubit(getIt.get<NewsFeedRepoImpl>())..getPosts(),
-                ),
-                BlocProvider(
-                  create: (context) =>
-                      ChatCubit(getIt.get<ChatRepoImpl>())..getUsersForChat(),
-                ),
-              ],
-              child: const HomeView(),
-            );
-          } else {
-            return BlocProvider(
-              create: (context) => LoginCubit(getIt.get<AuthRepoImpl>()),
-              child: const LoginView(),
-            );
-          }
-        },
+        builder: (context, state) => const SplashView(),
+
+        // builder: (context, state) {
+        //   if (uId != null && uId!.isNotEmpty) {
+        //     return MultiBlocProvider(
+        //       providers: [
+        //         BlocProvider(
+        //           create: (context) => HomeCubit()..getUserData(),
+        //         ),
+        //         BlocProvider(
+        //           create: (context) =>
+        //               NewsFeedCubit(getIt.get<NewsFeedRepoImpl>())..getPosts(),
+        //         ),
+        //         BlocProvider(
+        //           create: (context) =>
+        //               ChatCubit(getIt.get<ChatRepoImpl>())..getUsersForChat(),
+        //         ),
+        //       ],
+        //       child: const HomeView(),
+        //     );
+        //   } else {
+        //     return BlocProvider(
+        //       create: (context) => LoginCubit(getIt.get<AuthRepoImpl>()),
+        //       child: const LoginView(),
+        //     );
+        //   }
+        // },
       ),
       GoRoute(
         path: kLoginView,
@@ -129,7 +132,8 @@ abstract class AppRouter {
           create: (context) => ChatCubit(getIt.get<ChatRepoImpl>())
             ..getMessages((state.extra as UserModel).uId!),
           child: ChatDetailsView(
-            userModel: state.extra as UserModel,
+            // userModel: state.extra as UserModel,
+            userModel: const UserModel(), // TODO: fix this
           ),
         ),
       ),
