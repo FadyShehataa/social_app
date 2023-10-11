@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:social_app/Core/models/user_model.dart';
-import 'package:social_app/Core/utils/assets_data.dart';
 
 import '../../../../Core/errors/failures.dart';
 import '../../../../Core/utils/constants.dart';

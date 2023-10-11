@@ -36,6 +36,11 @@ abstract class Styles {
 
 //--------------------------
 
+  static final textStyle14 = TextStyle(
+    fontSize: 14,
+    fontFamily: GoogleFonts.openSans().fontFamily,
+  );
+
   static final textStyle16 = TextStyle(
     fontSize: 16,
     fontFamily: GoogleFonts.openSans().fontFamily,
@@ -49,7 +54,6 @@ abstract class Styles {
   static final textStyle20 = TextStyle(
     fontSize: 20,
     fontFamily: GoogleFonts.openSans().fontFamily,
-    fontWeight: FontWeight.w500,
   );
 
   static final textStyle22 = TextStyle(

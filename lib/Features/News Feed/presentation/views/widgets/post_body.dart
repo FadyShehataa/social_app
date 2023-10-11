@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/Core/utils/my_colors.dart';
+import 'package:social_app/Core/utils/styles.dart';
 import 'package:social_app/Features/News%20Feed/presentation/manager/news_feed_cubit/news_feed_cubit.dart';
 
 import '../../../../../Core/utils/icon_broken.dart';
@@ -13,14 +15,17 @@ class PostBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(post.text!, style: const TextStyle(fontSize: 20)),
+          Text(
+            post.text!,
+            style: Styles.textStyle20,
+          ),
           if (post.postImage != '')
             Padding(
-              padding: const EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.only(top: 10, bottom: 4),
               child: Image.network(
                 post.postImage!,
                 width: double.infinity,
@@ -44,11 +49,11 @@ class PostBody extends StatelessWidget {
                       onPressed: () {},
                       icon: Text(
                         likes.toString(),
-                        style: const TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: MyColors.myGrey),
                       ),
                       label: const Icon(
                         IconBroken.Heart,
-                        color: Colors.grey,
+                        color: MyColors.myGrey,
                       ),
                       style: TextButton.styleFrom(padding: EdgeInsets.zero),
                     ),
@@ -56,11 +61,11 @@ class PostBody extends StatelessWidget {
                     onPressed: () {},
                     icon: const Text(
                       '521',
-                      style: TextStyle(color: Colors.grey),
+                      style: TextStyle(color: MyColors.myGrey),
                     ),
                     label: const Icon(
                       IconBroken.Chat,
-                      color: Colors.grey,
+                      color: MyColors.myGrey,
                     ),
                     style: TextButton.styleFrom(padding: EdgeInsets.zero),
                   ),

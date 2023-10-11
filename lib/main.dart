@@ -21,6 +21,7 @@ void main() async {
     DevicePreview(
       builder: (context) => const SocialApp(),
     ),
+    // const SocialApp(),
   );
 }
 
@@ -36,8 +37,8 @@ class SocialApp extends StatelessWidget {
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           type: BottomNavigationBarType.fixed,
           selectedItemColor: MyColors.myAquamarine,
-          elevation: 50,
-          backgroundColor: Color.fromARGB(255, 0, 35, 62),
+          elevation: 1,
+          backgroundColor: MyColors.myDarkCerulean,
         ),
         scaffoldBackgroundColor: MyColors.myDarkCerulean,
       ),

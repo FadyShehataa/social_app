@@ -13,26 +13,24 @@ class ChatDetailsViewAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          CustomAppBar(
-            context: context,
-            title: Row(
-              children: [
-                CircleAvatar(
-                  radius: defaultRadius,
-                  backgroundImage: NetworkImage(userModel.image!),
-                ),
-                const SizedBox(width: 10),
-                Text(userModel.name!, style: Styles.textStyle18),
-              ],
-            ),
+    return Column(
+      children: [
+        CustomAppBar(
+          context: context,
+          title: Row(
+            children: [
+              CircleAvatar(
+                radius: defaultRadius,
+                backgroundImage: NetworkImage(userModel.image!),
+              ),
+              const SizedBox(width: 10),
+              Text(userModel.name!, style: Styles.textStyle18),
+            ],
           ),
-          const SizedBox(height: 5),
-          const CustomDivider(),
-        ],
-      ),
+        ),
+        const SizedBox(height: 5),
+        const CustomDivider(),
+      ],
     );
   }
 }

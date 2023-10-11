@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/Features/Auth/presentation/views/widgets/register_view_body.dart';
 
-import '../../../../Core/utils/my_colors.dart';
 
 class RegisterView extends StatelessWidget {
   const RegisterView({super.key});

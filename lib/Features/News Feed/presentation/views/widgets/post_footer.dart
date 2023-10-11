@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/Core/utils/constants.dart';
+import 'package:social_app/Core/utils/my_colors.dart';
 
 import '../../../../../Core/utils/icon_broken.dart';
 import '../../../data/models/post_model.dart';
@@ -26,11 +27,11 @@ class PostFooter extends StatelessWidget {
                 .updateLikePost(postModel: post),
             icon: Icon(
               IconBroken.Heart,
-              color: isLike ? Colors.red : Colors.grey,
+              color: isLike ? MyColors.myRed : MyColors.myGrey,
             ),
             label: Text(
               'Like',
-              style: TextStyle(color: isLike ? Colors.red : Colors.grey),
+              style: TextStyle(color: isLike ? MyColors.myRed : MyColors.myGrey),
             ),
           ),
         ),
@@ -39,11 +40,11 @@ class PostFooter extends StatelessWidget {
             onPressed: () {},
             icon: const Icon(
               IconBroken.Chat,
-              color: Colors.grey,
+              color: MyColors.myGrey,
             ),
             label: const Text(
               'Comment',
-              style: TextStyle(color: Colors.grey),
+              style: TextStyle(color: MyColors.myGrey),
             ),
           ),
         ),

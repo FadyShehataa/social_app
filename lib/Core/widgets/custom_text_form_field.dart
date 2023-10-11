@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:social_app/Core/utils/styles.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  CustomTextFormField({
+  const CustomTextFormField({
     super.key,
     required this.controller,
     this.labelText,
@@ -21,7 +21,7 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final bool obscureText;
-  InputBorder? border;
+  final InputBorder? border;
   final int? maxLines;
   final TextStyle? labelStyle;
   final TextStyle? style;
