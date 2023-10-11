@@ -13,18 +13,19 @@ class ChatItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        GoRouter.of(context).push(AppRouter.kChatDetailsView, extra: userModel);
-      },
-      child: Row(
-        children: [
-          CircleAvatar(
-            radius: defaultRadius,
-            backgroundImage: NetworkImage(userModel.image!),
-          ),
-          const SizedBox(width: 10),
-          Text(userModel.name!, style: Styles.textStyle18),
-        ],
+      onTap: () => GoRouter.of(context).push(AppRouter.kChatDetailsView, extra: userModel),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: defaultRadius,
+              backgroundImage: NetworkImage(userModel.image!),
+            ),
+            const SizedBox(width: 10),
+            Text(userModel.name!, style: Styles.textStyle18),
+          ],
+        ),
       ),
     );
   }

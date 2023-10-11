@@ -29,6 +29,7 @@ class RegisterViewBody extends StatelessWidget {
           isLoading = true;
         } else if (state is RegisterSuccessState) {
           isLoading = false;
+          // TODO save user data in cache
           GoRouter.of(context).go(AppRouter.kHomeView);
         } else if (state is RegisterFailureState) {
           isLoading = false;

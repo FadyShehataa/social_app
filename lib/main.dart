@@ -40,7 +40,7 @@ class SocialApp extends StatelessWidget {
           elevation: 20.0,
           backgroundColor: Colors.white,
         ),
-        scaffoldBackgroundColor: MyColors.myDarkGunmetal,
+        scaffoldBackgroundColor: MyColors.myDarkCerulean,
       ),
     );
   }

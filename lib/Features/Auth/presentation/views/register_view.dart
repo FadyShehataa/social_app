@@ -9,21 +9,8 @@ class RegisterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              MyColors.myDarkCerulean.withOpacity(0.4),
-              MyColors.myDarkCerulean,
-              MyColors.myDarkGunmetal,
-            ],
-          ),
-        ),
-        child: SafeArea(
-          child: RegisterViewBody(),
-        ),
+      body: SafeArea(
+        child: RegisterViewBody(),
       ),
     );
   }

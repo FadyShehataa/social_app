@@ -16,8 +16,7 @@ class RegisterFormSection extends StatelessWidget {
   final TextEditingController passwordController;
   final TextEditingController nameController;
   final TextEditingController phoneController;
-
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
