@@ -10,4 +10,6 @@ abstract class MyColors {
   static const Color myDarkCerulean = Color(0xff0F4C75);
   static const Color mySteelBlue = Color(0xff3282B8);
   static const Color myDiamond = Color(0xffBBE1FA);
+  static const Color myWhite = Color(0xffFFFFFF);
+
 }
