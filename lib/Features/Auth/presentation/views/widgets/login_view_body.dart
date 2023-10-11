@@ -11,17 +11,17 @@ import 'package:social_app/Features/Auth/presentation/views/widgets/login_to_reg
 
 import '../../../../../Core/utils/app_router.dart';
 import '../../../../../Core/utils/functions/show_snack_bar.dart';
-import 'login_button_section.dart';
+import 'custom_elevated_button.dart';
 
 class LoginViewBody extends StatelessWidget {
   LoginViewBody({super.key});
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
+    bool isLoading = false;
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) async {
         if (state is LoginLoadingState) {
@@ -45,20 +45,27 @@ class LoginViewBody extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Form(
                   key: formKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const LoginHeaderSection(),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 60),
                       LoginFormSection(
                         emailController: emailController,
                         passwordController: passwordController,
                       ),
-                      const SizedBox(height: 30),
-                      LoginButtonSection(
-                        emailController: emailController,
-                        passwordController: passwordController,
-                        formKey: formKey,
+                      const SizedBox(height: 60),
+                      CustomElevatedButton(
+                        text: 'Sign In',
+                        onPressed: () async {
+                          if (formKey.currentState!.validate()) {
+                            BlocProvider.of<LoginCubit>(context).userLogin(
+                              email: emailController.text,
+                              password: passwordController.text,
+                            );
+                          }
+                        },
                       ),
                       const SizedBox(height: 20),
                       const LoginToRegisterSection(),

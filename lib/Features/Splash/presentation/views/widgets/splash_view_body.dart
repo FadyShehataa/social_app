@@ -1,8 +1,9 @@
+import 'package:go_router/go_router.dart';
+import 'package:social_app/Core/utils/styles.dart';
+
+import '../../../../../Core/utils/app_router.dart';
 import 'sliding_text.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
-import '../../../../../core/utils/app_router.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -35,16 +36,12 @@ class _SplashViewBodyState extends State<SplashViewBody>
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Text(
+        Text(
           'SocialWave',
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.bold,
-          ),
-          
+          style: Styles.textStyle48,
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 10),
         SlidingText(slidingAnimation: slidingAnimation),
       ],
     );
@@ -53,7 +50,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
   void initSlidingAnimation() {
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 1),
+      duration: const Duration(milliseconds: 1500),
     );
     slidingAnimation = Tween<Offset>(
       begin: const Offset(0, 10),
@@ -64,10 +61,8 @@ class _SplashViewBodyState extends State<SplashViewBody>
 
   void navigateToHomeView() {
     Future.delayed(
-      const Duration(seconds: 2),
-      () {
-        // return GoRouter.of(context).push(AppRouter.kHomeView);
-      },
+      const Duration(milliseconds: 2500),
+      () => GoRouter.of(context).push(AppRouter.kAfterSplashView),
     );
   }
 }

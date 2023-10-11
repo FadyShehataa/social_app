@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:social_app/Core/models/user_model.dart';
 import 'package:social_app/Core/utils/service_locator.dart';
 import 'package:social_app/Features/Auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:social_app/Features/Auth/presentation/manager/register_cubit/register_cubit.dart';
@@ -18,50 +19,23 @@ import '../../Features/Auth/data/repos/auth_repo_impl.dart';
 import '../../Features/Auth/presentation/views/register_view.dart';
 import '../../Features/Profile/data/repos/edit_profilr_repo_impl.dart';
 import '../../Features/Profile/presentation/views/edit_profile_view.dart';
-import '../models/user_model.dart';
+import 'constants.dart';
 
 abstract class AppRouter {
   static const kSplashView = '/';
   static const kLoginView = '/loginView';
   static const kRegisterView = '/registerView';
   static const kHomeView = '/homeView';
+  static const kAfterSplashView = '/afterSplashView';
   static const kNewPostView = '/newPostView';
   static const kEditProfileView = '/editProfileView';
   static const kChatDetailsView = '/chatDetailsView';
 
   static final router = GoRouter(
     routes: [
-      // check if user is logged in or not
-      // if logged in go to home view, else go to login view
       GoRoute(
-        path: '/',
+        path: kSplashView,
         builder: (context, state) => const SplashView(),
-
-        // builder: (context, state) {
-        //   if (uId != null && uId!.isNotEmpty) {
-        //     return MultiBlocProvider(
-        //       providers: [
-        //         BlocProvider(
-        //           create: (context) => HomeCubit()..getUserData(),
-        //         ),
-        //         BlocProvider(
-        //           create: (context) =>
-        //               NewsFeedCubit(getIt.get<NewsFeedRepoImpl>())..getPosts(),
-        //         ),
-        //         BlocProvider(
-        //           create: (context) =>
-        //               ChatCubit(getIt.get<ChatRepoImpl>())..getUsersForChat(),
-        //         ),
-        //       ],
-        //       child: const HomeView(),
-        //     );
-        //   } else {
-        //     return BlocProvider(
-        //       create: (context) => LoginCubit(getIt.get<AuthRepoImpl>()),
-        //       child: const LoginView(),
-        //     );
-        //   }
-        // },
       ),
       GoRoute(
         path: kLoginView,
@@ -97,6 +71,36 @@ abstract class AppRouter {
         ),
       ),
       GoRoute(
+        path: kAfterSplashView,
+        builder: (context, state) {
+          // check if user is logged in or not
+          // if logged in go to home view, else go to login view
+          if (uId != null && uId!.isNotEmpty) {
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => HomeCubit()..getUserData(),
+                ),
+                BlocProvider(
+                  create: (context) =>
+                      NewsFeedCubit(getIt.get<NewsFeedRepoImpl>())..getPosts(),
+                ),
+                BlocProvider(
+                  create: (context) =>
+                      ChatCubit(getIt.get<ChatRepoImpl>())..getUsersForChat(),
+                ),
+              ],
+              child: const HomeView(),
+            );
+          } else {
+            return BlocProvider(
+              create: (context) => LoginCubit(getIt.get<AuthRepoImpl>()),
+              child: const LoginView(),
+            );
+          }
+        },
+      ),
+      GoRoute(
         path: kNewPostView,
         builder: (context, state) => MultiBlocProvider(
           providers: [
@@ -125,15 +129,14 @@ abstract class AppRouter {
           child: const EditProfileView(),
         ),
       ),
-
       GoRoute(
         path: kChatDetailsView,
         builder: (context, state) => BlocProvider(
           create: (context) => ChatCubit(getIt.get<ChatRepoImpl>())
             ..getMessages((state.extra as UserModel).uId!),
           child: ChatDetailsView(
-            // userModel: state.extra as UserModel,
-            userModel: const UserModel(), // TODO: fix this
+            userModel: state.extra as UserModel,
+            // userModel: const UserModel(), // TODO: fix this
           ),
         ),
       ),

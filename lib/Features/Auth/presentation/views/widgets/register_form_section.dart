@@ -25,31 +25,58 @@ class RegisterFormSection extends StatelessWidget {
       children: [
         CustomTextFormField(
           controller: nameController,
-          hintText: 'User Name',
+          labelText: 'User Name',
           prefixIcon: const Icon(Icons.person),
-          validatorMessage: 'User Name is required',
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'User Name is required';
+            } else if (value.length < 3) {
+              return 'User Name must be at least 3 characters';
+            } else if (value.length > 20) {
+              return 'User Name must be less than 20 characters';
+            } else if (!RegExp(r"^[a-zA-Z0-9]+$").hasMatch(value)) {
+              return 'User Name must be alphanumeric';
+            }
+            return null;
+          },
         ),
         const SizedBox(
           height: 20,
         ),
         CustomTextFormField(
           controller: emailController,
-          hintText: 'Email Address',
+          labelText: 'Email Address',
           prefixIcon: const Icon(Icons.email_outlined),
-          validatorMessage: 'Email Address is required',
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'Email Address is required';
+            } else if (!RegExp(
+                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                .hasMatch(value)) {
+              return 'Please enter a valid email address';
+            }
+            return null;
+          },
         ),
         const SizedBox(
           height: 20,
         ),
         CustomTextFormField(
           controller: passwordController,
-          hintText: 'Password',
+          labelText: 'Password',
           prefixIcon: const Icon(Icons.lock_outline),
-          validatorMessage: 'Password is required',
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'Password is required';
+            } else if (value.length < 6) {
+              return 'Password must be at least 6 characters';
+            }
+            return null;
+          },
           suffixIcon: IconButton(
             onPressed: () {
-              // TODO : fix change password visibility
-              BlocProvider.of<RegisterCubit>(context).changePasswordVisibility();
+              BlocProvider.of<RegisterCubit>(context)
+                  .changePasswordVisibility();
             },
             icon: Icon(BlocProvider.of<RegisterCubit>(context).suffixIcon),
           ),
@@ -60,9 +87,16 @@ class RegisterFormSection extends StatelessWidget {
         ),
         CustomTextFormField(
           controller: phoneController,
-          hintText: 'Phone',
+          labelText: 'Phone',
           prefixIcon: const Icon(Icons.phone),
-          validatorMessage: 'Phone Number is required',
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'Phone is required';
+            } else if (value.length < 11) {
+              return 'Phone must be at least 11 characters';
+            }
+            return null;
+          },
         ),
       ],
     );

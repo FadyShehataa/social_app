@@ -17,10 +17,10 @@ class CreatePostBody extends StatelessWidget {
           Expanded(
             child: CustomTextFormField(
               controller: postController,
-              hintText: 'What\'s on your mind...',
+              labelText: 'What\'s on your mind...',
               border: InputBorder.none,
               maxLines: 2000,
-              hintStyle: const TextStyle(fontSize: 30),
+              labelStyle: const TextStyle(fontSize: 30),
               style: const TextStyle(fontSize: 30),
             ),
           ),

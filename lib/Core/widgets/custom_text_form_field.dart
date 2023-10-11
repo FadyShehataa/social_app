@@ -1,52 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:social_app/Core/utils/styles.dart';
 
 class CustomTextFormField extends StatelessWidget {
   CustomTextFormField({
     super.key,
     required this.controller,
-    this.hintText,
-    this.validatorMessage,
+    this.labelText,
     this.suffixIcon,
     this.prefixIcon,
     this.obscureText = false,
     this.border = const OutlineInputBorder(),
     this.maxLines = 1,
-    this.hintStyle,
+    this.labelStyle,
     this.style,
+    this.validator,
   });
 
   final TextEditingController controller;
-  final String? hintText;
-  final String? validatorMessage;
-  Widget? suffixIcon;
+  final String? labelText;
+  final Widget? suffixIcon;
   final Widget? prefixIcon;
-  bool obscureText;
+  final bool obscureText;
   InputBorder? border;
-  int? maxLines;
-  TextStyle? hintStyle;
-  TextStyle? style;
+  final int? maxLines;
+  final TextStyle? labelStyle;
+  final TextStyle? style;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       keyboardType: TextInputType.emailAddress,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return validatorMessage;
-        }
-        return null;
-      },
+      validator: validator,
       maxLines: maxLines,
       decoration: InputDecoration(
-        hintText: hintText,
-        contentPadding: const EdgeInsets.all(20),
+        labelText: labelText,
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
         border: border,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
-        hintStyle: hintStyle,
+        errorStyle: Styles.textStyle16,
       ),
-      style: style,
+      style: Styles.textStyle18,
       obscureText: obscureText,
     );
   }

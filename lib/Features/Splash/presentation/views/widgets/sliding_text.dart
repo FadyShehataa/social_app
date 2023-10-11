@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_app/Core/utils/styles.dart';
 
 class SlidingText extends StatelessWidget {
   const SlidingText({
@@ -15,9 +16,10 @@ class SlidingText extends StatelessWidget {
       builder: (context, _) {
         return SlideTransition(
           position: slidingAnimation,
-          child: const Text(
-            'Communicate With Friends',
+          child: Text(
+            'Let\'s Communicate With Friends',
             textAlign: TextAlign.center,
+            style: Styles.textStyle16,
           ),
         );
       },

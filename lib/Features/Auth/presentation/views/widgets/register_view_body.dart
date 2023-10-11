@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:social_app/Core/utils/app_router.dart';
+import 'package:social_app/Features/Auth/presentation/views/widgets/custom_elevated_button.dart';
 import 'package:social_app/Features/Auth/presentation/views/widgets/register_header_section.dart';
 import 'package:social_app/Features/Auth/presentation/views/widgets/register_to_login_section.dart';
-import 'package:social_app/Features/Auth/presentation/views/widgets/register_button_section.dart';
 import 'package:social_app/Features/Auth/presentation/views/widgets/register_form_section.dart';
 
 import '../../../../../Core/utils/functions/show_snack_bar.dart';
@@ -19,10 +19,10 @@ class RegisterViewBody extends StatelessWidget {
   final phoneController = TextEditingController();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
+    bool isLoading = false;
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if (state is RegisterLoadingState) {
@@ -44,24 +44,32 @@ class RegisterViewBody extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Form(
                   key: formKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const RegisterHeaderSection(),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 60),
                       RegisterFormSection(
                         emailController: emailController,
                         passwordController: passwordController,
                         nameController: nameController,
                         phoneController: phoneController,
                       ),
-                      const SizedBox(height: 30),
-                      RegisterButtonSection(
-                        emailController: emailController,
-                        passwordController: passwordController,
-                        nameController: nameController,
-                        phoneController: phoneController,
-                        formKey: formKey,
+                      const SizedBox(height: 60),
+                      CustomElevatedButton(
+                        text: 'Sign Up',
+                        onPressed: () async {
+                          if (formKey.currentState!.validate()) {
+                            await BlocProvider.of<RegisterCubit>(context)
+                                .userRegister(
+                              email: emailController.text,
+                              password: passwordController.text,
+                              name: nameController.text,
+                              phone: phoneController.text,
+                            );
+                          }
+                        },
                       ),
                       const SizedBox(height: 20),
                       const RegisterToLoginSection(),

@@ -1,31 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:social_app/Core/utils/styles.dart';
 
 class LoginHeaderSection extends StatelessWidget {
   const LoginHeaderSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'LOGIN',
-          style: TextStyle(
-            fontSize: 34,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Text(
-          'login now to communicate with friends',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.grey,
-          ),
-        ),
-      ],
+    return Align(
+      alignment: Alignment.center,
+      child: Text(
+        'Welcome Back !',
+        textAlign: TextAlign.center,
+        style: Styles.textStyle34,
+      ),
     );
   }
 }
