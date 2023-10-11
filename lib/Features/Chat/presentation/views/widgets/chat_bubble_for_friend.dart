@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:social_app/Core/utils/my_colors.dart';
+import 'package:social_app/Core/utils/styles.dart';
 import 'package:social_app/Features/Chat/data/models/message_model.dart';
 
 class ChatBubbleForFriend extends StatelessWidget {
@@ -14,7 +16,6 @@ class ChatBubbleForFriend extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-        
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
@@ -22,11 +23,11 @@ class ChatBubbleForFriend extends StatelessWidget {
             topRight: Radius.circular(10),
             bottomRight: Radius.circular(10),
           ),
-          color: Colors.grey[300],
+          color: MyColors.myAquamarine.withOpacity(0.3),
         ),
         child: Text(
           message.text!,
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          style: Styles.textStyle20,
         ),
       ),
     );

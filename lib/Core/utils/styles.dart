@@ -46,6 +46,12 @@ abstract class Styles {
     fontFamily: GoogleFonts.openSans().fontFamily,
   );
 
+  static final textStyle20 = TextStyle(
+    fontSize: 20,
+    fontFamily: GoogleFonts.openSans().fontFamily,
+    fontWeight: FontWeight.w500,
+  );
+
   static final textStyle22 = TextStyle(
     fontSize: 22,
     fontFamily: GoogleFonts.openSans().fontFamily,

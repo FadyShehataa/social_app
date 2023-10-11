@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/Core/utils/my_colors.dart';
 
 import '../../../../../Core/models/user_model.dart';
 import '../../../../../Core/utils/icon_broken.dart';
@@ -23,7 +24,7 @@ class ChatDetailsViewMessageInput extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: Colors.grey),
+          border: Border.all(color: MyColors.mySteelBlue),
         ),
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Row(
@@ -44,13 +45,13 @@ class ChatDetailsViewMessageInput extends StatelessWidget {
             TextButton(
               onPressed: () => sendMessage(context),
               style: TextButton.styleFrom(
-                backgroundColor: Colors.blue,
+                backgroundColor: MyColors.mySteelBlue,
                 padding: EdgeInsets.zero,
                 minimumSize: const Size(50, 50),
               ),
               child: const Icon(
                 IconBroken.Send,
-                color: Colors.white,
+                color: MyColors.myWhite,
                 size: 16,
               ),
             ),

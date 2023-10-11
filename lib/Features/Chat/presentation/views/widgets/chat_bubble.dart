@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/Core/utils/my_colors.dart';
+import 'package:social_app/Core/utils/styles.dart';
 
 import '../../../data/models/message_model.dart';
 
@@ -23,15 +24,11 @@ class ChatBubble extends StatelessWidget {
             topRight: Radius.circular(10),
             bottomLeft: Radius.circular(10),
           ),
-          color: Colors.blue,
+          color: MyColors.mySteelBlue,
         ),
         child: Text(
           message.text!,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-          ),
+          style: Styles.textStyle20,
         ),
       ),
     );

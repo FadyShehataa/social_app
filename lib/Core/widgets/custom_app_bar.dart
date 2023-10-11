@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:social_app/Core/utils/icon_broken.dart';
+import 'package:social_app/Core/utils/my_colors.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar(
@@ -18,7 +19,7 @@ class CustomAppBar extends StatelessWidget {
           onPressed: () => GoRouter.of(context).pop(),
           icon: const Icon(
             IconBroken.Arrow___Left_2,
-            color: Colors.black,
+            color: MyColors.myWhite,
           ),
         ),
         const SizedBox(width: 5),

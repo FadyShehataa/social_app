@@ -134,10 +134,7 @@ abstract class AppRouter {
         builder: (context, state) => BlocProvider(
           create: (context) => ChatCubit(getIt.get<ChatRepoImpl>())
             ..getMessages((state.extra as UserModel).uId!),
-          child: ChatDetailsView(
-            userModel: state.extra as UserModel,
-            // userModel: const UserModel(), // TODO: fix this
-          ),
+          child: ChatDetailsView(userModel: state.extra as UserModel),
         ),
       ),
     ],

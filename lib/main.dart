@@ -35,8 +35,7 @@ class SocialApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: MyColors.myWhite,
-          unselectedItemColor: MyColors.mySteelBlue,
+          selectedItemColor: MyColors.myAquamarine,
           elevation: 50,
           backgroundColor: Color.fromARGB(255, 0, 35, 62),
         ),
