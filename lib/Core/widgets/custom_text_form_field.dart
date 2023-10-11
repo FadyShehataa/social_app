@@ -11,8 +11,6 @@ class CustomTextFormField extends StatelessWidget {
     this.obscureText = false,
     this.border = const OutlineInputBorder(),
     this.maxLines = 1,
-    this.labelStyle,
-    this.style,
     this.validator,
   });
 
@@ -23,8 +21,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool obscureText;
   final InputBorder? border;
   final int? maxLines;
-  final TextStyle? labelStyle;
-  final TextStyle? style;
+
   final String? Function(String?)? validator;
 
   @override

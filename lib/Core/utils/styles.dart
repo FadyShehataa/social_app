@@ -28,11 +28,7 @@ abstract class Styles {
     fontWeight: FontWeight.w600,
   );
 
-  static const textStyle30 = TextStyle(
-    fontSize: 30,
-    fontWeight: FontWeight.bold,
-    color: MyColors.myBlue,
-  );
+  
 
 //--------------------------
 
@@ -59,6 +55,12 @@ abstract class Styles {
   static final textStyle22 = TextStyle(
     fontSize: 22,
     fontFamily: GoogleFonts.openSans().fontFamily,
+  );
+
+  static final textStyle30 = TextStyle(
+    fontSize: 30,
+    fontFamily: GoogleFonts.openSans().fontFamily,
+    
   );
 
   static final textStyle34 = TextStyle(

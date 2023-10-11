@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/Core/utils/styles.dart';
 
-import '../../../../../Core/widgets/custom_text_form_field.dart';
 import '../../manager/news_feed_cubit/news_feed_cubit.dart';
 
 class CreatePostBody extends StatelessWidget {
@@ -15,13 +15,18 @@ class CreatePostBody extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child: CustomTextFormField(
+            child: TextFormField(
               controller: postController,
-              labelText: 'What\'s on your mind...',
-              border: InputBorder.none,
-              maxLines: 2000,
-              labelStyle: const TextStyle(fontSize: 30),
-              style: const TextStyle(fontSize: 30),
+              keyboardType: TextInputType.text,
+              // validator: validator,
+              maxLines: 100,
+              decoration: InputDecoration(
+                hintText: 'What\'s on your mind...',
+                contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                hintStyle: Styles.textStyle20,
+                border: InputBorder.none,
+              ),
+              style: Styles.textStyle30,
             ),
           ),
           if (postImage != null)

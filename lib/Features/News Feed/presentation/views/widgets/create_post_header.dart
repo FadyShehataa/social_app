@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../Core/utils/styles.dart';
 import '../../../../../Core/widgets/custom_app_bar.dart';
 
 import '../../manager/news_feed_cubit/news_feed_cubit.dart';
@@ -17,10 +18,7 @@ class CreatePostHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomAppBar(
       context: context,
-      title: const Text(
-        'Create Post',
-        style: TextStyle(color: Colors.black, fontSize: 20),
-      ),
+      title: Text('Create Post', style: Styles.textStyle20),
       actions: [
         TextButton(
           onPressed: () {
@@ -30,10 +28,7 @@ class CreatePostHeader extends StatelessWidget {
               postImage: BlocProvider.of<NewsFeedCubit>(context).postImage,
             );
           },
-          child: const Text(
-            'POST',
-            style: TextStyle(fontSize: 18),
-          ),
+          child: Text('POST', style: Styles.textStyle18),
         ),
         const SizedBox(width: 10)
       ],
