@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../data/repos/edit_profilr_repo_impl.dart';
+import '../../../data/repos/edit_profile_repo_impl.dart';
 
 part 'profile_state.dart';
 

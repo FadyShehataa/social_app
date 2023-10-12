@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:social_app/Core/models/user_model.dart';
 import 'package:social_app/Core/utils/app_router.dart';
-import 'package:social_app/Core/utils/constants.dart';
 import 'package:social_app/Core/utils/icon_broken.dart';
 import 'package:social_app/Core/utils/styles.dart';
+import 'package:social_app/Features/Home/presentation/manager/home_cubit/home_cubit.dart';
 import 'package:social_app/Features/News%20Feed/presentation/manager/news_feed_cubit/news_feed_cubit.dart';
 
+import '../../../../../Core/utils/constants.dart';
 import '../../../../../Core/utils/my_colors.dart';
 import '../../../data/models/post_model.dart';
 
@@ -17,20 +19,23 @@ class PostHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserModel userPost = BlocProvider.of<HomeCubit>(context)
+        .users
+        .firstWhere((element) => element.uId == post.uId);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
         children: [
           CircleAvatar(
             radius: defaultRadius,
-            backgroundImage: NetworkImage(post.image!),
+            backgroundImage: NetworkImage(userPost.image!),
           ),
           const SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                post.name!,
+                userPost.name!,
                 style: Styles.textStyle18,
               ),
               Text(

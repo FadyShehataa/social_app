@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class PostModel extends Equatable {
-  final String? name;
   final String? uId;
-  final String? image;
   final String? postImage;
   final String? text;
   final String? dateTime;
@@ -13,9 +11,7 @@ class PostModel extends Equatable {
   final List<String>? likes;
 
   const PostModel({
-    this.name,
     this.uId,
-    this.image,
     this.postImage,
     this.text,
     this.dateTime,
@@ -24,9 +20,9 @@ class PostModel extends Equatable {
   });
 
   factory PostModel.fromMap(Map<String, dynamic> data) => PostModel(
-        name: data['name'] as String?,
+        // name: data['name'] as String?,
         uId: data['uId'] as String?,
-        image: data['image'] as String?,
+        // image: data['image'] as String?,
         postImage: data['postImage'] as String?,
         text: data['text'] as String?,
         dateTime: data['dateTime'] as String?,
@@ -37,9 +33,7 @@ class PostModel extends Equatable {
       );
 
   Map<String, dynamic> toMap() => {
-        'name': name,
         'uId': uId,
-        'image': image,
         'postImage': postImage,
         'text': text,
         'dateTime': dateTime,
@@ -62,9 +56,7 @@ class PostModel extends Equatable {
   @override
   List<Object?> get props {
     return [
-      name,
       uId,
-      image,
       postImage,
       text,
       dateTime,

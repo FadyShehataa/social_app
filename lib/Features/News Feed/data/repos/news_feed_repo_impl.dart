@@ -40,9 +40,9 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
       }
 
       PostModel postModel = PostModel(
-        name: user.name,
+        // name: user.name,
         uId: user.uId,
-        image: user.image,
+        // image: user.image,
         text: text,
         dateTime: dateTime,
         postImage: postImageUrl,
@@ -99,9 +99,7 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
       }
 
       PostModel postModel = PostModel(
-        name: user.name,
         uId: user.uId,
-        image: user.image,
         text: text,
         dateTime: dateTime,
         postImage: postImageUrl,
