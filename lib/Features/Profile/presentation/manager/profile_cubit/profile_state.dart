@@ -9,18 +9,21 @@ sealed class ProfileState extends Equatable {
 
 final class ProfileInitial extends ProfileState {}
 
+// profile image picked
 final class ProfileImagePickedSuccessState extends ProfileState {}
 
 final class ProfileImagePickedFailureState extends ProfileState {}
 
 final class ProfileImagePickedLoadingState extends ProfileState {}
 
+// cover image picked
 final class CoverImagePickedSuccessState extends ProfileState {}
 
 final class CoverImagePickedFailureState extends ProfileState {}
 
 final class CoverImagePickedLoadingState extends ProfileState {}
 
+// edit profile
 final class EditProfileLoadingState extends ProfileState {}
 
 final class EditProfileSuccessState extends ProfileState {}

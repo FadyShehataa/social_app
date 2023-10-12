@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../Core/utils/styles.dart';
 import '../../../../../Core/widgets/custom_app_bar.dart';
 import '../../manager/profile_cubit/profile_cubit.dart';
 
@@ -20,10 +21,7 @@ class EditProfileHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomAppBar(
       ctx: context,
-      title: const Text(
-        'Edit Profile',
-        style: TextStyle(color: Colors.black, fontSize: 20),
-      ),
+      title: Text('Edit Profile', style: Styles.textStyle20),
       actions: [
         TextButton(
           onPressed: () {
@@ -33,10 +31,7 @@ class EditProfileHeader extends StatelessWidget {
               phone: phoneController.text,
             );
           },
-          child: const Text(
-            'UPDATE',
-            style: TextStyle(fontSize: 18),
-          ),
+          child: Text('UPDATE', style: Styles.textStyle18),
         ),
         const SizedBox(width: 10)
       ],

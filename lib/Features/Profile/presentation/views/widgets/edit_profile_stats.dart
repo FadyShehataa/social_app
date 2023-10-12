@@ -27,14 +27,14 @@ class EditProfileStats extends StatelessWidget {
             prefixIcon: const Icon(IconBroken.User),
             // validatorMessage: 'Name is required',
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 20),
           CustomTextFormField(
             controller: bioController,
             labelText: 'Bio',
             prefixIcon: const Icon(IconBroken.Info_Circle),
             // validatorMessage: 'Bio is required',
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 20),
           CustomTextFormField(
             controller: phoneController,
             labelText: 'Phone Number',

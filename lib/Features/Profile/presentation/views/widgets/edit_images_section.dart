@@ -22,79 +22,57 @@ class EditProfileImagesSection extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: 250,
+          height: 280,
           child: Stack(
             alignment: Alignment.bottomCenter,
             children: [
               Align(
                 alignment: AlignmentDirectional.topCenter,
                 child: Container(
-                  height: 200,
+                  height: 230,
                   width: double.infinity,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(4),
                       topRight: Radius.circular(4),
                     ),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        coverImage == null ? user.cover! : coverImage!.path,
+                      ),
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  child: coverImage == null
-                      ? Image.network(
-                          user.cover!,
-                          fit: BoxFit.cover,
-                        )
-                      : Image.network(
-                          coverImage!.path,
-                          fit: BoxFit.cover,
-                        ),
                 ),
               ),
               CircleAvatar(
                 radius: 65,
                 backgroundColor: Colors.white,
-                child: ClipOval(
-                  child: CircleAvatar(
-                    radius: 60,
-                    child: profileImage == null
-                        ? Image.network(
-                            user.image!,
-                            fit: BoxFit.cover,
-                          )
-                        : Image.network(
-                            profileImage!.path,
-                            fit: BoxFit.cover,
-                          ),
+                child: CircleAvatar(
+                  radius: 60,
+                  backgroundImage: NetworkImage(
+                    profileImage == null ? user.image! : profileImage!.path,
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
         const SizedBox(height: 10),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
               child: TextButton(
-                onPressed: () {
-                  BlocProvider.of<ProfileCubit>(context).getProfileImage();
-                },
-                child: Text(
-                  'Change Profile Photo',
-                  style: Styles.textStyle18
-                      .copyWith(fontWeight: FontWeight.normal),
-                ),
+                onPressed: () =>
+                    BlocProvider.of<ProfileCubit>(context).getProfileImage(),
+                child: Text('Change Profile Photo', style: Styles.textStyle18),
               ),
             ),
             Expanded(
               child: TextButton(
-                onPressed: () {
-                  BlocProvider.of<ProfileCubit>(context).getCoverImage();
-                },
-                child: Text(
-                  'Change Cover Photo',
-                  style: Styles.textStyle18
-                      .copyWith(fontWeight: FontWeight.normal),
-                ),
+                onPressed: () =>
+                    BlocProvider.of<ProfileCubit>(context).getCoverImage(),
+                child: Text('Change Cover Photo', style: Styles.textStyle18),
               ),
             ),
           ],
