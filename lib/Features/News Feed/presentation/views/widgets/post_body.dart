@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:social_app/Core/utils/app_router.dart';
 import 'package:social_app/Core/utils/my_colors.dart';
 import 'package:social_app/Core/utils/styles.dart';
 import 'package:social_app/Features/News%20Feed/presentation/manager/news_feed_cubit/news_feed_cubit.dart';
 
 import '../../../../../Core/utils/icon_broken.dart';
+import '../../../../Home/presentation/manager/home_cubit/home_cubit.dart';
 import '../../../data/models/post_model.dart';
 
 class PostBody extends StatelessWidget {
@@ -26,11 +29,15 @@ class PostBody extends StatelessWidget {
           if (post.postImage != '')
             Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 4),
-              child: Image.network(
-                post.postImage!,
-                width: double.infinity,
-                height: 220.0,
-                fit: BoxFit.cover,
+              child: InkWell(
+                onDoubleTap: () => BlocProvider.of<NewsFeedCubit>(context)
+                    .updateLikePost(postModel: post),
+                child: Image.network(
+                  post.postImage!,
+                  width: double.infinity,
+                  height: 220.0,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           BlocBuilder<NewsFeedCubit, NewsFeedState>(
@@ -46,7 +53,14 @@ class PostBody extends StatelessWidget {
                   const Spacer(),
                   if (likes != 0)
                     TextButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        GoRouter.of(context).push(AppRouter.kLikesView,
+                            extra: BlocProvider.of<HomeCubit>(context)
+                                .users
+                                .where((element) =>
+                                    post.likes!.contains(element.uId))
+                                .toList());
+                      },
                       icon: Text(
                         likes.toString(),
                         style: const TextStyle(color: MyColors.myGrey),

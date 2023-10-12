@@ -29,7 +29,7 @@ class CreatePostBody extends StatelessWidget {
               style: Styles.textStyle30,
             ),
           ),
-          if (postImage != null)
+          if (postImage != null && postImage.path.isNotEmpty)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
               child: SizedBox(

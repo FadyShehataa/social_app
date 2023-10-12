@@ -40,9 +40,7 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
       }
 
       PostModel postModel = PostModel(
-        // name: user.name,
         uId: user.uId,
-        // image: user.image,
         text: text,
         dateTime: dateTime,
         postImage: postImageUrl,
