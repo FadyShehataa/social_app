@@ -19,6 +19,8 @@ class PostHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isMyPost = (post.uId == uId);
+
     UserModel userPost = BlocProvider.of<HomeCubit>(context)
         .users
         .firstWhere((element) => element.uId == post.uId);
@@ -45,16 +47,25 @@ class PostHeader extends StatelessWidget {
             ],
           ),
           const Spacer(),
+          if (!isMyPost)
+            IconButton(
+              icon: const Icon(IconBroken.Add_User),
+              onPressed: () {
+                // TODO: Follow and unfollow firends
+              },
+            ),
           IconButton(
             icon: const Icon(IconBroken.More_Circle),
-            onPressed: () => showCustomModalBottomSheet(context),
+            onPressed: () => showCustomModalBottomSheet(context, isMyPost),
           ),
         ],
       ),
     );
   }
 
-  Future<dynamic> showCustomModalBottomSheet(BuildContext context) {
+  Future<dynamic> showCustomModalBottomSheet(
+      BuildContext context, bool isMyPost) {
+    bool isSave = user.savedPosts!.contains(post.postId);
     return showModalBottomSheet(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       showDragHandle: true,
@@ -67,27 +78,41 @@ class PostHeader extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: const Icon(IconBroken.Edit),
-              title: const Text('Edit Post'),
-              onTap: () {
-                GoRouter.of(context).pop();
-                GoRouter.of(context).push(
-                  AppRouter.kEditPostView,
-                  extra: post,
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(IconBroken.Delete),
-              title: const Text('Delete Post'),
-              onTap: () {
-                GoRouter.of(context).pop();
-                showDeleteDialog(context);
-              },
-            ),
-          ],
+          children: isMyPost
+              ? [
+                  ListTile(
+                    leading: const Icon(IconBroken.Edit),
+                    title: const Text('Edit Post'),
+                    onTap: () {
+                      GoRouter.of(context).pop();
+                      GoRouter.of(context).push(
+                        AppRouter.kEditPostView,
+                        extra: post,
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(IconBroken.Delete),
+                    title: const Text('Delete Post'),
+                    onTap: () {
+                      GoRouter.of(context).pop();
+                      showDeleteDialog(context);
+                    },
+                  ),
+                ]
+              : [
+                  ListTile(
+                    leading: Icon(
+                      isSave ? IconBroken.Delete : IconBroken.Bookmark,
+                    ),
+                    title: Text(isSave ? 'Unsave Post' : 'Save Post'),
+                    onTap: () {
+                      GoRouter.of(context).pop();
+                      BlocProvider.of<NewsFeedCubit>(context)
+                          .updateSavePost(postModel: post);
+                    },
+                  ),
+                ],
         ),
       ),
     );

@@ -48,7 +48,7 @@ class CreatePostView extends StatelessWidget {
                     : const CustomDivider(),
                 const SizedBox(height: 5),
                 CreatePostBody(postController: postController),
-                const CreatePostFooter(), // TODO implement later
+                const CreatePostFooter(),
               ],
             );
           },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../Core/utils/my_colors.dart';
 import '../../../../../Core/utils/styles.dart';
 import '../../../../../Core/widgets/custom_app_bar.dart';
 import '../../manager/profile_cubit/profile_cubit.dart';
@@ -31,7 +32,10 @@ class EditProfileHeader extends StatelessWidget {
               phone: phoneController.text,
             );
           },
-          child: Text('UPDATE', style: Styles.textStyle18),
+          child: Text(
+            'UPDATE',
+            style: Styles.textStyle18.copyWith(color: MyColors.myAquamarine),
+          ),
         ),
         const SizedBox(width: 10)
       ],

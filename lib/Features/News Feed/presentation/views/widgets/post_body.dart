@@ -22,10 +22,11 @@ class PostBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            post.text!,
-            style: Styles.textStyle20,
-          ),
+          if (post.text! != '')
+            Text(
+              post.text!,
+              style: Styles.textStyle20,
+            ),
           if (post.postImage != '')
             Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 4),

@@ -3,13 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/Features/News%20Feed/data/models/post_model.dart';
 import 'package:social_app/Features/News%20Feed/presentation/manager/news_feed_cubit/news_feed_cubit.dart';
 
+import '../../../../../Core/utils/my_colors.dart';
 import '../../../../../Core/utils/styles.dart';
 import '../../../../../Core/widgets/custom_app_bar.dart';
 
 class EditPostHeader extends StatelessWidget {
   const EditPostHeader({
     super.key,
-    required this.postController, required this.postModel,
+    required this.postController,
+    required this.postModel,
   });
 
   final TextEditingController postController;
@@ -30,7 +32,10 @@ class EditPostHeader extends StatelessWidget {
               likes: postModel.likes!,
             );
           },
-          child: Text('Edit', style: Styles.textStyle18),
+          child: Text(
+            'Edit',
+            style: Styles.textStyle18.copyWith(color: MyColors.myAquamarine),
+          ),
         ),
         const SizedBox(width: 10)
       ],

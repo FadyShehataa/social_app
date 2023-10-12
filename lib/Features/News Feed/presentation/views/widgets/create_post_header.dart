@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/Core/utils/my_colors.dart';
 
 import '../../../../../Core/utils/styles.dart';
 import '../../../../../Core/widgets/custom_app_bar.dart';
@@ -27,7 +28,10 @@ class CreatePostHeader extends StatelessWidget {
               dateTime: DateTime.now().toString(),
             );
           },
-          child: Text('POST', style: Styles.textStyle18),
+          child: Text(
+            'POST',
+            style: Styles.textStyle18.copyWith(color: MyColors.myAquamarine),
+          ),
         ),
         const SizedBox(width: 10)
       ],

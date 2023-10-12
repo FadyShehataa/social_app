@@ -48,6 +48,7 @@ class AuthRepoImpl implements AuthRepo {
         name: name,
         phone: phone,
         uId: credential.user!.uid,
+
       );
       return right(null);
     } on FirebaseAuthException catch (e) {
@@ -80,6 +81,7 @@ class AuthRepoImpl implements AuthRepo {
       image: AssetsData.profileImage,
       bio: 'Write your bio ...',
       cover: AssetsData.coverImage,
+      savedPosts: const [],
     );
 
     FirebaseFirestore.instance.collection('users').doc(uId).set(user.toMap());

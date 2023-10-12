@@ -58,6 +58,18 @@ final class UpdateLikePostFailureState extends NewsFeedState {
   const UpdateLikePostFailureState({required this.errorMessage});
 }
 
+
+//  Update Save post
+final class UpdateSavePostLoadingState extends NewsFeedState {}
+
+final class UpdateSavePostSuccessState extends NewsFeedState {}
+
+final class UpdateSavePostFailureState extends NewsFeedState {
+  final String errorMessage;
+
+  const UpdateSavePostFailureState({required this.errorMessage});
+}
+
 // Upload post image
 final class PostImagePickedSuccessState extends NewsFeedState {}
 
@@ -76,3 +88,8 @@ final class DeletePostFailureState extends NewsFeedState {
 
   const DeletePostFailureState({required this.errorMessage});
 }
+
+// remove post image
+
+final class RemovePostImageState extends NewsFeedState {}
+

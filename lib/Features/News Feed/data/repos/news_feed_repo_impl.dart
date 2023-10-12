@@ -163,6 +163,37 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
     }
   }
 
+  // save post
+  @override
+  Future<Either<Failure, void>> updateSavePost(
+      {required PostModel postModel}) async {
+    try {
+      if (user.savedPosts!.contains(postModel.postId)) {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uId)
+            .update({
+          'savedPosts': FieldValue.arrayRemove([postModel.postId]),
+        });
+        // update savedPosts in user
+        user.savedPosts!.remove(postModel.postId);
+      } else {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uId)
+            .update({
+          'savedPosts': FieldValue.arrayUnion([postModel.postId]),
+        });
+        // update savedPosts in user
+        user.savedPosts!.add(postModel.postId!);
+      }
+      print(user.savedPosts);
+      return right(null);
+    } catch (e) {
+      return left(ServerFailure(errMessage: e.toString()));
+    }
+  }
+
   @override
   Future<Either<Failure, void>> deletePost(
       {required PostModel postModel}) async {

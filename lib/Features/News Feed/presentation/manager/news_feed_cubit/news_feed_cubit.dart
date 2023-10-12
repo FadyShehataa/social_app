@@ -28,6 +28,11 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
     }
   }
 
+  void removePostImage() {
+    postImage = null;
+    emit(RemovePostImageState());
+  }
+
   Future<void> createPost({
     required String text,
     required String dateTime,
@@ -46,7 +51,6 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
       (_) => emit(CreatePostSuccessState()),
     );
   }
-
 
   Future<void> editPost({
     required String text,
@@ -70,7 +74,6 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
     );
   }
 
-
   List<PostModel> posts = [];
   Future<void> getPosts() async {
     emit(GetPostsLoadingState());
@@ -86,16 +89,26 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
     );
   }
 
+  // update like post
   Future<void> updateLikePost({required PostModel postModel}) async {
     emit(UpdateLikePostLoadingState());
     var result = await newsFeedRepo.updateLikePost(postModel: postModel);
+
     result.fold(
-      (failure) {
-        emit(GetPostsFailureState(errorMessage: failure.errMessage));
-      },
-      (posts) {
-        emit(UpdateLikePostSuccessState());
-      },
+      (failure) => emit(GetPostsFailureState(errorMessage: failure.errMessage)),
+      (posts) => emit(UpdateLikePostSuccessState()),
+    );
+  }
+
+  // update save post
+  Future<void> updateSavePost({required PostModel postModel}) async {
+    emit(UpdateSavePostLoadingState());
+    var result = await newsFeedRepo.updateSavePost(postModel: postModel);
+
+    result.fold(
+      (failure) =>
+          emit(UpdateSavePostFailureState(errorMessage: failure.errMessage)),
+      (_) => emit(UpdateSavePostSuccessState()),
     );
   }
 
@@ -103,9 +116,9 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
     emit(DeletePostLoadingState());
     var result = await newsFeedRepo.deletePost(postModel: postModel);
     result.fold(
-      (failure) => emit(DeletePostFailureState(errorMessage: failure.errMessage)),
+      (failure) =>
+          emit(DeletePostFailureState(errorMessage: failure.errMessage)),
       (_) => emit(DeletePostSuccessState()),
     );
   }
-
 }
