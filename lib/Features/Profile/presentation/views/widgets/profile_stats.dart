@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_app/Core/utils/constants.dart';
 
 class ProfileStats extends StatelessWidget {
   const ProfileStats({super.key});
@@ -9,13 +10,35 @@ class ProfileStats extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Row(
         children: [
+          // Expanded(
+          //   child: InkWell(
+          //     onTap: () {},
+          //     child: const Column(
+          //       children: [
+          //         Text('100'),
+          //         Text('Posts'),
+          //       ],
+          //     ),
+          //   ),
+          // ),
+          // Expanded(
+          //   child: InkWell(
+          //     onTap: () {},
+          //     child: const Column(
+          //       children: [
+          //         Text('265'),
+          //         Text('Photos'),
+          //       ],
+          //     ),
+          //   ),
+          // ),
           Expanded(
             child: InkWell(
               onTap: () {},
-              child: const Column(
+              child: Column(
                 children: [
-                  Text('100'),
-                  Text('Posts'),
+                  Text(user.followers!.length.toString()),
+                  const Text('Followers'),
                 ],
               ),
             ),
@@ -23,32 +46,10 @@ class ProfileStats extends StatelessWidget {
           Expanded(
             child: InkWell(
               onTap: () {},
-              child: const Column(
+              child: Column(
                 children: [
-                  Text('265'),
-                  Text('Photos'),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: InkWell(
-              onTap: () {},
-              child: const Column(
-                children: [
-                  Text('10K'),
-                  Text('Followers'),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: InkWell(
-              onTap: () {},
-              child: const Column(
-                children: [
-                  Text('64'),
-                  Text('Followings'),
+                  Text(user.following!.length.toString()),
+                  const Text('Followings'),
                 ],
               ),
             ),

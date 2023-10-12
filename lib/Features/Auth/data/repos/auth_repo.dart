@@ -7,7 +7,7 @@ abstract class AuthRepo {
     required String email,
     required String password,
   });
-  Future<Either<Failure, void>> userRegister({
+  Future<Either<Failure, String>> userRegister({
     required String email,
     required String password,
     required String phone,

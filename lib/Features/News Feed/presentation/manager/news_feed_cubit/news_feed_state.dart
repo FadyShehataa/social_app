@@ -20,7 +20,6 @@ final class CreatePostFailureState extends NewsFeedState {
 
 final class CreatePostLoadingState extends NewsFeedState {}
 
-
 // Edit post
 final class EditPostSuccessState extends NewsFeedState {}
 
@@ -58,7 +57,6 @@ final class UpdateLikePostFailureState extends NewsFeedState {
   const UpdateLikePostFailureState({required this.errorMessage});
 }
 
-
 //  Update Save post
 final class UpdateSavePostLoadingState extends NewsFeedState {}
 
@@ -77,7 +75,6 @@ final class PostImagePickedFailureState extends NewsFeedState {}
 
 final class PostImagePickedLoadingState extends NewsFeedState {}
 
-
 // delete post
 final class DeletePostLoadingState extends NewsFeedState {}
 
@@ -93,3 +90,13 @@ final class DeletePostFailureState extends NewsFeedState {
 
 final class RemovePostImageState extends NewsFeedState {}
 
+// Update follow user
+final class UpdateFollowUserLoadingState extends NewsFeedState {}
+
+final class UpdateFollowUserSuccessState extends NewsFeedState {}
+
+final class UpdateFollowUserFailureState extends NewsFeedState {
+  final String errorMessage;
+
+  const UpdateFollowUserFailureState({required this.errorMessage});
+}

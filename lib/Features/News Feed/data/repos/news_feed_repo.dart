@@ -28,8 +28,11 @@ abstract class NewsFeedRepo {
   // update like post
   Future<Either<Failure, int>> updateLikePost({required PostModel postModel});
 
-  // save post
+  // update save post
   Future<Either<Failure, void>> updateSavePost({required PostModel postModel});
+
+  // update follow user
+  Future<Either<Failure, void>> updateFollowUser({required String uid});
 
   // delete post
   Future<Either<Failure, void>> deletePost({required PostModel postModel});

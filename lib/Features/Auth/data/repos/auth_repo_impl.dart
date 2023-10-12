@@ -31,7 +31,7 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failure, void>> userRegister({
+  Future<Either<Failure, String>> userRegister({
     required String email,
     required String password,
     required String phone,
@@ -48,9 +48,8 @@ class AuthRepoImpl implements AuthRepo {
         name: name,
         phone: phone,
         uId: credential.user!.uid,
-
       );
-      return right(null);
+      return right(credential.user!.uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         return left(
@@ -82,6 +81,8 @@ class AuthRepoImpl implements AuthRepo {
       bio: 'Write your bio ...',
       cover: AssetsData.coverImage,
       savedPosts: const [],
+      followers: const [],
+      following: const [],
     );
 
     FirebaseFirestore.instance.collection('users').doc(uId).set(user.toMap());

@@ -8,6 +8,8 @@ import 'package:social_app/Features/Auth/presentation/views/widgets/register_hea
 import 'package:social_app/Features/Auth/presentation/views/widgets/register_to_login_section.dart';
 import 'package:social_app/Features/Auth/presentation/views/widgets/register_form_section.dart';
 
+import '../../../../../Core/utils/cache_network.dart';
+import '../../../../../Core/utils/constants.dart';
 import '../../../../../Core/utils/functions/show_snack_bar.dart';
 import '../../manager/register_cubit/register_cubit.dart';
 
@@ -29,7 +31,8 @@ class RegisterViewBody extends StatelessWidget {
           isLoading = true;
         } else if (state is RegisterSuccessState) {
           isLoading = false;
-          // TODO save user data in cache
+          CacheNetwork.insertToCache(key: 'uId', value: state.uId);
+          uId = state.uId;
           GoRouter.of(context).go(AppRouter.kHomeView);
         } else if (state is RegisterFailureState) {
           isLoading = false;

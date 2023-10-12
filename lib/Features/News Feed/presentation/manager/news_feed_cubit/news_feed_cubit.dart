@@ -112,6 +112,19 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
     );
   }
 
+  // update follow user
+  Future<void> updateFollowUser({required String uid}) async {
+    emit(UpdateFollowUserLoadingState());
+    var result = await newsFeedRepo.updateFollowUser(uid: uid);
+
+    result.fold(
+      (failure) =>
+          emit(UpdateFollowUserFailureState(errorMessage: failure.errMessage)),
+      (_) => emit(UpdateFollowUserSuccessState()),
+    );
+  }
+
+  // update delete post
   Future<void> deletePost({required PostModel postModel}) async {
     emit(DeletePostLoadingState());
     var result = await newsFeedRepo.deletePost(postModel: postModel);

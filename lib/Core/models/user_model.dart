@@ -11,6 +11,8 @@ class UserModel extends Equatable {
   final String? bio;
   final String? cover;
   final List<String>? savedPosts;
+  final List<String>? followers;
+  final List<String>? following;
 
   const UserModel({
     this.uId,
@@ -21,6 +23,8 @@ class UserModel extends Equatable {
     this.bio,
     this.cover,
     this.savedPosts,
+    this.followers,
+    this.following,
   });
 
   factory UserModel.fromMap(Map<String, dynamic> data) => UserModel(
@@ -34,6 +38,12 @@ class UserModel extends Equatable {
         savedPosts: data['savedPosts'] != null
             ? List<String>.from(data['savedPosts'] as List<dynamic>)
             : [],
+        followers: data['followers'] != null
+            ? List<String>.from(data['followers'] as List<dynamic>)
+            : [],
+        following: data['following'] != null
+            ? List<String>.from(data['following'] as List<dynamic>)
+            : [],
       );
 
   Map<String, dynamic> toMap() => {
@@ -45,6 +55,8 @@ class UserModel extends Equatable {
         'bio': bio,
         'cover': cover,
         'savedPosts': savedPosts,
+        'followers': followers,
+        'following': following,
       };
 
   /// `dart:convert`
@@ -60,5 +72,16 @@ class UserModel extends Equatable {
   String toJson() => json.encode(toMap());
 
   @override
-  List<Object?> get props => [uId, name, email, phone, image, bio, cover, savedPosts];
+  List<Object?> get props => [
+        uId,
+        name,
+        email,
+        phone,
+        image,
+        bio,
+        cover,
+        savedPosts,
+        followers,
+        following
+      ];
 }

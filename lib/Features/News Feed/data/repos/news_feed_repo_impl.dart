@@ -163,7 +163,7 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
     }
   }
 
-  // save post
+  // update save post
   @override
   Future<Either<Failure, void>> updateSavePost(
       {required PostModel postModel}) async {
@@ -194,6 +194,46 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
     }
   }
 
+  // update follow user
+  @override
+  Future<Either<Failure, void>> updateFollowUser({required String uid}) async {
+    try {
+      if (user.following!.contains(uid)) {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uId)
+            .update({
+          'following': FieldValue.arrayRemove([uid]),
+        });
+        // update following in user
+        user.following!.remove(uid);
+        await FirebaseFirestore.instance.collection('users').doc(uid).update({
+          'followers': FieldValue.arrayRemove([user.uId]),
+        });
+        // update followers in user
+        user.followers!.remove(user.uId);
+      } else {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uId)
+            .update({
+          'following': FieldValue.arrayUnion([uid]),
+        });
+        // update following in user
+        user.following!.add(uid);
+        await FirebaseFirestore.instance.collection('users').doc(uid).update({
+          'followers': FieldValue.arrayUnion([user.uId]),
+        });
+        // update followers in user
+        user.followers!.add(user.uId!);
+      }
+      return right(null);
+    } catch (e) {
+      return left(ServerFailure(errMessage: e.toString()));
+    }
+  }
+
+  // delete post
   @override
   Future<Either<Failure, void>> deletePost(
       {required PostModel postModel}) async {

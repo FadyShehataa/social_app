@@ -20,10 +20,12 @@ class PostHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isMyPost = (post.uId == uId);
+    bool isFollow = user.following!.contains(post.uId);
 
     UserModel userPost = BlocProvider.of<HomeCubit>(context)
         .users
         .firstWhere((element) => element.uId == post.uId);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
@@ -49,10 +51,9 @@ class PostHeader extends StatelessWidget {
           const Spacer(),
           if (!isMyPost)
             IconButton(
-              icon: const Icon(IconBroken.Add_User),
-              onPressed: () {
-                // TODO: Follow and unfollow firends
-              },
+              icon: Icon(!isFollow ? IconBroken.Add_User : IconBroken.Delete),
+              onPressed: () => BlocProvider.of<NewsFeedCubit>(context)
+                  .updateFollowUser(uid: post.uId!),
             ),
           IconButton(
             icon: const Icon(IconBroken.More_Circle),
