@@ -31,14 +31,13 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
   Future<void> createPost({
     required String text,
     required String dateTime,
-    required File? postImage,
   }) async {
     emit(CreatePostLoadingState());
 
     var result = await newsFeedRepo.createPost(
       dateTime: dateTime,
       text: text,
-      postImage: this.postImage,
+      postImage: postImage,
     );
 
     result.fold(
@@ -47,6 +46,30 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
       (_) => emit(CreatePostSuccessState()),
     );
   }
+
+
+  Future<void> editPost({
+    required String text,
+    required String dateTime,
+    required String postId,
+    required List<String> likes,
+  }) async {
+    emit(EditPostLoadingState());
+
+    var result = await newsFeedRepo.editPost(
+      dateTime: dateTime,
+      text: text,
+      postImage: postImage,
+      postId: postId,
+      likes: likes,
+    );
+
+    result.fold(
+      (failure) => emit(EditPostFailureState(errorMessage: failure.errMessage)),
+      (_) => emit(EditPostSuccessState()),
+    );
+  }
+
 
   List<PostModel> posts = [];
   Future<void> getPosts() async {

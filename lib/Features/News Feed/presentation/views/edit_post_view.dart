@@ -1,34 +1,41 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:social_app/Core/utils/functions/show_toast.dart';
 import 'package:social_app/Core/utils/my_colors.dart';
+import 'package:social_app/Features/News%20Feed/data/models/post_model.dart';
 import 'package:social_app/Features/News%20Feed/presentation/manager/news_feed_cubit/news_feed_cubit.dart';
 import 'package:social_app/Features/News%20Feed/presentation/views/widgets/create_post_body.dart';
 import 'package:social_app/Features/News%20Feed/presentation/views/widgets/create_post_footer.dart';
-import 'package:social_app/Features/News%20Feed/presentation/views/widgets/create_post_header.dart';
 import 'package:social_app/Features/News%20Feed/presentation/views/widgets/custom_divider.dart';
+import 'package:social_app/Features/News%20Feed/presentation/views/widgets/edit_post_header.dart';
 
-class CreatePostView extends StatelessWidget {
-  const CreatePostView({super.key});
+class EditPostView extends StatelessWidget {
+  const EditPostView({super.key, required this.postModel});
+
+  final PostModel postModel;
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController postController = TextEditingController();
+    BlocProvider.of<NewsFeedCubit>(context).postImage = File(postModel.postImage!) ;
+    final TextEditingController postController =
+        TextEditingController(text: postModel.text);
     return Scaffold(
       body: SafeArea(
         child: BlocConsumer<NewsFeedCubit, NewsFeedState>(
           listener: (context, state) async {
-            if (state is CreatePostSuccessState) {
+            if (state is EditPostSuccessState) {
               GoRouter.of(context).pop();
               showToast(
-                message: 'Post created successfully!',
+                message: 'Post edited successfully!',
                 backgroundColor: Colors.green,
               );
-            } else if (state is CreatePostFailureState) {
+            } else if (state is EditPostFailureState) {
               GoRouter.of(context).pop();
               showToast(
-                message: 'Post creation failed!',
+                message: 'Post editing failed!',
                 backgroundColor: Colors.red,
               );
             }
@@ -36,9 +43,12 @@ class CreatePostView extends StatelessWidget {
           builder: (context, state) {
             return Column(
               children: [
-                CreatePostHeader(postController: postController),
+                EditPostHeader(
+                  postController: postController,
+                  postModel: postModel,
+                ),
                 const SizedBox(height: 5),
-                (state is CreatePostLoadingState)
+                (state is EditPostLoadingState)
                     ? const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8),
                         child: LinearProgressIndicator(

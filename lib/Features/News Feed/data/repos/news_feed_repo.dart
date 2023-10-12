@@ -6,10 +6,20 @@ import '../../../../Core/errors/failures.dart';
 import '../models/post_model.dart';
 
 abstract class NewsFeedRepo {
+  //create post
   Future<Either<Failure, void>> createPost({
     required String text,
     required String dateTime,
     required File postImage,
+  });
+
+  // edit post
+  Future<Either<Failure, void>> editPost({
+    required String text,
+    required String dateTime,
+    required File postImage,
+    required String postId,
+    required List<String> likes,
   });
 
   // get posts

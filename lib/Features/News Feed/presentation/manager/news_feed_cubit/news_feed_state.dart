@@ -20,6 +20,18 @@ final class CreatePostFailureState extends NewsFeedState {
 
 final class CreatePostLoadingState extends NewsFeedState {}
 
+
+// Edit post
+final class EditPostSuccessState extends NewsFeedState {}
+
+final class EditPostFailureState extends NewsFeedState {
+  final String errorMessage;
+
+  const EditPostFailureState({required this.errorMessage});
+}
+
+final class EditPostLoadingState extends NewsFeedState {}
+
 // Get posts
 final class GetPostsSuccessState extends NewsFeedState {
   final List<PostModel> posts;

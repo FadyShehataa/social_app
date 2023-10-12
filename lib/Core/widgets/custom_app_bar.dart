@@ -5,18 +5,18 @@ import 'package:social_app/Core/utils/my_colors.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar(
-      {super.key, required this.context, this.title, this.actions});
+      {super.key, required this.ctx, this.title, this.actions});
 
-  final BuildContext context;
+  final BuildContext ctx;
   final Widget? title;
   final List<Widget>? actions;
 
   @override
-  Widget build(BuildContext kContext) {
+  Widget build(BuildContext context) {
     return Row(
       children: [
         IconButton(
-          onPressed: () => GoRouter.of(context).pop(),
+          onPressed: () => GoRouter.of(ctx).pop(),
           icon: const Icon(
             IconBroken.Arrow___Left_2,
             color: MyColors.myWhite,

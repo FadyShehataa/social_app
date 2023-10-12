@@ -69,6 +69,58 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
   }
 
   @override
+  Future<Either<Failure, void>> editPost({
+    required String text,
+    required String dateTime,
+    required File? postImage,
+    required String postId,
+    required List<String> likes,
+  }) async {
+    try {
+      String postImageUrl = '';
+      if (postImage != null) {
+        firebase_storage.Reference refPath = firebase_storage
+            .FirebaseStorage.instance
+            .ref()
+            .child('posts/')
+            .child(Uri.file(postImage.path).pathSegments.last);
+
+        Uint8List imageData = await XFile(postImage.path).readAsBytes();
+        firebase_storage.UploadTask uploadTask = refPath.putData(imageData);
+
+        await uploadTask.then((firebase_storage.TaskSnapshot taskSnapshot) {
+          return taskSnapshot.ref.getDownloadURL().then((value) {
+            postImageUrl = value.toString();
+            return value;
+          });
+        }).catchError((e) {
+          return ('Failed to upload image to storage: $e');
+        });
+      }
+
+      PostModel postModel = PostModel(
+        name: user.name,
+        uId: user.uId,
+        image: user.image,
+        text: text,
+        dateTime: dateTime,
+        postImage: postImageUrl,
+        likes: likes,
+        postId: postId,
+      );
+
+      await FirebaseFirestore.instance
+          .collection('posts')
+          .doc(postId)
+          .update(postModel.toMap());
+
+      return right(null);
+    } catch (e) {
+      return left(ServerFailure(errMessage: e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, List<PostModel>>> getPosts() async {
     try {
       List<PostModel> posts = [];
@@ -128,5 +180,4 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
       return left(ServerFailure(errMessage: e.toString()));
     }
   }
-
 }

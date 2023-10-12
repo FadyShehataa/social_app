@@ -17,7 +17,7 @@ class CreatePostHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomAppBar(
-      context: context,
+      ctx: context,
       title: Text('Create Post', style: Styles.textStyle20),
       actions: [
         TextButton(
@@ -25,7 +25,6 @@ class CreatePostHeader extends StatelessWidget {
             BlocProvider.of<NewsFeedCubit>(context).createPost(
               text: postController.text,
               dateTime: DateTime.now().toString(),
-              postImage: BlocProvider.of<NewsFeedCubit>(context).postImage,
             );
           },
           child: Text('POST', style: Styles.textStyle18),

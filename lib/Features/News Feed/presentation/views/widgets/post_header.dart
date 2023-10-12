@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:social_app/Core/utils/app_router.dart';
 import 'package:social_app/Core/utils/constants.dart';
 import 'package:social_app/Core/utils/icon_broken.dart';
 import 'package:social_app/Core/utils/styles.dart';
@@ -65,7 +66,13 @@ class PostHeader extends StatelessWidget {
             ListTile(
               leading: const Icon(IconBroken.Edit),
               title: const Text('Edit Post'),
-              onTap: () {},
+              onTap: () {
+                GoRouter.of(context).pop();
+                GoRouter.of(context).push(
+                  AppRouter.kEditPostView,
+                  extra: post,
+                );
+              },
             ),
             ListTile(
               leading: const Icon(IconBroken.Delete),

@@ -4,8 +4,8 @@ import 'package:social_app/Core/utils/styles.dart';
 
 import '../../manager/news_feed_cubit/news_feed_cubit.dart';
 
-class CreatePostBody extends StatelessWidget {
-  const CreatePostBody({super.key, required this.postController});
+class EditPostBody extends StatelessWidget {
+  const EditPostBody({super.key, required this.postController});
   final TextEditingController postController;
 
   @override
@@ -25,6 +25,7 @@ class CreatePostBody extends StatelessWidget {
                 contentPadding: const EdgeInsets.symmetric(horizontal: 12),
                 hintStyle: Styles.textStyle20,
                 border: InputBorder.none,
+                labelText: postController.text,
               ),
               style: Styles.textStyle30,
             ),
@@ -39,6 +40,7 @@ class CreatePostBody extends StatelessWidget {
                   postImage.path,
                   fit: BoxFit.cover,
                 ),
+                // child: const Text('postImage'),
               ),
             ),
         ],

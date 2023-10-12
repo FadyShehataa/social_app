@@ -16,7 +16,7 @@ class ChatDetailsViewAppBar extends StatelessWidget {
     return Column(
       children: [
         CustomAppBar(
-          context: context,
+          ctx: context,
           title: Row(
             children: [
               CircleAvatar(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:social_app/Core/utils/my_colors.dart';
 
 abstract class Styles {
   // static const textStyle14 = TextStyle(
@@ -27,8 +26,6 @@ abstract class Styles {
     fontSize: 28,
     fontWeight: FontWeight.w600,
   );
-
-  
 
 //--------------------------
 
@@ -60,7 +57,6 @@ abstract class Styles {
   static final textStyle30 = TextStyle(
     fontSize: 30,
     fontFamily: GoogleFonts.openSans().fontFamily,
-    
   );
 
   static final textStyle34 = TextStyle(

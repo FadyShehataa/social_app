@@ -19,7 +19,7 @@ class EditProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomAppBar(
-      context: context,
+      ctx: context,
       title: const Text(
         'Edit Profile',
         style: TextStyle(color: Colors.black, fontSize: 20),
