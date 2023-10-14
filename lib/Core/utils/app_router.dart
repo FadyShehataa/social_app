@@ -128,7 +128,10 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kLikesView,
-        builder: (context, state) => LikesView(usersLikes: state.extra as List<UserModel>),
+        builder: (context, state) => BlocProvider(
+          create: (context) => NewsFeedCubit(getIt.get<NewsFeedRepoImpl>()),
+          child: LikesView(usersLikes: state.extra as List<UserModel>),
+        ),
       ),
       GoRoute(
         path: kEditPostView,

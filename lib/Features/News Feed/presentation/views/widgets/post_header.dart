@@ -50,8 +50,13 @@ class PostHeader extends StatelessWidget {
           ),
           const Spacer(),
           if (!isMyPost)
-            IconButton(
-              icon: Icon(!isFollow ? IconBroken.Add_User : IconBroken.Delete),
+            TextButton(
+              child: Text(
+                isFollow ? 'Unfollow' : 'Follow',
+                style: Styles.textStyle16.copyWith(
+                  color: isFollow ? MyColors.myGrey : MyColors.myBlue,
+                ),
+              ),
               onPressed: () => BlocProvider.of<NewsFeedCubit>(context)
                   .updateFollowUser(uid: post.uId!),
             ),
