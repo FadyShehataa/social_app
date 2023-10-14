@@ -21,6 +21,7 @@ import 'package:social_app/Features/Splash/presentation/views/splash_view.dart';
 import '../../Features/Auth/data/repos/auth_repo_impl.dart';
 import '../../Features/Auth/presentation/views/register_view.dart';
 import '../../Features/News Feed/presentation/views/edit_post_view.dart';
+import '../../Features/News Feed/presentation/views/saved_posts_view.dart';
 import '../../Features/Profile/data/repos/edit_profile_repo_impl.dart';
 import '../../Features/Profile/presentation/views/edit_profile_view.dart';
 import 'constants.dart';
@@ -36,6 +37,7 @@ abstract class AppRouter {
   static const kLikesView = '/likesView';
   static const kEditProfileView = '/editProfileView';
   static const kChatDetailsView = '/chatDetailsView';
+  static const kSavedPostsView = '/savedPostsView';
 
   static final router = GoRouter(
     routes: [
@@ -174,6 +176,23 @@ abstract class AppRouter {
           create: (context) => ChatCubit(getIt.get<ChatRepoImpl>())
             ..getMessages((state.extra as UserModel).uId!),
           child: ChatDetailsView(userModel: state.extra as UserModel),
+        ),
+      ),
+      GoRoute(
+        path: kSavedPostsView,
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())
+                ..getUserData()
+                ..getAllUsers(),
+            ),
+            BlocProvider(
+              create: (context) =>
+                  NewsFeedCubit(getIt.get<NewsFeedRepoImpl>())..getPosts(),
+            ),
+          ],
+          child: const SavedPostsView(),
         ),
       ),
     ],

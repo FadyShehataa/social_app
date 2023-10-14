@@ -19,53 +19,60 @@ class PostHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isMyPost = (post.uId == uId);
-    bool isFollow = user.following!.contains(post.uId);
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        if (state is GetAllUsersLoadingState) {
+          return Container();
+        }
 
-    UserModel userPost = BlocProvider.of<HomeCubit>(context)
-        .users
-        .firstWhere((element) => element.uId == post.uId);
+        bool isMyPost = (post.uId == uId);
+        bool isFollow = user.following!.contains(post.uId);
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      child: Row(
-        children: [
-          CircleAvatar(
-            radius: defaultRadius,
-            backgroundImage: NetworkImage(userPost.image!),
-          ),
-          const SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        UserModel userPost = BlocProvider.of<HomeCubit>(context)
+            .users
+            .firstWhere((element) => element.uId == post.uId);
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: Row(
             children: [
-              Text(
-                userPost.name!,
-                style: Styles.textStyle18,
+              CircleAvatar(
+                radius: defaultRadius,
+                backgroundImage: NetworkImage(userPost.image!),
               ),
-              Text(
-                formatPostTime(DateTime.parse(post.dateTime!)),
-                style: Styles.textStyle14.copyWith(color: MyColors.myGrey),
+              const SizedBox(width: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    userPost.name!,
+                    style: Styles.textStyle18,
+                  ),
+                  Text(
+                    formatPostTime(DateTime.parse(post.dateTime!)),
+                    style: Styles.textStyle14.copyWith(color: MyColors.myGrey),
+                  ),
+                ],
+              ),
+              const Spacer(),
+              if (!isMyPost)
+                TextButton(
+                  child: Text(
+                    isFollow ? 'Unfollow' : 'Follow',
+                    style: Styles.textStyle16.copyWith(
+                      color: isFollow ? MyColors.myGrey : MyColors.myBlue,
+                    ),
+                  ),
+                  onPressed: () => BlocProvider.of<NewsFeedCubit>(context)
+                      .updateFollowUser(uid: post.uId!),
+                ),
+              IconButton(
+                icon: const Icon(IconBroken.More_Circle),
+                onPressed: () => showCustomModalBottomSheet(context, isMyPost),
               ),
             ],
           ),
-          const Spacer(),
-          if (!isMyPost)
-            TextButton(
-              child: Text(
-                isFollow ? 'Unfollow' : 'Follow',
-                style: Styles.textStyle16.copyWith(
-                  color: isFollow ? MyColors.myGrey : MyColors.myBlue,
-                ),
-              ),
-              onPressed: () => BlocProvider.of<NewsFeedCubit>(context)
-                  .updateFollowUser(uid: post.uId!),
-            ),
-          IconButton(
-            icon: const Icon(IconBroken.More_Circle),
-            onPressed: () => showCustomModalBottomSheet(context, isMyPost),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 

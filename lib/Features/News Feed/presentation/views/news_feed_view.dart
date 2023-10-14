@@ -22,7 +22,6 @@ class NewsFeedView extends StatelessWidget {
         } else if (state is GetPostsFailureState) {
           return CustomFailureWidget(errMessage: state.errorMessage);
         }
-        // else if (state is GetPostsSuccessState) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: Column(
