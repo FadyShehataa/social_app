@@ -33,3 +33,15 @@ final class EditProfileFailureState extends ProfileState {
 
   const EditProfileFailureState({required this.errorMessage});
 }
+
+// logout
+
+final class LogoutLoadingState extends ProfileState {}
+
+final class LogoutSuccessState extends ProfileState {}
+
+final class LogoutFailureState extends ProfileState {
+  final String errorMessage;
+
+  const LogoutFailureState({required this.errorMessage});
+}

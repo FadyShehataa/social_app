@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:social_app/Core/models/user_model.dart';
 
 import '../../../../Core/errors/failures.dart';
+import '../../../../Core/utils/cache_network.dart';
 import '../../../../Core/utils/constants.dart';
 import 'edit_profile_repo.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -77,6 +78,21 @@ class EditProfileRepoImpl implements EditProfileRepo {
           .doc(user.uId)
           .update(userModel.toMap());
 
+      return right(null);
+    } catch (e) {
+      return left(ServerFailure(errMessage: e.toString()));
+    }
+  }
+
+  // logout
+  @override
+  Future<Either<Failure, void>> logoutUser() async {
+    try {
+      CacheNetwork.deleteCacheItem(key: 'uId');
+      uId = null;
+      user = const UserModel();
+      print(uId);
+      print(user);
       return right(null);
     } catch (e) {
       return left(ServerFailure(errMessage: e.toString()));
