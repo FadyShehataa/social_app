@@ -21,7 +21,7 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<Either<Failure, List<UserModel>>> getAllUsers() async{
+  Future<Either<Failure, List<UserModel>>> getAllUsers() async {
     try {
       List<UserModel> users = [];
 

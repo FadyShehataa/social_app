@@ -36,4 +36,5 @@ abstract class NewsFeedRepo {
 
   // delete post
   Future<Either<Failure, void>> deletePost({required PostModel postModel});
+
 }

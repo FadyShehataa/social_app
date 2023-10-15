@@ -22,7 +22,8 @@ class ChatCubit extends Cubit<ChatState> {
     emit(GetUsersForChatLoadingState());
     var result = await chatRepo.getAllUsers();
     result.fold(
-      (failure) => emit(GetUsersForChatFailureState(errorMessage: failure.errMessage)),
+      (failure) =>
+          emit(GetUsersForChatFailureState(errorMessage: failure.errMessage)),
       (users) {
         usersChat = users.where((element) => element.uId != uId).toList();
         searchedChats = usersChat;

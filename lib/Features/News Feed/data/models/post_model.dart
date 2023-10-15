@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
+import 'comment_model.dart';
+
 class PostModel extends Equatable {
   final String? uId;
   final String? postImage;
@@ -9,6 +11,7 @@ class PostModel extends Equatable {
   final String? dateTime;
   final String? postId;
   final List<String>? likes;
+  final List<CommentModel>? comments;
 
   const PostModel({
     this.uId,
@@ -17,18 +20,25 @@ class PostModel extends Equatable {
     this.dateTime,
     this.postId,
     this.likes,
+    this.comments,
   });
 
   factory PostModel.fromMap(Map<String, dynamic> data) => PostModel(
-        // name: data['name'] as String?,
         uId: data['uId'] as String?,
-        // image: data['image'] as String?,
         postImage: data['postImage'] as String?,
         text: data['text'] as String?,
         dateTime: data['dateTime'] as String?,
         postId: data['postId'] as String?,
         likes: data['likes'] != null
             ? List<String>.from(data['likes'] as List<dynamic>)
+            : [],
+        comments: data['comments'] != null
+            ? List<CommentModel>.from(
+                (data['comments'] as List<dynamic>).map(
+                  (dynamic x) =>
+                      CommentModel.fromMap(x as Map<String, dynamic>),
+                ),
+              )
             : [],
       );
 
@@ -39,6 +49,7 @@ class PostModel extends Equatable {
         'dateTime': dateTime,
         'postId': postId,
         'likes': likes,
+        'comments': comments?.map((x) => x.toMap()).toList(),
       };
 
   /// `dart:convert`
@@ -62,6 +73,7 @@ class PostModel extends Equatable {
       dateTime,
       postId,
       likes,
+      comments,
     ];
   }
 }

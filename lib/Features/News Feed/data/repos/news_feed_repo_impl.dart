@@ -10,6 +10,7 @@ import 'package:social_app/Features/News%20Feed/data/models/post_model.dart';
 import 'package:social_app/Features/News%20Feed/data/repos/news_feed_repo.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
+
 class NewsFeedRepoImpl implements NewsFeedRepo {
   @override
   Future<Either<Failure, void>> createPost({
@@ -126,8 +127,24 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
           .orderBy('dateTime', descending: true)
           .get();
       for (var item in data.docs) {
-        posts.add(PostModel.fromMap(item.data()));
+        Map<String, dynamic> map = item.data();
+        // get comments and add to map variable
+        QuerySnapshot<Map<String, dynamic>> commentsData =
+            await FirebaseFirestore.instance
+                .collection('posts')
+                .doc(map['postId'])
+                .collection('comments')
+                .get();
+        List<Map<String, dynamic>> comments = [];
+        for (var item in commentsData.docs) {
+          comments.add(item.data());
+        }
+        map.addAll({'comments': comments});
+        // print('-------------');
+        // print(map);
+        posts.add(PostModel.fromMap(map));
       }
+
       return right(posts);
     } catch (e) {
       return left(ServerFailure(errMessage: e.toString()));
@@ -187,7 +204,6 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
         // update savedPosts in user
         user.savedPosts!.add(postModel.postId!);
       }
-      print(user.savedPosts);
       return right(null);
     } catch (e) {
       return left(ServerFailure(errMessage: e.toString()));

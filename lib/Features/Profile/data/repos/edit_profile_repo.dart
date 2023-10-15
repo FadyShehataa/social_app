@@ -13,7 +13,6 @@ abstract class EditProfileRepo {
     required File? coverImage,
   });
 
-
   // logout
   Future<Either<Failure, void>> logoutUser();
 }

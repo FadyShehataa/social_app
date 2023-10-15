@@ -22,35 +22,32 @@ class NewsFeedView extends StatelessWidget {
         } else if (state is GetPostsFailureState) {
           return CustomFailureWidget(errMessage: state.errorMessage);
         }
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child: Column(
-            children: [
-              const NewsFeedViewAppBar(),
-              const SizedBox(height: 5),
-              const Divider(thickness: 2),
-              (BlocProvider.of<NewsFeedCubit>(context).posts.isNotEmpty)
-                  ? Expanded(
-                      child: ListView.builder(
-                        itemBuilder: (context, index) {
-                          return PostItem(
-                              post: BlocProvider.of<NewsFeedCubit>(context)
-                                  .posts[index]);
-                        },
-                        itemCount: BlocProvider.of<NewsFeedCubit>(context)
-                            .posts
-                            .length,
-                      ),
-                    )
-                  : const Expanded(
-                      child: CustomEmptyWidget(
-                        title: 'No Posts Yet',
-                        subTitle: 'Add new posts to see them here',
-                        image: AssetsData.emptyPost,
-                      ),
+        return Column(
+          children: [
+            const NewsFeedViewAppBar(),
+            const SizedBox(height: 10),
+            const Divider(thickness: 1, height: 0),
+            (BlocProvider.of<NewsFeedCubit>(context).posts.isNotEmpty)
+                ? Expanded(
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return PostItem(
+                            post: BlocProvider.of<NewsFeedCubit>(context)
+                                .posts[index]);
+                      },
+                      itemCount: BlocProvider.of<NewsFeedCubit>(context)
+                          .posts
+                          .length,
                     ),
-            ],
-          ),
+                  )
+                : const Expanded(
+                    child: CustomEmptyWidget(
+                      title: 'No Posts Yet',
+                      subTitle: 'Add new posts to see them here',
+                      image: AssetsData.emptyPost,
+                    ),
+                  ),
+          ],
         );
       },
     );
