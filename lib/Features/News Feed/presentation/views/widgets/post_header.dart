@@ -9,6 +9,7 @@ import 'package:social_app/Features/Home/presentation/manager/home_cubit/home_cu
 import 'package:social_app/Features/News%20Feed/presentation/manager/news_feed_cubit/news_feed_cubit.dart';
 
 import '../../../../../Core/utils/constants.dart';
+import '../../../../../Core/utils/functions/format_post_time.dart';
 import '../../../../../Core/utils/my_colors.dart';
 import '../../../data/models/post_model.dart';
 
@@ -29,7 +30,7 @@ class PostHeader extends StatelessWidget {
         bool isFollow = user.following!.contains(post.uId);
 
         UserModel userPost = BlocProvider.of<HomeCubit>(context)
-            .users
+            .usersModel
             .firstWhere((element) => element.uId == post.uId);
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
@@ -129,28 +130,6 @@ class PostHeader extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String formatPostTime(DateTime postTime) {
-    Duration timeDifference = DateTime.now().difference(postTime);
-
-    if (timeDifference.inDays > 30) {
-      // More than 30 days, display in weeks
-      int weeks = (timeDifference.inDays / 7).floor();
-      return '$weeks w';
-    } else if (timeDifference.inDays > 0) {
-      // Between 1 day and 30 days, display in days
-      return '${timeDifference.inDays} d';
-    } else if (timeDifference.inHours >= 1) {
-      // Between 1 hour and 24 hours, display in hours
-      return '${timeDifference.inHours} h';
-    } else if (timeDifference.inMinutes >= 1) {
-      // Between 1 minute and 59 minutes, display in minutes
-      return '${timeDifference.inMinutes} m';
-    } else {
-      // Less than 1 minute, display as "Just now"
-      return 'Just now';
-    }
   }
 
   Future<dynamic> showDeleteDialog(BuildContext context) {

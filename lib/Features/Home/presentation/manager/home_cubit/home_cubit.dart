@@ -26,7 +26,7 @@ class HomeCubit extends Cubit<HomeState> {
     emit(ChangeBottomNavBarSuccessState());
   }
 
-  late final List<UserModel> users;
+  late List<UserModel> usersModel = [];
   late UserModel userModel;
 
   Future<void> getUserData() async {
@@ -51,8 +51,9 @@ class HomeCubit extends Cubit<HomeState> {
     result.fold(
       (failure) =>
           emit(GetAllUsersFailureState(errorMessage: failure.errMessage)),
-      (users) {
-        this.users = users;
+      (usersModel) {
+        users = usersModel;
+        this.usersModel = usersModel;
         emit(GetAllUsersSuccessState());
       },
     );

@@ -20,6 +20,7 @@ import 'package:social_app/Features/Profile/presentation/manager/profile_cubit/p
 import 'package:social_app/Features/Splash/presentation/views/splash_view.dart';
 import '../../Features/Auth/data/repos/auth_repo_impl.dart';
 import '../../Features/Auth/presentation/views/register_view.dart';
+import '../../Features/News Feed/presentation/views/comments_view.dart';
 import '../../Features/News Feed/presentation/views/edit_post_view.dart';
 import '../../Features/News Feed/presentation/views/saved_posts_view.dart';
 import '../../Features/Profile/data/repos/edit_profile_repo_impl.dart';
@@ -35,6 +36,7 @@ abstract class AppRouter {
   static const kNewPostView = '/newPostView';
   static const kEditPostView = '/editPostView';
   static const kLikesView = '/likesView';
+  static const kCommentsView = '/commentsView';
   static const kEditProfileView = '/editProfileView';
   static const kChatDetailsView = '/chatDetailsView';
   static const kSavedPostsView = '/savedPostsView';
@@ -65,8 +67,8 @@ abstract class AppRouter {
           providers: [
             BlocProvider(
               create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())
-                ..getUserData()
-                ..getAllUsers(),
+                // ..getUserData()
+                // ..getAllUsers(),
             ),
             BlocProvider(
               create: (context) =>
@@ -94,8 +96,8 @@ abstract class AppRouter {
               providers: [
                 BlocProvider(
                   create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())
-                    ..getUserData()
-                    ..getAllUsers(),
+                    // ..getUserData()
+                    // ..getAllUsers(),
                 ),
                 BlocProvider(
                   create: (context) =>
@@ -126,8 +128,8 @@ abstract class AppRouter {
           providers: [
             BlocProvider(
               create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())
-                ..getUserData()
-                ..getAllUsers(),
+                // ..getUserData()
+                // ..getAllUsers(),
             ),
             BlocProvider(
               create: (context) => NewsFeedCubit(getIt.get<NewsFeedRepoImpl>()),
@@ -144,13 +146,29 @@ abstract class AppRouter {
         ),
       ),
       GoRoute(
+        path: kCommentsView,
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => NewsFeedCubit(getIt.get<NewsFeedRepoImpl>()),
+            ),
+            BlocProvider(
+              create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())
+                // ..getAllUsers()
+                // ..getUserData(),
+            ),
+          ],
+          child: CommentsView(postModel: state.extra as PostModel),
+        ),
+      ),
+      GoRoute(
         path: kEditPostView,
         builder: (context, state) => MultiBlocProvider(
           providers: [
             BlocProvider(
               create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())
-                ..getUserData()
-                ..getAllUsers(),
+                // ..getUserData()
+                // ..getAllUsers(),
             ),
             BlocProvider(
               create: (context) => NewsFeedCubit(getIt.get<NewsFeedRepoImpl>()),
@@ -167,8 +185,8 @@ abstract class AppRouter {
           providers: [
             BlocProvider(
               create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())
-                ..getUserData()
-                ..getAllUsers(),
+                // ..getUserData()
+                // ..getAllUsers(),
             ),
             BlocProvider(
               create: (context) =>
@@ -192,8 +210,8 @@ abstract class AppRouter {
           providers: [
             BlocProvider(
               create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())
-                ..getUserData()
-                ..getAllUsers(),
+                // ..getUserData()
+                // ..getAllUsers(),
             ),
             BlocProvider(
               create: (context) =>

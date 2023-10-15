@@ -57,7 +57,7 @@ class PostBody extends StatelessWidget {
                       onPressed: () {
                         GoRouter.of(context).push(AppRouter.kLikesView,
                             extra: BlocProvider.of<HomeCubit>(context)
-                                .users
+                                .usersModel
                                 .where((element) =>
                                     post.likes!.contains(element.uId))
                                 .toList());
@@ -72,18 +72,22 @@ class PostBody extends StatelessWidget {
                       ),
                       style: TextButton.styleFrom(padding: EdgeInsets.zero),
                     ),
-                  TextButton.icon(
-                    onPressed: () {},
-                    icon: const Text(
-                      '521',
-                      style: TextStyle(color: MyColors.myGrey),
+                  if (post.comments!.isNotEmpty)
+                    TextButton.icon(
+                      onPressed: () => GoRouter.of(context).push(
+                        AppRouter.kCommentsView,
+                        extra: post,
+                      ),
+                      icon: Text(
+                        post.comments!.length.toString(),
+                        style: const TextStyle(color: MyColors.myGrey),
+                      ),
+                      label: const Icon(
+                        IconBroken.Chat,
+                        color: MyColors.myGrey,
+                      ),
+                      style: TextButton.styleFrom(padding: EdgeInsets.zero),
                     ),
-                    label: const Icon(
-                      IconBroken.Chat,
-                      color: MyColors.myGrey,
-                    ),
-                    style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                  ),
                 ],
               );
             },
