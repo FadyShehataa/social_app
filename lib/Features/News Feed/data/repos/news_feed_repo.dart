@@ -35,6 +35,13 @@ abstract class NewsFeedRepo {
     required CommentModel commentModel,
   });
 
+  // create comment
+  Future<Either<Failure, void>> createComment({
+    required String text,
+    required String dateTime,
+    required String postId,
+  });
+
   // update save post
   Future<Either<Failure, void>> updateSavePost({required PostModel postModel});
 

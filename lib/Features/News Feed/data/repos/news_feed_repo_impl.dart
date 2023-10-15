@@ -217,6 +217,41 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
     }
   }
 
+  // create comment
+  @override
+  Future<Either<Failure, void>> createComment({
+    required String text,
+    required String dateTime,
+    required String postId,
+  }) async {
+    try {
+      CommentModel commentModel = CommentModel(
+        userId: user.uId,
+        text: text,
+        dateTime: dateTime,
+        likes: const [],
+      );
+
+      CollectionReference commentsCollection = FirebaseFirestore.instance
+          .collection('posts')
+          .doc(postId)
+          .collection('comments');
+
+      DocumentReference newCommentRef =
+          await commentsCollection.add(commentModel.toMap());
+
+      String newCommentId = newCommentRef.id;
+
+      await newCommentRef.set(
+        {'commentId': newCommentId},
+        SetOptions(merge: true),
+      );
+      return right(null);
+    } catch (e) {
+      return left(ServerFailure(errMessage: e.toString()));
+    }
+  }
+
   // update save post
   @override
   Future<Either<Failure, void>> updateSavePost(

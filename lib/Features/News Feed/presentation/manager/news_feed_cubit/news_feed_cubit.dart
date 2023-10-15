@@ -18,6 +18,7 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
   File? postImage;
   var picker = ImagePicker();
 
+  // get post image
   Future<void> getPostImage() async {
     emit(PostImagePickedLoadingState());
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -29,11 +30,13 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
     }
   }
 
+  // remove post image
   void removePostImage() {
     postImage = null;
     emit(RemovePostImageState());
   }
 
+  // create post
   Future<void> createPost({
     required String text,
     required String dateTime,
@@ -53,6 +56,7 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
     );
   }
 
+  // edit post
   Future<void> editPost({
     required String text,
     required String dateTime,
@@ -75,6 +79,7 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
     );
   }
 
+  // get all posts
   List<PostModel> posts = [];
   Future<void> getPosts() async {
     emit(GetPostsLoadingState());
@@ -116,6 +121,26 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
       (failure) =>
           emit(UpdateLikeCommentFailureState(errorMessage: failure.errMessage)),
       (_) => emit(UpdateLikeCommentSuccessState()),
+    );
+  }
+
+  // add comment in post
+  Future<void> createComment({
+    required String text,
+    required String dateTime,
+    required String postId,
+  }) async {
+    emit(CreateCommentLoadingState());
+    var result = await newsFeedRepo.createComment(
+      dateTime: dateTime,
+      text: text,
+      postId: postId,
+    );
+
+    result.fold(
+      (failure) =>
+          emit(CreateCommentFailureState(errorMessage: failure.errMessage)),
+      (_) => emit(CreateCommentSuccessState()),
     );
   }
 

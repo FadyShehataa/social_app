@@ -22,72 +22,88 @@ class CommentsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController commentController = TextEditingController();
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            CustomAppBar(
-              ctx: context,
-              title: Text('Comments', style: Styles.textStyle20),
-            ),
-            const CustomDivider(),
-            postModel.comments!.isNotEmpty
-                ? Expanded(
-                    child: ListView.builder(
-                      itemBuilder: (context, index) => CommentItem(
-                        postModel: postModel,
-                        commentModel: postModel.comments![index],
-                      ),
-                      itemCount: postModel.comments!.length,
-                    ),
-                  )
-                : const Expanded(
-                    child: CustomEmptyWidget(
-                      title: 'No Comments Yet',
-                      subTitle: 'Be the first one to comment',
-                      image: AssetsData.emptyChat,
-                    ),
-                  ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color: MyColors.mySteelBlue),
+        child: BlocBuilder<NewsFeedCubit, NewsFeedState>(
+          builder: (context, state) {
+            print(state);
+            return Column(
+              children: [
+                CustomAppBar(
+                  ctx: context,
+                  title: Text('Comments', style: Styles.textStyle20),
                 ),
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: Row(
-                  children: [
-                    const Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Write a comment...',
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 5,
+                const CustomDivider(),
+                postModel.comments!.isNotEmpty
+                    ? Expanded(
+                        child: ListView.builder(
+                          itemBuilder: (context, index) => CommentItem(
+                            postModel: postModel,
+                            commentModel: postModel.comments![index],
                           ),
+                          itemCount: postModel.comments!.length,
+                        ),
+                      )
+                    : const Expanded(
+                        child: CustomEmptyWidget(
+                          title: 'No Comments Yet',
+                          subTitle: 'Be the first one to comment',
+                          image: AssetsData.emptyChat,
                         ),
                       ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(color: MyColors.mySteelBlue),
                     ),
-                    TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                        backgroundColor: MyColors.mySteelBlue,
-                        padding: EdgeInsets.zero,
-                        minimumSize: const Size(50, 50),
-                      ),
-                      child: const Icon(
-                        IconBroken.Send,
-                        color: MyColors.myWhite,
-                        size: 16,
-                      ),
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: commentController,
+                            decoration: const InputDecoration(
+                              hintText: 'Write a comment...',
+                              border: InputBorder.none,
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 5,
+                              ),
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            BlocProvider.of<NewsFeedCubit>(context)
+                                .createComment(
+                              text: commentController.text,
+                              dateTime: DateTime.now().toString(),
+                              postId: postModel.postId!,
+                            );
+                            commentController.clear();
+                          },
+                          style: TextButton.styleFrom(
+                            backgroundColor: MyColors.mySteelBlue,
+                            padding: EdgeInsets.zero,
+                            minimumSize: const Size(50, 50),
+                          ),
+                          child: const Icon(
+                            IconBroken.Send,
+                            color: MyColors.myWhite,
+                            size: 16,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            )
-          ],
+                  ),
+                )
+              ],
+            );
+          },
         ),
       ),
     );

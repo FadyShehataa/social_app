@@ -68,6 +68,18 @@ final class UpdateLikeCommentFailureState extends NewsFeedState {
   const UpdateLikeCommentFailureState({required this.errorMessage});
 }
 
+// add comment in post
+final class CreateCommentLoadingState extends NewsFeedState {}
+
+final class CreateCommentSuccessState extends NewsFeedState {}
+
+final class CreateCommentFailureState extends NewsFeedState {
+  final String errorMessage;
+
+  const CreateCommentFailureState({required this.errorMessage});
+}
+
+
 //  Update Save post
 final class UpdateSavePostLoadingState extends NewsFeedState {}
 
