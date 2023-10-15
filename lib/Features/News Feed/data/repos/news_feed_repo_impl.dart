@@ -10,6 +10,7 @@ import 'package:social_app/Features/News%20Feed/data/models/post_model.dart';
 import 'package:social_app/Features/News%20Feed/data/repos/news_feed_repo.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
+import '../models/comment_model.dart';
 
 class NewsFeedRepoImpl implements NewsFeedRepo {
   @override
@@ -175,6 +176,42 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
         postModel.likes!.add(user.uId!);
       }
       return right(postModel.likes!.length);
+    } catch (e) {
+      return left(ServerFailure(errMessage: e.toString()));
+    }
+  }
+
+  // update like comment
+  @override
+  Future<Either<Failure, int>> updateLikeComment({
+    required PostModel postModel,
+    required CommentModel commentModel,
+  }) async {
+    try {
+      if (commentModel.likes!.contains(user.uId)) {
+        await FirebaseFirestore.instance
+            .collection('posts')
+            .doc(postModel.postId)
+            .collection('comments')
+            .doc(commentModel.commentId)
+            .update({
+          'likes': FieldValue.arrayRemove([user.uId]),
+        });
+        // update likes in commentModel
+        commentModel.likes!.remove(user.uId);
+      } else {
+        await FirebaseFirestore.instance
+            .collection('posts')
+            .doc(postModel.postId)
+            .collection('comments')
+            .doc(commentModel.commentId)
+            .update({
+          'likes': FieldValue.arrayUnion([user.uId]),
+        });
+        // update likes in commentModel
+        commentModel.likes!.add(user.uId!);
+      }
+      return right(commentModel.likes!.length);
     } catch (e) {
       return left(ServerFailure(errMessage: e.toString()));
     }

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:social_app/Features/News%20Feed/data/models/comment_model.dart';
 
 import '../../../../Core/errors/failures.dart';
 import '../models/post_model.dart';
@@ -28,6 +29,12 @@ abstract class NewsFeedRepo {
   // update like post
   Future<Either<Failure, int>> updateLikePost({required PostModel postModel});
 
+  // update like comment
+  Future<Either<Failure, int>> updateLikeComment({
+    required PostModel postModel,
+    required CommentModel commentModel,
+  });
+
   // update save post
   Future<Either<Failure, void>> updateSavePost({required PostModel postModel});
 
@@ -36,5 +43,4 @@ abstract class NewsFeedRepo {
 
   // delete post
   Future<Either<Failure, void>> deletePost({required PostModel postModel});
-
 }

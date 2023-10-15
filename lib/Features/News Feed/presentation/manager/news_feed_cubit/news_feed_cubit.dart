@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:social_app/Features/News%20Feed/data/models/comment_model.dart';
 import 'package:social_app/Features/News%20Feed/data/repos/news_feed_repo_impl.dart';
 
 import '../../../data/models/post_model.dart';
@@ -97,6 +98,24 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
     result.fold(
       (failure) => emit(GetPostsFailureState(errorMessage: failure.errMessage)),
       (posts) => emit(UpdateLikePostSuccessState()),
+    );
+  }
+
+  // update like comment
+  Future<void> updateLikeComment({
+    required PostModel postModel,
+    required CommentModel commentModel,
+  }) async {
+    emit(UpdateLikeCommentLoadingState());
+    var result = await newsFeedRepo.updateLikeComment(
+      postModel: postModel,
+      commentModel: commentModel,
+    );
+
+    result.fold(
+      (failure) =>
+          emit(UpdateLikeCommentFailureState(errorMessage: failure.errMessage)),
+      (_) => emit(UpdateLikeCommentSuccessState()),
     );
   }
 
