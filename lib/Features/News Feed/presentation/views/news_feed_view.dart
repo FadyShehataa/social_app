@@ -17,13 +17,12 @@ class NewsFeedView extends StatelessWidget {
     return BlocConsumer<NewsFeedCubit, NewsFeedState>(
       listener: (context, state) {},
       builder: (context, state) {
-        // print(state);
+        print(state);
         if (state is GetPostsLoadingState) {
           return const CustomLoadingWidget();
         } else if (state is GetPostsFailureState) {
           return CustomFailureWidget(errMessage: state.errorMessage);
         }
-            print('posts = ${BlocProvider.of<NewsFeedCubit>(context).posts}');
 
         return Column(
           children: [
@@ -38,9 +37,8 @@ class NewsFeedView extends StatelessWidget {
                             post: BlocProvider.of<NewsFeedCubit>(context)
                                 .posts[index]);
                       },
-                      itemCount: BlocProvider.of<NewsFeedCubit>(context)
-                          .posts
-                          .length,
+                      itemCount:
+                          BlocProvider.of<NewsFeedCubit>(context).posts.length,
                     ),
                   )
                 : const Expanded(

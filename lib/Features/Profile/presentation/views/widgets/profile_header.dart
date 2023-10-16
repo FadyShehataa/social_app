@@ -58,6 +58,9 @@ class ProfileHeader extends StatelessWidget {
                   ],
                   isBack: false,
                 ),
+                const SizedBox(
+                  height: 5,
+                ),
                 SizedBox(
                   height: 280,
                   child: Stack(
