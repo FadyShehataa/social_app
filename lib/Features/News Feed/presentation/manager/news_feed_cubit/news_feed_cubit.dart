@@ -140,7 +140,10 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
     result.fold(
       (failure) =>
           emit(CreateCommentFailureState(errorMessage: failure.errMessage)),
-      (_) => emit(CreateCommentSuccessState()),
+      (_) {
+        getPosts();
+        emit(CreateCommentSuccessState());
+      },
     );
   }
 
@@ -175,7 +178,10 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
     result.fold(
       (failure) =>
           emit(DeletePostFailureState(errorMessage: failure.errMessage)),
-      (_) => emit(DeletePostSuccessState()),
+      (_) {
+        getPosts();
+        emit(DeletePostSuccessState());
+      },
     );
   }
 }

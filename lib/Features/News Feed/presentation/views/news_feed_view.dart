@@ -17,11 +17,14 @@ class NewsFeedView extends StatelessWidget {
     return BlocConsumer<NewsFeedCubit, NewsFeedState>(
       listener: (context, state) {},
       builder: (context, state) {
+        // print(state);
         if (state is GetPostsLoadingState) {
           return const CustomLoadingWidget();
         } else if (state is GetPostsFailureState) {
           return CustomFailureWidget(errMessage: state.errorMessage);
         }
+            print('posts = ${BlocProvider.of<NewsFeedCubit>(context).posts}');
+
         return Column(
           children: [
             const NewsFeedViewAppBar(),

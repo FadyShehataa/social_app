@@ -135,6 +135,7 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
                 .collection('posts')
                 .doc(map['postId'])
                 .collection('comments')
+                .orderBy('dateTime', descending: true)
                 .get();
         List<Map<String, dynamic>> comments = [];
         for (var item in commentsData.docs) {

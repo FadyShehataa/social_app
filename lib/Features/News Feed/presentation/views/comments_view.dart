@@ -16,9 +16,9 @@ import '../../../../Core/utils/styles.dart';
 import '../../data/models/comment_model.dart';
 
 class CommentsView extends StatelessWidget {
-  const CommentsView({super.key, required this.postModel});
+  CommentsView({super.key, required this.postModel});
 
-  final PostModel postModel;
+  PostModel postModel;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,12 @@ class CommentsView extends StatelessWidget {
       body: SafeArea(
         child: BlocBuilder<NewsFeedCubit, NewsFeedState>(
           builder: (context, state) {
-            print(state);
+            if (state is GetPostsSuccessState) {
+              postModel =
+                  BlocProvider.of<NewsFeedCubit>(context).posts.firstWhere(
+                        (element) => element.postId == postModel.postId,
+                      );
+            }
             return Column(
               children: [
                 CustomAppBar(
