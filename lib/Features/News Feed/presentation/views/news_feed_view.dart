@@ -14,30 +14,36 @@ class NewsFeedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<NewsFeedCubit, NewsFeedState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        if (state is GetPostsLoadingState) {
-          return const CustomLoadingWidget();
-        } else if (state is GetPostsFailureState) {
-          return CustomFailureWidget(errMessage: state.errorMessage);
-        }
-
-        return Column(
-          children: [
-            const NewsFeedViewAppBar(),
-            const SizedBox(height: 10),
-            const Divider(thickness: 1, height: 0),
-            (BlocProvider.of<NewsFeedCubit>(context).posts.isNotEmpty)
+    return Column(
+      children: [
+        const NewsFeedViewAppBar(),
+        const SizedBox(height: 10),
+        const Divider(thickness: 1, height: 0),
+        BlocBuilder<NewsFeedCubit, NewsFeedState>(
+          builder: ((context, state) {
+            if (state is GetPostsLoadingState) {
+              return const Expanded(
+                child: CustomLoadingWidget(),
+              );
+            } else if (state is GetPostsFailureState) {
+              return CustomFailureWidget(errMessage: state.errorMessage);
+            }
+            return (BlocProvider.of<NewsFeedCubit>(context).posts.isNotEmpty)
                 ? Expanded(
-                    child: ListView.builder(
-                      itemBuilder: (context, index) {
-                        return PostItem(
-                            post: BlocProvider.of<NewsFeedCubit>(context)
-                                .posts[index]);
+                    child: RefreshIndicator(
+                      onRefresh: () async {
+                        BlocProvider.of<NewsFeedCubit>(context).getPosts();
                       },
-                      itemCount:
-                          BlocProvider.of<NewsFeedCubit>(context).posts.length,
+                      child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          return PostItem(
+                              post: BlocProvider.of<NewsFeedCubit>(context)
+                                  .posts[index]);
+                        },
+                        itemCount: BlocProvider.of<NewsFeedCubit>(context)
+                            .posts
+                            .length,
+                      ),
                     ),
                   )
                 : const Expanded(
@@ -46,10 +52,10 @@ class NewsFeedView extends StatelessWidget {
                       subTitle: 'Add new posts to see them here',
                       image: AssetsData.emptyPost,
                     ),
-                  ),
-          ],
-        );
-      },
+                  );
+          }),
+        ),
+      ],
     );
   }
 }
