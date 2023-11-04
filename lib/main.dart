@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/Core/utils/constants.dart';
 import 'package:social_app/Core/utils/my_colors.dart';
+import 'package:social_app/Features/Home/data/repos/home_repo_impl.dart';
+import 'package:social_app/Features/Home/presentation/manager/home_cubit/home_cubit.dart';
 import 'package:social_app/Features/News%20Feed/data/repos/news_feed_repo_impl.dart';
 import 'package:social_app/Features/News%20Feed/presentation/manager/news_feed_cubit/news_feed_cubit.dart';
 
@@ -33,8 +35,15 @@ class SocialApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => NewsFeedCubit(getIt.get<NewsFeedRepoImpl>()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => NewsFeedCubit(getIt.get<NewsFeedRepoImpl>()),
+        ),
+        BlocProvider(
+          create: (context) => HomeCubit(getIt.get<HomeRepoImpl>()),
+        ),
+      ],
       child: MaterialApp.router(
         builder: DevicePreview.appBuilder,
         routerConfig: AppRouter.router,

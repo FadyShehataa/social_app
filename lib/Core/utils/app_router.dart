@@ -8,8 +8,6 @@ import 'package:social_app/Features/Auth/presentation/views/login_view.dart';
 import 'package:social_app/Features/Chat/data/repos/chat_repo_impl.dart';
 import 'package:social_app/Features/Chat/presentation/manager/chat_cubit/chat_cubit.dart';
 import 'package:social_app/Features/Chat/presentation/views/chat_details_view.dart';
-import 'package:social_app/Features/Home/data/repos/home_repo_impl.dart';
-import 'package:social_app/Features/Home/presentation/manager/home_cubit/home_cubit.dart';
 import 'package:social_app/Features/Home/presentation/views/home_view.dart';
 import 'package:social_app/Features/News%20Feed/data/models/post_model.dart';
 import 'package:social_app/Features/News%20Feed/presentation/views/create_post_view.dart';
@@ -64,8 +62,6 @@ abstract class AppRouter {
         builder: (context, state) => MultiBlocProvider(
           providers: [
             BlocProvider(
-                create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())),
-            BlocProvider(
               create: (context) =>
                   ChatCubit(getIt.get<ChatRepoImpl>())..getUsersForChat(),
             ),
@@ -85,9 +81,6 @@ abstract class AppRouter {
           if (uId != null && uId!.isNotEmpty) {
             return MultiBlocProvider(
               providers: [
-                BlocProvider(
-                  create: (context) => HomeCubit(getIt.get<HomeRepoImpl>()),
-                ),
                 BlocProvider(
                   create: (context) =>
                       ChatCubit(getIt.get<ChatRepoImpl>())..getUsersForChat(),
@@ -109,14 +102,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kNewPostView,
-        builder: (context, state) => MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => HomeCubit(getIt.get<HomeRepoImpl>()),
-            ),
-          ],
-          child: const CreatePostView(),
-        ),
+        builder: (context, state) => const CreatePostView(),
       ),
       GoRoute(
         path: kLikesView,
@@ -125,40 +111,19 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kCommentsView,
-        builder: (context, state) => MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => HomeCubit(getIt.get<HomeRepoImpl>()),
-            ),
-          ],
-          child: CommentsView(postModel: state.extra as PostModel),
-        ),
+        builder: (context, state) =>
+            CommentsView(postModel: state.extra as PostModel),
       ),
       GoRoute(
         path: kEditPostView,
-        builder: (context, state) => MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => HomeCubit(getIt.get<HomeRepoImpl>()),
-            ),
-          ],
-          child: EditPostView(
-            postModel: state.extra as PostModel,
-          ),
+        builder: (context, state) => EditPostView(
+          postModel: state.extra as PostModel,
         ),
       ),
       GoRoute(
         path: kEditProfileView,
-        builder: (context, state) => MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => HomeCubit(getIt.get<HomeRepoImpl>()),
-            ),
-            BlocProvider(
-              create: (context) =>
-                  ProfileCubit(getIt.get<EditProfileRepoImpl>()),
-            ),
-          ],
+        builder: (context, state) => BlocProvider(
+          create: (context) => ProfileCubit(getIt.get<EditProfileRepoImpl>()),
           child: const EditProfileView(),
         ),
       ),
@@ -172,14 +137,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kSavedPostsView,
-        builder: (context, state) => MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => HomeCubit(getIt.get<HomeRepoImpl>()),
-            ),
-          ],
-          child: const SavedPostsView(),
-        ),
+        builder: (context, state) => const SavedPostsView(),
       ),
     ],
   );

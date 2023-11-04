@@ -78,7 +78,10 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
 
     result.fold(
       (failure) => emit(EditPostFailureState(errorMessage: failure.errMessage)),
-      (_) => emit(EditPostSuccessState()),
+      (_) {
+        getPosts();
+        emit(EditPostSuccessState());
+      },
     );
   }
 
