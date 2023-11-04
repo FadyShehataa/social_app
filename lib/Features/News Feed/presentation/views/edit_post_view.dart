@@ -19,7 +19,8 @@ class EditPostView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<NewsFeedCubit>(context).postImage = File(postModel.postImage!) ;
+    BlocProvider.of<NewsFeedCubit>(context).postImage =
+        File(postModel.postImage!);
     final TextEditingController postController =
         TextEditingController(text: postModel.text);
     return Scaffold(
@@ -58,7 +59,7 @@ class EditPostView extends StatelessWidget {
                     : const CustomDivider(),
                 const SizedBox(height: 5),
                 CreatePostBody(postController: postController),
-                const CreatePostFooter(), // TODO implement later
+                const CreatePostFooter(),
               ],
             );
           },

@@ -12,13 +12,29 @@ import '../../../../Core/models/user_model.dart';
 import '../../../../Core/utils/constants.dart';
 import '../manager/chat_cubit/chat_cubit.dart';
 
-class ChatDetailsView extends StatelessWidget {
-  ChatDetailsView({super.key, required this.userModel});
-
-  final messageController = TextEditingController();
-  final scrollController = ScrollController();
+class ChatDetailsView extends StatefulWidget {
+  const ChatDetailsView({super.key, required this.userModel});
 
   final UserModel userModel;
+
+  @override
+  State<ChatDetailsView> createState() => _ChatDetailsViewState();
+}
+
+class _ChatDetailsViewState extends State<ChatDetailsView> {
+  final messageController = TextEditingController();
+
+  final scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    getMessages();
+  }
+
+  getMessages() async {
+    BlocProvider.of<ChatCubit>(context).getMessages(widget.userModel.uId!);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +42,9 @@ class ChatDetailsView extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            ChatDetailsViewAppBar(userModel: userModel),
+            ChatDetailsViewAppBar(userModel: widget.userModel),
             BlocBuilder<ChatCubit, ChatState>(builder: (context, state) {
+              print(state);
               if (state is GetMessagesLoadingState) {
                 return const CustomLoadingWidget();
               } else {
@@ -69,7 +86,7 @@ class ChatDetailsView extends StatelessWidget {
             ChatDetailsViewMessageInput(
               messageController: messageController,
               scrollController: scrollController,
-              userModel: userModel,
+              userModel: widget.userModel,
             )
           ],
         ),

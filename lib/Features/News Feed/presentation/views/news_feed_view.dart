@@ -17,7 +17,6 @@ class NewsFeedView extends StatelessWidget {
     return BlocConsumer<NewsFeedCubit, NewsFeedState>(
       listener: (context, state) {},
       builder: (context, state) {
-        print(state);
         if (state is GetPostsLoadingState) {
           return const CustomLoadingWidget();
         } else if (state is GetPostsFailureState) {

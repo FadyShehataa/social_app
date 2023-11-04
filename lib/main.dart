@@ -45,6 +45,7 @@ class SocialApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         builder: DevicePreview.appBuilder,
         routerConfig: AppRouter.router,
         theme: ThemeData.dark().copyWith(

@@ -130,8 +130,7 @@ abstract class AppRouter {
       GoRoute(
         path: kChatDetailsView,
         builder: (context, state) => BlocProvider(
-          create: (context) => ChatCubit(getIt.get<ChatRepoImpl>())
-            ..getMessages((state.extra as UserModel).uId!),
+          create: (context) => ChatCubit(getIt.get<ChatRepoImpl>()),
           child: ChatDetailsView(userModel: state.extra as UserModel),
         ),
       ),

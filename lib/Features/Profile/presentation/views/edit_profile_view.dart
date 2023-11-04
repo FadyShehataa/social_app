@@ -30,9 +30,7 @@ class EditProfileView extends StatelessWidget {
             listener: (context, state) async {
           if (state is EditProfileSuccessState) {
             GoRouter.of(context).pop();
-            print(user);
             await BlocProvider.of<HomeCubit>(context).getUserData();
-            print(user);
             // get all posts
           } else if (state is EditProfileFailureState) {
             showSnackBar(context, state.errorMessage);
