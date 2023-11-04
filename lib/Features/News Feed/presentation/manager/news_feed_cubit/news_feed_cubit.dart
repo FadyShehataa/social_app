@@ -52,7 +52,10 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
     result.fold(
       (failure) =>
           emit(CreatePostFailureState(errorMessage: failure.errMessage)),
-      (_) => emit(CreatePostSuccessState()),
+      (_) {
+        getPosts();
+        emit(CreatePostSuccessState());
+      },
     );
   }
 

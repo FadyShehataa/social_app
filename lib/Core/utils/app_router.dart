@@ -12,8 +12,6 @@ import 'package:social_app/Features/Home/data/repos/home_repo_impl.dart';
 import 'package:social_app/Features/Home/presentation/manager/home_cubit/home_cubit.dart';
 import 'package:social_app/Features/Home/presentation/views/home_view.dart';
 import 'package:social_app/Features/News%20Feed/data/models/post_model.dart';
-import 'package:social_app/Features/News%20Feed/data/repos/news_feed_repo_impl.dart';
-import 'package:social_app/Features/News%20Feed/presentation/manager/news_feed_cubit/news_feed_cubit.dart';
 import 'package:social_app/Features/News%20Feed/presentation/views/create_post_view.dart';
 import 'package:social_app/Features/News%20Feed/presentation/views/likes_view.dart';
 import 'package:social_app/Features/Profile/presentation/manager/profile_cubit/profile_cubit.dart';
@@ -69,10 +67,6 @@ abstract class AppRouter {
                 create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())),
             BlocProvider(
               create: (context) =>
-                  NewsFeedCubit(getIt.get<NewsFeedRepoImpl>())..getPosts(),
-            ),
-            BlocProvider(
-              create: (context) =>
                   ChatCubit(getIt.get<ChatRepoImpl>())..getUsersForChat(),
             ),
             BlocProvider(
@@ -92,13 +86,7 @@ abstract class AppRouter {
             return MultiBlocProvider(
               providers: [
                 BlocProvider(
-                    create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())
-                    // ..getUserData()
-                    // ..getAllUsers(),
-                    ),
-                BlocProvider(
-                  create: (context) =>
-                      NewsFeedCubit(getIt.get<NewsFeedRepoImpl>())..getPosts(),
+                  create: (context) => HomeCubit(getIt.get<HomeRepoImpl>()),
                 ),
                 BlocProvider(
                   create: (context) =>
@@ -124,12 +112,7 @@ abstract class AppRouter {
         builder: (context, state) => MultiBlocProvider(
           providers: [
             BlocProvider(
-                create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())
-                // ..getUserData()
-                // ..getAllUsers(),
-                ),
-            BlocProvider(
-              create: (context) => NewsFeedCubit(getIt.get<NewsFeedRepoImpl>()),
+              create: (context) => HomeCubit(getIt.get<HomeRepoImpl>()),
             ),
           ],
           child: const CreatePostView(),
@@ -137,20 +120,16 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kLikesView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => NewsFeedCubit(getIt.get<NewsFeedRepoImpl>()),
-          child: LikesView(usersLikes: state.extra as List<UserModel>),
-        ),
+        builder: (context, state) =>
+            LikesView(usersLikes: state.extra as List<UserModel>),
       ),
       GoRoute(
         path: kCommentsView,
         builder: (context, state) => MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (context) => NewsFeedCubit(getIt.get<NewsFeedRepoImpl>()),
+              create: (context) => HomeCubit(getIt.get<HomeRepoImpl>()),
             ),
-            BlocProvider(
-                create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())),
           ],
           child: CommentsView(postModel: state.extra as PostModel),
         ),
@@ -160,12 +139,7 @@ abstract class AppRouter {
         builder: (context, state) => MultiBlocProvider(
           providers: [
             BlocProvider(
-                create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())
-                // ..getUserData()
-                // ..getAllUsers(),
-                ),
-            BlocProvider(
-              create: (context) => NewsFeedCubit(getIt.get<NewsFeedRepoImpl>()),
+              create: (context) => HomeCubit(getIt.get<HomeRepoImpl>()),
             ),
           ],
           child: EditPostView(
@@ -178,10 +152,8 @@ abstract class AppRouter {
         builder: (context, state) => MultiBlocProvider(
           providers: [
             BlocProvider(
-                create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())
-                // ..getUserData()
-                // ..getAllUsers(),
-                ),
+              create: (context) => HomeCubit(getIt.get<HomeRepoImpl>()),
+            ),
             BlocProvider(
               create: (context) =>
                   ProfileCubit(getIt.get<EditProfileRepoImpl>()),
@@ -203,13 +175,7 @@ abstract class AppRouter {
         builder: (context, state) => MultiBlocProvider(
           providers: [
             BlocProvider(
-                create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())
-                // ..getUserData()
-                // ..getAllUsers(),
-                ),
-            BlocProvider(
-              create: (context) =>
-                  NewsFeedCubit(getIt.get<NewsFeedRepoImpl>())..getPosts(),
+              create: (context) => HomeCubit(getIt.get<HomeRepoImpl>()),
             ),
           ],
           child: const SavedPostsView(),
