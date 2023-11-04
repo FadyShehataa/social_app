@@ -84,4 +84,10 @@ class UserModel extends Equatable {
         followers,
         following
       ];
+
+  // to string
+  @override
+  String toString() {
+    return 'UserModel{uId: $uId, name: $name, email: $email, phone: $phone, image: $image, bio: $bio, cover: $cover, savedPosts: $savedPosts, followers: $followers, following: $following}';
+  }
 }

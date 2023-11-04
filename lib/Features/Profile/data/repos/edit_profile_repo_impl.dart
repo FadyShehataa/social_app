@@ -73,11 +73,12 @@ class EditProfileRepoImpl implements EditProfileRepo {
         email: user.email,
       );
 
-      FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collection('users')
           .doc(user.uId)
           .update(userModel.toMap());
-
+      // update user
+      user = userModel;
       return right(null);
     } catch (e) {
       return left(ServerFailure(errMessage: e.toString()));

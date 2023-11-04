@@ -9,6 +9,7 @@ import 'package:social_app/Features/Profile/presentation/views/widgets/edit_prof
 import 'package:social_app/Features/Profile/presentation/views/widgets/edit_profile_stats.dart';
 
 import '../../../../Core/utils/constants.dart';
+import '../../../Home/presentation/manager/home_cubit/home_cubit.dart';
 
 class EditProfileView extends StatelessWidget {
   const EditProfileView({super.key});
@@ -23,19 +24,17 @@ class EditProfileView extends StatelessWidget {
     final TextEditingController phoneController =
         TextEditingController(text: user.phone);
 
-    bool isLoading = false;
-
     return Scaffold(
       body: SafeArea(
         child: BlocConsumer<ProfileCubit, ProfileState>(
-            listener: (context, state) {
-          if (state is EditProfileLoadingState) {
-            isLoading = true;
-          } else if (state is EditProfileSuccessState) {
-            isLoading = false;
+            listener: (context, state) async {
+          if (state is EditProfileSuccessState) {
             GoRouter.of(context).pop();
+            print(user);
+            await BlocProvider.of<HomeCubit>(context).getUserData();
+            print(user);
+            // get all posts
           } else if (state is EditProfileFailureState) {
-            isLoading = false;
             showSnackBar(context, state.errorMessage);
           }
         }, builder: (context, state) {
@@ -43,7 +42,7 @@ class EditProfileView extends StatelessWidget {
               BlocProvider.of<ProfileCubit>(context).profileImage;
           var coverImage = BlocProvider.of<ProfileCubit>(context).coverImage;
           return ModalProgressHUD(
-            inAsyncCall: isLoading,
+            inAsyncCall: state is EditProfileLoadingState,
             child: SingleChildScrollView(
               child: Column(
                 children: [

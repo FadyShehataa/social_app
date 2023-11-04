@@ -27,7 +27,6 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   late List<UserModel> usersModel = [];
-  late UserModel userModel;
 
   Future<void> getUserData() async {
     emit(GetUserDataLoadingState());
@@ -39,7 +38,6 @@ class HomeCubit extends Cubit<HomeState> {
           emit(GetUserDataFailureState(errorMessage: failure.errMessage)),
       (userModel) {
         user = userModel;
-        this.userModel = userModel;
         emit(GetUserDataSuccessState());
       },
     );

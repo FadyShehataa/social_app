@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:social_app/Core/utils/icon_broken.dart';
 import 'package:social_app/Core/utils/my_colors.dart';
-import 'package:social_app/Core/widgets/custom_loading_widget.dart';
+import 'package:social_app/Features/Home/presentation/manager/home_cubit/home_cubit.dart';
 
 import '../../../../../Core/utils/app_router.dart';
 import '../../../../../Core/utils/constants.dart';
@@ -18,85 +18,81 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isLoading = false;
-
     return BlocConsumer<ProfileCubit, ProfileState>(
       listener: (context, state) {
         if (state is LogoutLoadingState) {
-          isLoading = true;
         } else if (state is LogoutSuccessState) {
-          isLoading = false;
           GoRouter.of(context).pushReplacement(AppRouter.kLoginView);
         } else if (state is LogoutFailureState) {
-          isLoading = false;
           showSnackBar(context, state.errorMessage);
         }
       },
       builder: (context, state) {
-        if (state is LogoutLoadingState) {
-          return const CustomLoadingWidget();
-        }
-        return ModalProgressHUD(
-          inAsyncCall: isLoading,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                CustomAppBar(
-                  ctx: context,
-                  title: Padding(
-                    padding: const EdgeInsets.only(left: 25),
-                    child: Text(user.name!, style: Styles.textStyle20),
-                  ),
-                  actions: [
-                    IconButton(
-                      onPressed: () {
-                        profileBottomSheet(context);
-                      },
-                      icon: const Icon(IconBroken.More_Circle),
+        return BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            return ModalProgressHUD(
+              inAsyncCall: state is LogoutLoadingState,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    CustomAppBar(
+                      ctx: context,
+                      title: Padding(
+                        padding: const EdgeInsets.only(left: 25),
+                        child: Text(user.name!, style: Styles.textStyle20),
+                      ),
+                      actions: [
+                        IconButton(
+                          onPressed: () {
+                            profileBottomSheet(context);
+                          },
+                          icon: const Icon(IconBroken.More_Circle),
+                        ),
+                        const SizedBox(width: 10)
+                      ],
+                      isBack: false,
                     ),
-                    const SizedBox(width: 10)
-                  ],
-                  isBack: false,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                SizedBox(
-                  height: 280,
-                  child: Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: [
-                      Align(
-                        alignment: AlignmentDirectional.topCenter,
-                        child: Container(
-                          height: 230,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(4),
-                              topRight: Radius.circular(4),
-                            ),
-                            image: DecorationImage(
-                              image: NetworkImage(user.cover!),
-                              fit: BoxFit.cover,
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    SizedBox(
+                      height: 280,
+                      child: Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          Align(
+                            alignment: AlignmentDirectional.topCenter,
+                            child: Container(
+                              height: 230,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(4),
+                                  topRight: Radius.circular(4),
+                                ),
+                                image: DecorationImage(
+                                  image: NetworkImage(user.cover!),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                          CircleAvatar(
+                            radius: 65,
+                            backgroundColor: Colors.white,
+                            child: CircleAvatar(
+                              radius: 60,
+                              backgroundImage: NetworkImage(user.image!),
+                            ),
+                          ),
+                        ],
                       ),
-                      CircleAvatar(
-                        radius: 65,
-                        backgroundColor: Colors.white,
-                        child: CircleAvatar(
-                          radius: 60,
-                          backgroundImage: NetworkImage(user.image!),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         );
       },
     );
