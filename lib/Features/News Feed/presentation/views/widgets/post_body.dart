@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -33,8 +34,8 @@ class PostBody extends StatelessWidget {
               child: InkWell(
                 onDoubleTap: () => BlocProvider.of<NewsFeedCubit>(context)
                     .updateLikePost(postModel: post),
-                child: Image.network(
-                  post.postImage!,
+                child: CachedNetworkImage(
+                  imageUrl: post.postImage!,
                   width: double.infinity,
                   height: 220.0,
                   fit: BoxFit.cover,

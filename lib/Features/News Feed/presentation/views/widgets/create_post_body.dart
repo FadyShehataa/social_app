@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/Core/utils/my_colors.dart';
@@ -39,8 +40,8 @@ class CreatePostBody extends StatelessWidget {
                   SizedBox(
                     height: 200,
                     width: double.infinity,
-                    child: Image.network(
-                      postImage.path,
+                    child: CachedNetworkImage(
+                      imageUrl: postImage.path,
                       fit: BoxFit.cover,
                     ),
                   ),

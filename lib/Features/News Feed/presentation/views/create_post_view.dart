@@ -25,12 +25,14 @@ class CreatePostView extends StatelessWidget {
                 message: 'Post created successfully!',
                 backgroundColor: Colors.green,
               );
+              BlocProvider.of<NewsFeedCubit>(context).postImage = null;
             } else if (state is CreatePostFailureState) {
               GoRouter.of(context).pop();
               showToast(
                 message: 'Post creation failed!',
                 backgroundColor: Colors.red,
               );
+              BlocProvider.of<NewsFeedCubit>(context).postImage = null;
             }
           },
           builder: (context, state) {
