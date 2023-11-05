@@ -91,7 +91,6 @@ class EditProfileRepoImpl implements EditProfileRepo {
     try {
       CacheNetwork.deleteCacheItem(key: 'uId');
       uId = null;
-      user = const UserModel();
       return right(null);
     } catch (e) {
       return left(ServerFailure(errMessage: e.toString()));
