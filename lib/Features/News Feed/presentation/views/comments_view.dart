@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/Core/models/user_model.dart';
@@ -137,7 +138,16 @@ class CommentItem extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 30,
-            backgroundImage: NetworkImage(userComment.image!),
+            // backgroundImage: NetworkImage(userComment.image!),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: CachedNetworkImage(
+                imageUrl: userComment.image!,
+                height: double.infinity,
+                width: double.infinity,
+                fit: BoxFit.fill,
+              ),
+            ),
           ),
           const SizedBox(width: 10),
           // TODO: i want make spacer here

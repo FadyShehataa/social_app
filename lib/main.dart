@@ -23,10 +23,10 @@ void main() async {
   await CacheNetwork.cacheInitialization();
   uId = await CacheNetwork.getCacheData(key: 'uId');
   runApp(
-    DevicePreview(
-      builder: (context) => const SocialApp(),
-    ),
-    // const SocialApp(),
+    // DevicePreview(
+    //   builder: (context) => const SocialApp(),
+    // ),
+    const SocialApp(),
   );
 }
 

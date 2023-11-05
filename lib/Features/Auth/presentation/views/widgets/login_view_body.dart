@@ -11,6 +11,7 @@ import 'package:social_app/Features/Auth/presentation/views/widgets/login_to_reg
 
 import '../../../../../Core/utils/app_router.dart';
 import '../../../../../Core/utils/functions/show_snack_bar.dart';
+import '../../../../Home/presentation/manager/home_cubit/home_cubit.dart';
 import 'custom_elevated_button.dart';
 
 class LoginViewBody extends StatelessWidget {
@@ -30,7 +31,9 @@ class LoginViewBody extends StatelessWidget {
           isLoading = false;
           CacheNetwork.insertToCache(key: 'uId', value: state.uId);
           uId = state.uId;
-          GoRouter.of(context).go(AppRouter.kHomeView);
+          BlocProvider.of<HomeCubit>(context).changeBottomNavBarState(0);
+          // await BlocProvider.of<HomeCubit>(context).getUserData();
+          GoRouter.of(context).push(AppRouter.kHomeView);
         } else if (state is LoginFailureState) {
           isLoading = false;
           showSnackBar(context, state.errorMessage);

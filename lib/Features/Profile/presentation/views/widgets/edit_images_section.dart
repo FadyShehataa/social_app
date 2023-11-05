@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/Core/utils/styles.dart';
@@ -31,17 +32,18 @@ class EditProfileImagesSection extends StatelessWidget {
                 child: Container(
                   height: 230,
                   width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(4),
                       topRight: Radius.circular(4),
                     ),
-                    image: DecorationImage(
-                      image: NetworkImage(
+                  ),
+                  child: CachedNetworkImage(
+                    imageUrl:
                         coverImage == null ? user.cover! : coverImage!.path,
-                      ),
-                      fit: BoxFit.cover,
-                    ),
+                    height: double.infinity,
+                    width: double.infinity,
+                    fit: BoxFit.fill,
                   ),
                 ),
               ),
@@ -50,8 +52,16 @@ class EditProfileImagesSection extends StatelessWidget {
                 backgroundColor: Colors.white,
                 child: CircleAvatar(
                   radius: 60,
-                  backgroundImage: NetworkImage(
-                    profileImage == null ? user.image! : profileImage!.path,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(60),
+                    child: CachedNetworkImage(
+                      imageUrl: profileImage == null
+                          ? user.image!
+                          : profileImage!.path,
+                      height: double.infinity,
+                      width: double.infinity,
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
               ),

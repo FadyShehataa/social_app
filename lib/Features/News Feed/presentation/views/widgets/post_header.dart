@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -38,7 +39,16 @@ class PostHeader extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: defaultRadius,
-                backgroundImage: NetworkImage(userPost.image!),
+                // backgroundImage: NetworkImage(userPost.image!),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(defaultRadius),
+                  child: CachedNetworkImage(
+                    imageUrl: userPost.image!,
+                    height: double.infinity,
+                    width: double.infinity,
+                    fit: BoxFit.fill,
+                  ),
+                ),
               ),
               const SizedBox(width: 12),
               Column(

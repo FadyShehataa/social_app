@@ -35,8 +35,15 @@ class LikesView extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: defaultRadius,
-                          backgroundImage:
-                              NetworkImage(usersLikes[index].image!),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(defaultRadius),
+                            child: Image.network(
+                              usersLikes[index].image!,
+                              height: double.infinity,
+                              width: double.infinity,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
                         ),
                         const SizedBox(width: 10),
                         Text(
