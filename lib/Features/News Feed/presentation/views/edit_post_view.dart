@@ -7,9 +7,9 @@ import 'package:social_app/Core/utils/functions/show_toast.dart';
 import 'package:social_app/Core/utils/my_colors.dart';
 import 'package:social_app/Features/News%20Feed/data/models/post_model.dart';
 import 'package:social_app/Features/News%20Feed/presentation/manager/news_feed_cubit/news_feed_cubit.dart';
-import 'package:social_app/Features/News%20Feed/presentation/views/widgets/create_post_body.dart';
 import 'package:social_app/Features/News%20Feed/presentation/views/widgets/create_post_footer.dart';
 import 'package:social_app/Features/News%20Feed/presentation/views/widgets/custom_divider.dart';
+import 'package:social_app/Features/News%20Feed/presentation/views/widgets/edit_post_body.dart';
 import 'package:social_app/Features/News%20Feed/presentation/views/widgets/edit_post_header.dart';
 
 class EditPostView extends StatelessWidget {
@@ -58,7 +58,7 @@ class EditPostView extends StatelessWidget {
                       )
                     : const CustomDivider(),
                 const SizedBox(height: 5),
-                CreatePostBody(postController: postController),
+                EditPostBody(postController: postController),
                 const CreatePostFooter(),
               ],
             );

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/Core/utils/styles.dart';
@@ -26,13 +27,12 @@ class EditPostBody extends StatelessWidget {
                 contentPadding: const EdgeInsets.symmetric(horizontal: 12),
                 hintStyle: Styles.textStyle20,
                 border: InputBorder.none,
-                labelText: postController.text,
               ),
               style: Styles.textStyle30,
             ),
           ),
           if (postImage != null)
-          Padding(
+            Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
               child: Stack(
                 alignment: Alignment.topRight,
@@ -40,13 +40,14 @@ class EditPostBody extends StatelessWidget {
                   SizedBox(
                     height: 200,
                     width: double.infinity,
-                    child: Image.network(
-                      postImage.path,
+                    child: CachedNetworkImage(
+                      imageUrl: postImage.path,
                       fit: BoxFit.cover,
                     ),
                   ),
                   IconButton(
-                    onPressed: () => BlocProvider.of<NewsFeedCubit>(context).removePostImage(),
+                    onPressed: () => BlocProvider.of<NewsFeedCubit>(context)
+                        .removePostImage(),
                     icon: const CircleAvatar(
                       backgroundColor: MyColors.myRed,
                       radius: 20,
@@ -60,7 +61,6 @@ class EditPostBody extends StatelessWidget {
                 ],
               ),
             ),
-        
         ],
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:social_app/Core/utils/app_router.dart';
+import 'package:social_app/Core/utils/constants.dart';
 import 'package:social_app/Features/Home/presentation/manager/home_cubit/home_cubit.dart';
 import 'package:social_app/Features/News%20Feed/presentation/manager/news_feed_cubit/news_feed_cubit.dart';
 
@@ -18,9 +19,11 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    getAllUsers();
     getUserData();
+    getAllUsers();
     getAllPosts();
+    print('HomeView initState');
+    print('user = $user');
   }
 
   getAllUsers() async {

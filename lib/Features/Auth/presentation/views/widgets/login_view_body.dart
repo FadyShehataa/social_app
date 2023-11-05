@@ -32,8 +32,8 @@ class LoginViewBody extends StatelessWidget {
           CacheNetwork.insertToCache(key: 'uId', value: state.uId);
           uId = state.uId;
           BlocProvider.of<HomeCubit>(context).changeBottomNavBarState(0);
-          // await BlocProvider.of<HomeCubit>(context).getUserData();
-          GoRouter.of(context).push(AppRouter.kHomeView);
+          await BlocProvider.of<HomeCubit>(context).getUserData();
+          GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
         } else if (state is LoginFailureState) {
           isLoading = false;
           showSnackBar(context, state.errorMessage);
