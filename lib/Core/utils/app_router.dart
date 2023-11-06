@@ -11,6 +11,7 @@ import 'package:social_app/Features/Chat/presentation/views/chat_details_view.da
 import 'package:social_app/Features/Home/presentation/views/home_view.dart';
 import 'package:social_app/Features/News%20Feed/data/models/post_model.dart';
 import 'package:social_app/Features/News%20Feed/presentation/views/create_post_view.dart';
+import 'package:social_app/Features/News%20Feed/presentation/views/following_view.dart';
 import 'package:social_app/Features/News%20Feed/presentation/views/likes_view.dart';
 import 'package:social_app/Features/Profile/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:social_app/Features/Splash/presentation/views/splash_view.dart';
@@ -32,6 +33,8 @@ abstract class AppRouter {
   static const kNewPostView = '/newPostView';
   static const kEditPostView = '/editPostView';
   static const kLikesView = '/likesView';
+  static const kFollowingsView = '/followingsView';
+  static const kFollowersView = '/followersView';
   static const kCommentsView = '/commentsView';
   static const kEditProfileView = '/editProfileView';
   static const kChatDetailsView = '/chatDetailsView';
@@ -109,6 +112,16 @@ abstract class AppRouter {
         builder: (context, state) =>
             LikesView(usersLikes: state.extra as List<UserModel>),
       ),
+      GoRoute(
+        path: kFollowingsView,
+        builder: (context, state) =>
+            FollowingView(usersFollowings: state.extra as List<UserModel>),
+      ),
+      // GoRoute(
+      //   path: kLikesView,
+      //   builder: (context, state) =>
+      //       LikesView(usersLikes: state.extra as List<UserModel>),
+      // ),
       GoRoute(
         path: kCommentsView,
         builder: (context, state) =>
