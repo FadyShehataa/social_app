@@ -33,7 +33,8 @@ class _ChatDetailsViewState extends State<ChatDetailsView> {
   }
 
   getMessages() async {
-    BlocProvider.of<ChatCubit>(context).getMessages(widget.userModel.uId!);
+    await BlocProvider.of<ChatCubit>(context)
+        .getMessages(widget.userModel.uId!);
   }
 
   @override
@@ -44,8 +45,11 @@ class _ChatDetailsViewState extends State<ChatDetailsView> {
           children: [
             ChatDetailsViewAppBar(userModel: widget.userModel),
             BlocBuilder<ChatCubit, ChatState>(builder: (context, state) {
+              print('state = $state');
               if (state is GetMessagesLoadingState) {
-                return const CustomLoadingWidget();
+                return const Expanded(
+                  child: CustomLoadingWidget(),
+                );
               } else {
                 return (BlocProvider.of<ChatCubit>(context).messages.isNotEmpty)
                     ? Expanded(

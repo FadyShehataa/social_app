@@ -48,6 +48,22 @@ class ChatRepoImpl implements ChatRepo {
         }
       });
 
+      if (messages.isEmpty) {
+        var querySnapshot = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(uId)
+            .collection('chats')
+            .doc(receiverId)
+            .collection('messages')
+            .orderBy('dateTime', descending: true)
+            .get();
+
+        messages.clear();
+        for (var item in querySnapshot.docs) {
+          messages.add(MessageModel.fromMap(item.data()));
+        }
+      }
+
       return right(messages);
     } catch (e) {
       return left(ServerFailure(errMessage: e.toString()));
