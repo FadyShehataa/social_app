@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:social_app/Core/utils/functions/show_snack_bar.dart';
+import 'package:social_app/Features/News%20Feed/presentation/manager/news_feed_cubit/news_feed_cubit.dart';
 import 'package:social_app/Features/Profile/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:social_app/Features/Profile/presentation/views/widgets/edit_images_section.dart';
 import 'package:social_app/Features/Profile/presentation/views/widgets/edit_profile_header.dart';
@@ -35,6 +36,8 @@ class EditProfileView extends StatelessWidget {
           if (state is EditProfileSuccessState) {
             GoRouter.of(context).pop();
             await BlocProvider.of<HomeCubit>(context).getUserData();
+            await BlocProvider.of<NewsFeedCubit>(context).getPosts();
+
           } else if (state is EditProfileFailureState) {
             showSnackBar(context, state.errorMessage);
           } else if (state is ProfileImagePickedSuccessState) {

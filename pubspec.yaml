@@ -42,6 +42,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.3
+  flutter_launcher_icons: ^0.13.1
+  # flutter_native_splash: ^2.3.5
   fluttertoast: ^8.2.2
   get_it: ^7.6.4
   go_router: ^10.2.0
@@ -50,6 +52,20 @@ dependencies:
   intl: ^0.18.1
   modal_progress_hud_nsn: ^0.4.0
   shared_preferences: ^2.2.1
+
+# flutter_native_splash:
+#   android: true
+#   ios: true
+#   web: true
+#   image: assets/images/logo.png
+#   android_gravity: fill
+#   color: "#05537E"
+  
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo.png"
 
 dev_dependencies:
   flutter_lints: ^2.0.0
