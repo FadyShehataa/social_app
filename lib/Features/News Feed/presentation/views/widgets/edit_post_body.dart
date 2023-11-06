@@ -5,16 +5,23 @@ import 'package:social_app/Core/utils/styles.dart';
 
 import '../../../../../Core/utils/enums/image_status.dart';
 import '../../../../../Core/utils/my_colors.dart';
+import '../../../data/models/post_model.dart';
 import '../../manager/news_feed_cubit/news_feed_cubit.dart';
 
 class EditPostBody extends StatelessWidget {
-  const EditPostBody({super.key, required this.postController});
+  EditPostBody({
+    super.key,
+    required this.postController,
+    required this.post,
+    required this.imageStatus,
+  });
   final TextEditingController postController;
+  final PostModel post;
+  ImageStatus imageStatus;
 
   @override
   Widget build(BuildContext context) {
     var postImage = BlocProvider.of<NewsFeedCubit>(context).postImage;
-    ImageStatus imageStatus = ImageStatus.original;
 
     return Expanded(
       child: Column(
@@ -33,12 +40,9 @@ class EditPostBody extends StatelessWidget {
               style: Styles.textStyle30,
             ),
           ),
-          if (postImage != null)
+          if (postImage != null && postImage.path.isNotEmpty)
             BlocBuilder<NewsFeedCubit, NewsFeedState>(
                 builder: (context, state) {
-              if (state is PostImagePickedSuccessState) {
-                imageStatus = ImageStatus.edited;
-              }
               return Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 5),

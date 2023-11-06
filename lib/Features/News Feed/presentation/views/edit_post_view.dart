@@ -12,6 +12,8 @@ import 'package:social_app/Features/News%20Feed/presentation/views/widgets/custo
 import 'package:social_app/Features/News%20Feed/presentation/views/widgets/edit_post_body.dart';
 import 'package:social_app/Features/News%20Feed/presentation/views/widgets/edit_post_header.dart';
 
+import '../../../../Core/utils/enums/image_status.dart';
+
 class EditPostView extends StatelessWidget {
   const EditPostView({super.key, required this.postModel});
 
@@ -23,6 +25,8 @@ class EditPostView extends StatelessWidget {
         File(postModel.postImage!);
     final TextEditingController postController =
         TextEditingController(text: postModel.text);
+    ImageStatus imageStatus = ImageStatus.original;
+
     return Scaffold(
       body: SafeArea(
         child: BlocConsumer<NewsFeedCubit, NewsFeedState>(
@@ -33,12 +37,16 @@ class EditPostView extends StatelessWidget {
                 message: 'Post edited successfully!',
                 backgroundColor: Colors.green,
               );
+              BlocProvider.of<NewsFeedCubit>(context).postImage = null;
             } else if (state is EditPostFailureState) {
               GoRouter.of(context).pop();
               showToast(
                 message: 'Post editing failed!',
                 backgroundColor: Colors.red,
               );
+              BlocProvider.of<NewsFeedCubit>(context).postImage = null;
+            } else if (state is PostImagePickedSuccessState) {
+              imageStatus = ImageStatus.edited;
             }
           },
           builder: (context, state) {
@@ -58,7 +66,11 @@ class EditPostView extends StatelessWidget {
                       )
                     : const CustomDivider(),
                 const SizedBox(height: 5),
-                EditPostBody(postController: postController),
+                EditPostBody(
+                  postController: postController,
+                  post: postModel,
+                  imageStatus: imageStatus,
+                ),
                 const CreatePostFooter(),
               ],
             );
