@@ -20,7 +20,14 @@ class ProfileStats extends StatelessWidget {
           children: [
             Expanded(
               child: InkWell(
-                onTap: null,
+                onTap: () {
+                  GoRouter.of(context).push(AppRouter.kFollowersView,
+                      extra: BlocProvider.of<HomeCubit>(context)
+                          .usersModel
+                          .where((element) =>
+                              user.followers!.contains(element.uId))
+                          .toList());
+                },
                 child: Container(
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   padding: const EdgeInsets.symmetric(vertical: 5),
@@ -41,13 +48,13 @@ class ProfileStats extends StatelessWidget {
             ),
             Expanded(
               child: InkWell(
-                onTap: (){
+                onTap: () {
                   GoRouter.of(context).push(AppRouter.kFollowingsView,
-                            extra: BlocProvider.of<HomeCubit>(context)
-                                .usersModel
-                                .where((element) =>
-                                    user.following!.contains(element.uId))
-                                .toList());
+                      extra: BlocProvider.of<HomeCubit>(context)
+                          .usersModel
+                          .where((element) =>
+                              user.following!.contains(element.uId))
+                          .toList());
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(vertical: 10),

@@ -19,6 +19,7 @@ import '../../Features/Auth/data/repos/auth_repo_impl.dart';
 import '../../Features/Auth/presentation/views/register_view.dart';
 import '../../Features/News Feed/presentation/views/comments_view.dart';
 import '../../Features/News Feed/presentation/views/edit_post_view.dart';
+import '../../Features/News Feed/presentation/views/followers_view.dart';
 import '../../Features/News Feed/presentation/views/saved_posts_view.dart';
 import '../../Features/Profile/data/repos/edit_profile_repo_impl.dart';
 import '../../Features/Profile/presentation/views/edit_profile_view.dart';
@@ -117,11 +118,11 @@ abstract class AppRouter {
         builder: (context, state) =>
             FollowingView(usersFollowings: state.extra as List<UserModel>),
       ),
-      // GoRoute(
-      //   path: kLikesView,
-      //   builder: (context, state) =>
-      //       LikesView(usersLikes: state.extra as List<UserModel>),
-      // ),
+      GoRoute(
+        path: kFollowersView,
+        builder: (context, state) =>
+            FollowersView(usersFollowers: state.extra as List<UserModel>),
+      ),
       GoRoute(
         path: kCommentsView,
         builder: (context, state) =>
