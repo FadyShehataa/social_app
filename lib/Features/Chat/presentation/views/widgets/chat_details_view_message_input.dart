@@ -68,10 +68,13 @@ class ChatDetailsViewMessageInput extends StatelessWidget {
       text: messageController.text,
     );
     messageController.clear();
-    scrollController.animateTo(
-      0,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.easeIn,
-    );
+    if (scrollController.hasClients &&
+        scrollController.offset < scrollController.position.maxScrollExtent) {
+      scrollController.animateTo(
+        0,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeIn,
+      );
+    }
   }
 }

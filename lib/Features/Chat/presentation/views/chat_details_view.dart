@@ -32,6 +32,12 @@ class _ChatDetailsViewState extends State<ChatDetailsView> {
     getMessages();
   }
 
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
   getMessages() async {
     await BlocProvider.of<ChatCubit>(context)
         .getMessages(widget.userModel.uId!);
@@ -45,7 +51,6 @@ class _ChatDetailsViewState extends State<ChatDetailsView> {
           children: [
             ChatDetailsViewAppBar(userModel: widget.userModel),
             BlocBuilder<ChatCubit, ChatState>(builder: (context, state) {
-              print('state = $state');
               if (state is GetMessagesLoadingState) {
                 return const Expanded(
                   child: CustomLoadingWidget(),
