@@ -150,7 +150,6 @@ class CommentItem extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          // TODO: i want make spacer here
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

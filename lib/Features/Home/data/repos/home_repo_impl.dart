@@ -10,7 +10,6 @@ import 'home_repo.dart';
 class HomeRepoImpl implements HomeRepo {
   @override
   Future<Either<Failure, UserModel>> getUserData() async {
-    print('getUserData');
     try {
       DocumentSnapshot<Map<String, dynamic>> userData =
           await FirebaseFirestore.instance.collection('users').doc(uId).get();

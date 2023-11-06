@@ -44,7 +44,6 @@ class _ChatDetailsViewState extends State<ChatDetailsView> {
           children: [
             ChatDetailsViewAppBar(userModel: widget.userModel),
             BlocBuilder<ChatCubit, ChatState>(builder: (context, state) {
-              print(state);
               if (state is GetMessagesLoadingState) {
                 return const CustomLoadingWidget();
               } else {

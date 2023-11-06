@@ -299,8 +299,6 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
         await FirebaseFirestore.instance.collection('users').doc(uid).update({
           'followers': FieldValue.arrayRemove([user.uId]),
         });
-        // update followers in user
-        user.followers!.remove(user.uId);
       } else {
         await FirebaseFirestore.instance
             .collection('users')
@@ -313,8 +311,6 @@ class NewsFeedRepoImpl implements NewsFeedRepo {
         await FirebaseFirestore.instance.collection('users').doc(uid).update({
           'followers': FieldValue.arrayUnion([user.uId]),
         });
-        // update followers in user
-        user.followers!.add(user.uId!);
       }
       return right(null);
     } catch (e) {
