@@ -9,6 +9,7 @@ import 'package:social_app/Features/Profile/presentation/views/widgets/edit_prof
 import 'package:social_app/Features/Profile/presentation/views/widgets/edit_profile_stats.dart';
 
 import '../../../../Core/utils/constants.dart';
+import '../../../../Core/utils/enums/image_status.dart';
 import '../../../Home/presentation/manager/home_cubit/home_cubit.dart';
 
 class EditProfileView extends StatelessWidget {
@@ -24,6 +25,9 @@ class EditProfileView extends StatelessWidget {
     final TextEditingController phoneController =
         TextEditingController(text: user.phone);
 
+    ImageStatus imageProfileStatus = ImageStatus.original;
+    ImageStatus imageCoverStatus = ImageStatus.original;
+
     return Scaffold(
       body: SafeArea(
         child: BlocConsumer<ProfileCubit, ProfileState>(
@@ -31,9 +35,12 @@ class EditProfileView extends StatelessWidget {
           if (state is EditProfileSuccessState) {
             GoRouter.of(context).pop();
             await BlocProvider.of<HomeCubit>(context).getUserData();
-            // get all posts
           } else if (state is EditProfileFailureState) {
             showSnackBar(context, state.errorMessage);
+          } else if (state is ProfileImagePickedSuccessState) {
+            imageProfileStatus = ImageStatus.edited;
+          } else if (state is CoverImagePickedSuccessState) {
+            imageCoverStatus = ImageStatus.edited;
           }
         }, builder: (context, state) {
           var profileImage =
@@ -52,6 +59,8 @@ class EditProfileView extends StatelessWidget {
                   EditProfileImagesSection(
                     coverImage: coverImage,
                     profileImage: profileImage,
+                    imageCoverStatus: imageCoverStatus,
+                    imageProfileStatus: imageProfileStatus,
                   ),
                   const SizedBox(height: 10),
                   EditProfileStats(

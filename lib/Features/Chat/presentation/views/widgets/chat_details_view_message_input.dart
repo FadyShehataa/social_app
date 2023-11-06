@@ -62,10 +62,11 @@ class ChatDetailsViewMessageInput extends StatelessWidget {
   }
 
   void sendMessage(BuildContext context) {
+    if(messageController.text.trim().isEmpty) return;
     BlocProvider.of<ChatCubit>(context).sendMessage(
       receiverId: userModel.uId!,
       dateTime: DateTime.now().toString(),
-      text: messageController.text,
+      text: messageController.text.trim(),
     );
     messageController.clear();
     if (scrollController.hasClients &&

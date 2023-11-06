@@ -26,10 +26,10 @@ void main() async {
     await getIt.get<HomeRepoImpl>().getUserData();
   }
   runApp(
-    DevicePreview(
-      builder: (context) => const SocialApp(),
-    ),
-    // const SocialApp(),
+    // DevicePreview(
+    //   builder: (context) => const SocialApp(),
+    // ),
+    const SocialApp(),
   );
 }
 

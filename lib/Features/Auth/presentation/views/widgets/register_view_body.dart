@@ -11,6 +11,7 @@ import 'package:social_app/Features/Auth/presentation/views/widgets/register_for
 import '../../../../../Core/utils/cache_network.dart';
 import '../../../../../Core/utils/constants.dart';
 import '../../../../../Core/utils/functions/show_snack_bar.dart';
+import '../../../../Home/presentation/manager/home_cubit/home_cubit.dart';
 import '../../manager/register_cubit/register_cubit.dart';
 
 class RegisterViewBody extends StatelessWidget {
@@ -26,13 +27,15 @@ class RegisterViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isLoading = false;
     return BlocConsumer<RegisterCubit, RegisterState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is RegisterLoadingState) {
           isLoading = true;
         } else if (state is RegisterSuccessState) {
           isLoading = false;
           CacheNetwork.insertToCache(key: 'uId', value: state.uId);
           uId = state.uId;
+          BlocProvider.of<HomeCubit>(context).changeBottomNavBarState(0);
+          await BlocProvider.of<HomeCubit>(context).getUserData();
           GoRouter.of(context).go(AppRouter.kHomeView);
         } else if (state is RegisterFailureState) {
           isLoading = false;
