@@ -2,6 +2,10 @@
 
 Social Wave app is a feature-rich social networking application built using Flutter and powered by Firebase. It offers a dynamic and engaging platform for users to connect, share, and interact with others. Whether you want to stay connected with friends and family, share your experiences through posts and photos, or have private conversations through a secure chat system, our app has you covered.
 
+Demo: https://www.youtube.com/watch?v=CSklmbacovc
+
+https://github.com/FadyShehataa/social_app/assets/102903468/4b74ecd1-b999-4e5a-9670-36e060d7e6f0
+
 
 ## Key Features
 
